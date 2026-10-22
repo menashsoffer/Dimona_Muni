@@ -4,135 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>מהתלונה לתובנה</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Karantina:wght@400;700&display=swap">
-<style>
-/* One bright sunset look in every theme (deliberately single-theme). Layout: one phone-first column. Sun-gradient hero with a sun arc that tracks the day, sticky tab bar, then sections on sand paper. */
-:root{
-  --bg:#fff6e8; --paper:#fffcf6; --fg:#3a1d0e; --muted:#8a6446; --line:#f0d6ad;
-  --accent:#d4602c; --accent-ink:#fff; --earth:#9c3f1c;
-  --sky1:#ffe1a0; --sky2:#ffb066; --sky3:#f07a45; --hero-ink:#3a1d0e;
-  --now:#2f7a4a; --now-bg:#dcefd9; --logo-t:none;
-  --display:"Karantina","Assistant",sans-serif; --body:"Assistant",system-ui,sans-serif;
-}
-html,body{direction:rtl}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--earth)}
-a{color:var(--accent)}
-.in{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-
-/* hero */
-.hero{background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 55%,var(--sky3) 100%);color:var(--hero-ink);position:relative;overflow:hidden}
-.hero .in{padding-block:22px 96px;display:grid;gap:14px;position:relative;z-index:1}
-.lockup{display:flex;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:700}
-.logos{display:inline-flex;align-items:center;gap:18px}
-.lg-t{height:46px;width:auto;filter:var(--logo-t)}.lg-d{height:58px;width:auto;filter:drop-shadow(0 3px 6px rgba(60,25,5,.25))}
-@media (max-width:420px){.lg-t{height:42px}.lg-d{height:48px}}
-section,#now{scroll-margin-top:64px}
-.logo-ph{padding:3px 10px;border:1.5px dashed currentColor;border-radius:6px;opacity:.85}
-h1{font-family:var(--display);font-weight:700;font-size:clamp(76px,20vw,136px);line-height:.85;margin:6px 0 0;letter-spacing:.01em}
-.tag{margin:0;font-size:19px;font-weight:600;max-width:34ch}
-.facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-weight:700;font-size:15px}
-.arc{position:absolute;inset-inline-end:-20px;top:18px;width:260px;height:140px;opacity:.9;pointer-events:none}
-@media (max-width:560px){.arc{width:180px;height:100px;top:auto;bottom:70px;inset-inline-end:-10px;opacity:.6}}
-.dunes{position:absolute;inset:auto 0 -1px 0;height:80px;width:100%;overflow:visible}
-
-/* nav */
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--earth);}
-nav .in{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
-nav a{color:#f6e2bf;text-decoration:none;font-weight:700;font-size:15px;padding:6px 12px;border-radius:999px;white-space:nowrap}
-nav a:hover,nav a:focus-visible{background:rgba(246,226,191,.15);outline:none}
-
-section{padding-block:36px 8px}
-h2{font-family:var(--display);font-size:52px;line-height:1;margin:0 0 14px;color:var(--accent);font-weight:700}
-h3{margin:0;font-size:19px;line-height:1.3}
-.lead{color:var(--muted);margin:-6px 0 16px}
-
-/* now panel */
-.nowbox{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px;margin-top:20px;position:relative;z-index:2;box-shadow:0 10px 30px rgba(60,25,5,.12)}
-.nowlabel{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;color:var(--now);background:var(--now-bg);padding:3px 10px;border-radius:999px;width:fit-content}
-.pulse{width:8px;height:8px;border-radius:50%;background:currentColor;animation:p 1.6s infinite}
-@keyframes p{50%{opacity:.2}}
-.nowtitle{font-size:24px;font-weight:800;line-height:1.25;margin:0}
-.nowtime{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:700}
-.next{border-top:1px dashed var(--line);padding-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
-.next b{color:var(--accent)}
-.prog{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
-.prog i{display:block;height:100%;background:var(--accent);width:0}
-
-/* schedule */
-.sched{list-style:none;margin:0;padding:0;display:grid}
-.sched li{display:grid;grid-template-columns:92px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
-.sched .t{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent);font-size:15px;padding-top:2px;direction:ltr;text-align:right}
-.sched .w{min-width:0}
-.sched .w span{display:block;color:var(--muted);font-size:15px}
-.sched li.brk .w{color:var(--muted)}
-.sched li.is-now{background:var(--now-bg);border-radius:10px;padding-inline:10px;border-bottom-color:transparent}
-.sched li.is-now .t{color:var(--now)}
-.sched li.done{opacity:.5}
-
-/* cards */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start}
-.card .when{font-size:14px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
-.card p{margin:0;font-size:16px}
-.role{font-size:15px;color:var(--muted);font-weight:600}
-.ph{font-size:14px;color:var(--muted);font-style:italic}
-
-/* arrival */
-.how{display:grid;gap:12px}
-.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
-.btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--accent-ink);font-weight:800;text-decoration:none;padding:9px 16px;border-radius:999px;font-size:15px;border:0;cursor:pointer;font-family:inherit}
-.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
-.btn:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
-.warn{font-weight:700}
-
-/* groups */
-.steps{margin:0;padding-inline-start:20px;display:grid;gap:4px}
-.gnote{background:var(--paper);border:1px dashed var(--accent);border-radius:12px;padding:12px 16px;font-size:15px;margin-bottom:12px}
-
-/* videos */
-.vid{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;text-decoration:none;color:var(--fg)}
-.play{width:72px;aspect-ratio:1;border-radius:50%;background:var(--accent);display:grid;place-items:center}
-.play svg{width:26px;height:26px;margin-inline-start:4px}
-.vid .s{color:var(--muted);font-size:14px}
-
-footer{padding-block:40px 48px;color:var(--muted);font-size:14px;text-align:center}
-.demo{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
-@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
-
-/* ---- scroll effects: the page "lives through the day" as you scroll ---- */
-:root{--pp:0%;--sp:0;--gold:#f2a531}
-.skyfx{position:fixed;inset:0;z-index:-1;pointer-events:none;
-  --glow:color-mix(in oklab,var(--sky1),var(--sky3) var(--pp));
-  background:
-    radial-gradient(90% 55% at 50% 108%,color-mix(in oklab,var(--glow) 40%,transparent),transparent 70%),
-    radial-gradient(60% 40% at calc(100% - var(--pp)) 0%,color-mix(in oklab,var(--gold) 22%,transparent),transparent 70%),
-    var(--bg)}
-main h2{background:linear-gradient(100deg,var(--accent) 0%,var(--gold) 28%,var(--sky3) 52%,var(--accent) 78%,var(--gold) 100%);background-size:260% 100%;background-position:calc(var(--pp) * 1.6) 50%;-webkit-background-clip:text;background-clip:text;color:transparent;width:fit-content}
-nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px;width:var(--pp);background:linear-gradient(90deg,var(--sky3),var(--accent),var(--gold));transition:width .1s linear}
-.hero .in,.dunes path{will-change:transform}
-.sched{position:relative;padding-inline-start:22px}
-.sched::before,.sched::after{content:"";position:absolute;inset-inline-start:6px;top:0;width:3px;border-radius:3px}
-.sched::before{bottom:0;background:var(--line)}
-.sched::after{height:calc(var(--sp) * 100%);background:linear-gradient(180deg,var(--gold),var(--accent),var(--sky3))}
-.sched li{position:relative}
-.sched li::before{content:"";position:absolute;inset-inline-start:-21px;top:19px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--line);transition:background .4s,border-color .4s,transform .4s}
-.sched li.lit::before{background:var(--accent);border-color:var(--accent);transform:scale(1.15)}
-.sched li.is-now::before{background:var(--now);border-color:var(--now);box-shadow:0 0 0 5px var(--now-bg)}
-.card{transition:transform .25s,box-shadow .25s,border-color .25s}
-.card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 12px 26px color-mix(in oklab,var(--accent) 22%,transparent)}
-.pend{opacity:0;transform:translateY(30px) scale(.97);filter:blur(5px)}
-.rv{transition:opacity .75s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform .75s cubic-bezier(.2,.7,.2,1) var(--d,0ms),filter .75s var(--d,0ms),box-shadow .25s,border-color .25s}
-.play{animation:glowp 2.4s ease-in-out infinite}
-@keyframes glowp{50%{box-shadow:0 0 0 10px color-mix(in oklab,var(--accent) 18%,transparent)}}
-@media (prefers-reduced-motion:reduce){.pend{opacity:1;transform:none;filter:none}.play{animation:none}.card:hover{transform:none}}
-
-.person{grid-template-columns:72px 1fr;gap:14px;align-items:start}
-.pbody{display:grid;gap:4px;min-width:0}
-.av{width:72px;height:72px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:linear-gradient(135deg,var(--sky1),var(--sky3));color:#fff;font-family:var(--display);font-size:38px;font-weight:700;box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--sky2)}
-.av img{width:100%;height:100%;object-fit:cover}
-</style>
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/home.css">
 </head>
 <body>
 <div class="skyfx" aria-hidden="true"></div>
@@ -150,9 +26,7 @@ nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px
   <svg class="dunes" viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path id="dune1" d="M0 44 C120 12 220 66 340 38 S520 22 600 40 V220 H0Z" fill="var(--sky3)" opacity=".5"/><path id="dune2" d="M0 62 C140 40 260 78 400 56 S540 48 600 60 V220 H0Z" fill="var(--earth)"/></svg>
 </header>
 
-<nav aria-label="ניווט" dir="rtl"><div class="in">
-  <a href="#now">עכשיו</a><a href="#schedule">לו"ז</a><a href="#arrive">הגעה</a><a href="#people">אנשים</a><a href="#groups">קבוצות</a><a href="#videos">סרטון</a>
-</div></nav>
+<nav aria-label="ניווט" dir="rtl"><div class="in" id="nav"></div></nav>
 
 <main dir="rtl">
   <div class="in" id="now">
@@ -197,27 +71,14 @@ nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px
 
   <section id="people"><div class="in">
     <h2>האנשים של היום</h2>
-    <div class="grid people">
-      <article class="card person"><span class="av"><span>✦</span></span><div class="pbody"><span class="when">10:00</span><h3>ברכת בכיר מהעירייה</h3><span class="role">השם יעודכן</span><span class="ph">פרטים נוספים יעודכנו</span></div></article>
-      <article class="card person"><span class="av"><span>י</span></span><div class="pbody"><span class="when">10:30</span><h3>ימית רווח</h3><span class="role">מנהלת אגף השירות, עיריית דימונה</span><p>מציגה עם צוות האגף איך נראה השירות מבפנים.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
-      <article class="card person"><span class="av"><img src="assets/people/esther.png" alt="אסתר אלישייב דנון (אסתי)"></span><div class="pbody"><span class="when">10:30 · 14:45</span><h3>אסתר אלישייב דנון (אסתי)</h3><span class="role">בוגרת התוכנית, צוערת באגף שירות לתושב</span><p>מצטרפת לימית בבוקר, ומובילה את הסיכום והשיח הפתוח בסוף היום.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
-      <article class="card person"><span class="av"><span>מ</span></span><div class="pbody"><span class="when">11:45</span><h3>מרים כהן</h3><span class="role">מנמר"ית העירייה</span><p>מובילה קבוצה בעבודה על פרויקט שירות.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
-      <article class="card person"><span class="av"><img src="assets/people/nechama.png" alt="נחמה אוחנה"></span><div class="pbody"><span class="when">11:45</span><h3>נחמה אוחנה</h3><span class="role">מנהלת אגף הרווחה</span><p>מובילה קבוצה בעבודה על פרויקט שירות.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
-      <article class="card person"><span class="av"><img src="assets/people/noam.png" alt="נועם נגאוקר"></span><div class="pbody"><span class="when">11:45</span><h3>נועם נגאוקר</h3><span class="role">מנהל הדיגיטל העירוני</span><p>מוביל קבוצה בעבודה על פרויקט שירות.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
-      <article class="card person"><span class="av"><span>106</span></span><div class="pbody"><span class="when">13:30</span><h3>מוקד עירוני 106</h3><span class="role">הסבר וסיור קצר במוקד</span><p>המקום שבו כל פנייה של תושב מתחילה את הדרך.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
-      <article class="card person"><span class="av"><span>א</span></span><div class="pbody"><span class="when">13:45</span><h3>אבי בוחבוט</h3><span class="role">חיבור בין קהילה לבין שירות</span><p>מקרה בוחן: נפילת טיל בדימונה.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
-    </div>
+    <div class="grid people" id="peopleGrid"></div>
   </div></section>
 
   <section id="groups"><div class="in">
     <h2>קבוצות</h2>
     <p class="lead">11:45–12:30 · פרויקטים בנושאי שירות משולחנם של בעלי תפקידים</p>
     <div class="gnote">שלוש קבוצות. כל קבוצה יושבת עם אחד מבעלי התפקידים, שומעת על פרויקט שירות אמיתי מהעירייה, ומציגה במליאה ב-12:30, כ-5 דקות לכל קבוצה. אם יהיו שינויים, נעדכן כאן.</div>
-    <div class="grid">
-      <div class="card"><span class="when">קבוצה 1</span><h3>מרים כהן</h3><span class="role">מנמר"ית העירייה</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
-      <div class="card"><span class="when">קבוצה 2</span><h3>נחמה אוחנה</h3><span class="role">מנהלת אגף הרווחה</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
-      <div class="card"><span class="when">קבוצה 3</span><h3>נועם נגאוקר</h3><span class="role">מנהל הדיגיטל העירוני</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
-    </div>
+    <div class="grid" id="groupGrid"></div>
     <div class="card" style="margin-top:12px">
       <h3>מה עושים בקבוצה</h3>
       <ol class="steps">
@@ -228,9 +89,10 @@ nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px
     </div>
   </div></section>
 
-  <section id="videos"><div class="in">
-    <h2>סרטון</h2>
+  <section id="city"><div class="in">
+    <h2>הכירו את דימונה</h2>
     <div class="grid">
+      <a class="card teaser" href="quiz.html"><span><span class="when">חידון · 13 שאלות</span><h3>מכירים את דימונה?</h3><span class="role">היסטוריה, אנשים ומספרים. בלי שעון ובלי לחץ.</span></span><span class="btn">לחידון</span></a>
       <a class="card vid" href="https://youtu.be/cpr2_Avg16I" target="_blank" rel="noopener"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="var(--accent-ink)"/></svg></span><span><h3>הצצה קטנה לדימונה</h3><span class="s">צפייה ביוטיוב</span></span></a>
     </div>
   </div></section>
@@ -238,100 +100,9 @@ nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px
 
 <footer dir="rtl"><div class="in">
   צוערים לשלטון המקומי · עיריית דימונה · 15.11.2026<br>
-  <button class="demo" id="demo" type="button">תצוגה לדוגמה: איך האתר ייראה ב-11:00 ביום עצמו</button>
+  <button class="demo" id="demo" type="button"></button>
 </div></footer>
 
-<script>
-const DAY={y:2026,m:11,d:15};
-const S=[
-  ["09:00","09:30","יציאת ההסעה מתחנת רכבת באר שבע צפון","",1],
-  ["09:30","10:00","התכנסות וארוחת בוקר","מאפה נאמן וקפה חם",1],
-  ["10:00","10:30","ברכת בכיר מהעירייה",""],
-  ["10:30","11:30","ימית רווח וצוות אגף השירות","עם אסתר אלישייב דנון, הצוערת שמשובצת אצלה"],
-  ["11:30","11:45","הפסקה","",1],
-  ["11:45","12:30","פרויקטים משולחנם של בעלי תפקידים","עבודה בקבוצות קטנות"],
-  ["12:30","12:45","הצגת הקבוצות במליאה",""],
-  ["12:45","13:30","ארוחת צהריים","",1],
-  ["13:30","13:45","מוקד עירוני 106","הסבר וסיור קצר"],
-  ["13:45","14:45","אבי בוחבוט: חיבור בין קהילה לבין שירות","מקרה בוחן: נפילת טיל בדימונה"],
-  ["14:45","15:30","סיכום ושיח פתוח עם אסתר אלישייב דנון","בוגרת התוכנית, אגף שירות לתושב"]
-];
-const m=t=>{const[a,b]=t.split(":").map(Number);return a*60+b};
-const START=m("09:00"),END=m("15:30");
-let demoMin=null;
-
-function israelNow(){
-  const p=Object.fromEntries(new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Jerusalem",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date()).map(x=>[x.type,x.value]));
-  return {y:+p.year,mo:+p.month,d:+p.day,min:(+p.hour%24)*60+ +p.minute};
-}
-function dayDiff(n){return Math.round((Date.UTC(DAY.y,DAY.m-1,DAY.d)-Date.UTC(n.y,n.mo-1,n.d))/864e5)}
-
-const list=document.getElementById("sched");
-list.innerHTML=S.map(r=>`<li class="${r[4]?"brk":""}"><span class="t">${r[0]}–${r[1]}</span><div class="w"><b>${r[2]}</b>${r[3]?`<span>${r[3]}</span>`:""}</div></li>`).join("");
-const items=[...list.children];
-
-function setSun(f){
-  f=Math.max(0,Math.min(1,f));const a=Math.PI*(1-f);
-  // RTL: day starts on the right (east)
-  const s=document.getElementById("sun");s.setAttribute("cx",(130+120*Math.cos(Math.PI-a)).toFixed(1));s.setAttribute("cy",(130-120*Math.sin(a)).toFixed(1));
-}
-function render(){
-  const n=israelNow();let diff=dayDiff(n),cur=n.min;
-  if(demoMin!==null){diff=0;cur=demoMin}
-  const T=document.getElementById("nowTitle"),TT=document.getElementById("nowTime"),L=document.getElementById("nowLabelText"),NX=document.getElementById("nextText"),NR=document.getElementById("nextRow"),P=document.getElementById("prog");
-  items.forEach(li=>li.classList.remove("is-now","done"));
-  if(diff>0){
-    L.textContent=diff===1?"מחר":"בקרוב";
-    T.textContent=diff===1?"נפגשים מחר ב-9:00 בבאר שבע צפון":(diff===2?"עוד יומיים ליום העיון":`עוד ${diff} ימים ליום העיון`);
-    TT.textContent="יום ראשון, 15.11.2026";NR.hidden=false;NX.textContent="09:00 · יציאת ההסעה מתחנת רכבת באר שבע צפון";P.style.width="0";setSun(0);return;
-  }
-  if(diff<0||cur>=END){
-    L.textContent="הסתיים";T.textContent="תודה שהייתם איתנו";TT.textContent="מהתלונה לתובנה · דימונה, 15.11.2026";NR.hidden=true;P.style.width="100%";setSun(1);
-    if(diff<=0)items.forEach(li=>li.classList.add("done"));return;
-  }
-  setSun((cur-START)/(END-START));
-  if(cur<START){L.textContent="הבוקר";T.textContent="ההסעה יוצאת ב-9:00 מבאר שבע צפון";TT.textContent="";NR.hidden=true;P.style.width="0";return}
-  const i=S.findIndex(r=>cur>=m(r[0])&&cur<m(r[1]));
-  items.forEach((li,k)=>{if(k<i)li.classList.add("done");if(k===i)li.classList.add("is-now")});
-  const r=S[i];L.textContent="עכשיו";T.textContent=r[2];TT.textContent=`${r[0]}–${r[1]}`+(r[3]?` · ${r[3]}`:"");
-  P.style.width=((cur-m(r[0]))/(m(r[1])-m(r[0]))*100).toFixed(0)+"%";
-  const nx=S[i+1];NR.hidden=!nx;if(nx)NX.textContent=`${nx[0]} · ${nx[2]}`;
-}
-document.getElementById("demo").addEventListener("click",e=>{
-  if(demoMin===null){demoMin=m("11:00");e.target.textContent="חזרה לזמן אמת"}else{demoMin=null;e.target.textContent="תצוגה לדוגמה: איך האתר ייראה ב-11:00 ביום עצמו"}
-  render();document.getElementById("now").scrollIntoView({behavior:"smooth"});
-});
-render();setInterval(render,30000);
-
-/* scroll effects */
-(function(){
-  const root=document.documentElement,RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const hin=document.querySelector(".hero .in"),hero=document.querySelector(".hero"),d1=document.getElementById("dune1"),d2=document.getElementById("dune2");
-  const sched=document.getElementById("sched");let ticking=false;
-  function frame(){
-    ticking=false;const sy=scrollY,max=Math.max(1,document.documentElement.scrollHeight-innerHeight);
-    root.style.setProperty("--pp",(Math.min(1,sy/max)*100).toFixed(1)+"%");
-    if(!RM&&sy<hero.offsetHeight+50){
-      hin.style.transform=`translateY(${sy*.35}px)`;hin.style.opacity=Math.max(0,1-sy/(hero.offsetHeight*.9)).toFixed(2);
-      d1.style.transform=`translateY(${-sy*.12}px)`;d2.style.transform=`translateY(${-sy*.04}px)`;
-    }
-    const r=sched.getBoundingClientRect(),sp=Math.max(0,Math.min(1,(innerHeight*.62-r.top)/r.height));
-    sched.style.setProperty("--sp",sp.toFixed(3));
-    const lim=r.top+r.height*sp;
-    [...sched.children].forEach(li=>li.classList.toggle("lit",li.getBoundingClientRect().top+20<lim));
-  }
-  addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(frame)}},{passive:true});
-  addEventListener("resize",frame);frame();
-  if(RM||!("IntersectionObserver" in window))return;
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;el.classList.remove("pend");io.unobserve(el);setTimeout(()=>el.style.removeProperty("--d"),900)}),{rootMargin:"0px 0px -8% 0px"});
-  document.querySelectorAll("main h2,main .lead,.gnote,.card,.sched li").forEach(el=>{
-    el.classList.add("rv");
-    if(el.getBoundingClientRect().top>innerHeight){
-      const idx=[...el.parentElement.children].indexOf(el);
-      el.style.setProperty("--d",Math.min(idx,5)*80+"ms");el.classList.add("pend");io.observe(el);
-    }
-  });
-})();
-</script>
+<script type="module" src="js/home.js"></script>
 </body>
 </html>

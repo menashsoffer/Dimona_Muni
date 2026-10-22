@@ -1,0 +1,57 @@
+/* Quiz page. One card ("stage") that swaps between intro, question and result. */
+.stage{margin-top:20px;position:relative;z-index:2;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 18px;box-shadow:0 10px 30px rgba(60,25,5,.12);display:grid;gap:16px}
+@media (min-width:600px){.stage{padding:28px 30px}}
+.stage h2{margin:0}
+.eyebrow{font-size:14px;font-weight:800;color:var(--accent);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:14px;font-weight:700;color:var(--earth);background:color-mix(in oklab,var(--sky1) 55%,var(--paper));padding:4px 12px;border-radius:999px}
+.big{font-size:18px;padding:12px 22px}
+
+/* progress */
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.score{font-size:14px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.dots{display:flex;gap:5px;flex-wrap:wrap}
+.dots i{width:16px;height:6px;border-radius:6px;background:var(--line)}
+.dots i.ok{background:var(--now)}.dots i.no{background:var(--bad)}.dots i.cur{background:var(--accent)}
+
+.stage .qtext{font-family:var(--body);font-size:clamp(22px,5.4vw,30px);font-weight:800;line-height:1.3;margin:0;text-wrap:balance;background:none;color:var(--fg);width:auto}
+
+/* options */
+.opts{display:grid;gap:10px;grid-template-columns:1fr}
+@media (min-width:600px){.opts{grid-template-columns:1fr 1fr}}
+.opt{display:grid;grid-template-columns:36px 1fr 24px;gap:12px;align-items:center;text-align:start;width:100%;font:inherit;font-size:18px;font-weight:700;color:var(--fg);background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
+.opt:hover:not(:disabled){border-color:var(--accent);transform:translateY(-2px)}
+.opt:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.opt .k{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--paper);border:1.5px solid var(--line);font-size:16px;color:var(--accent)}
+.opt .mark{font-size:20px;font-weight:800;text-align:center}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--now);background:var(--now-bg)}
+.opt.right .k{border-color:var(--now);color:var(--now)}
+.opt.right .mark{color:var(--now)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong .k{border-color:var(--bad);color:var(--bad)}
+.opt.wrong .mark{color:var(--bad)}
+.opt.dim{opacity:.55}
+
+/* feedback */
+.fb{border-radius:12px;padding:14px 16px;display:grid;gap:8px;background:var(--now-bg);animation:pop .35s cubic-bezier(.2,.7,.2,1)}
+.fb.no{background:var(--bad-bg)}
+.fb b.h{font-size:20px;color:var(--now)}
+.fb.no b.h{color:var(--bad)}
+.fb p{margin:0}
+.src{font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
+.src a{color:var(--earth)}
+.act{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hint{font-size:13px;color:var(--muted)}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}}
+
+/* result */
+.result{display:grid;gap:10px;justify-items:start}
+.total{font-family:var(--display);font-size:clamp(96px,26vw,150px);line-height:.8;color:var(--accent);font-variant-numeric:tabular-nums}
+.of{font-size:17px;font-weight:700;color:var(--muted)}
+.endtxt{font-size:clamp(22px,5vw,28px);font-weight:800;line-height:1.3;margin:0;text-wrap:balance}
+.allsrc{margin:0;padding-inline-start:20px;font-size:14px;color:var(--muted);display:grid;gap:2px}
+.allsrc a{color:var(--earth)}
+details summary{cursor:pointer;font-weight:700;color:var(--earth)}
+
+@media (prefers-reduced-motion:reduce){.fb{animation:none}.opt:hover:not(:disabled){transform:none}}
