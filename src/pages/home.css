@@ -4,7 +4,7 @@
 .how{display:grid;gap:12px}
 .warn{font-weight:700}
 .vendor{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.vendor-logo{height:26px;width:auto}
+.vendor-logo{height:36px;width:auto}
 .link-card{text-decoration:none;color:var(--fg)}
 .link-card h3::after{content:" ←";color:var(--accent)}
 .demo{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
