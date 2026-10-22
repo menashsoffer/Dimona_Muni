@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מהתלונה לתובנה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Karantina:wght@400;700&display=swap">
+<style>
+/* Layout: one phone-first column. Sun-gradient hero with a sun arc that tracks the day, sticky tab bar, then sections on sand paper. */
+:root{
+  --bg:#f6ead2; --paper:#fbf4e6; --fg:#2b160b; --muted:#7a5a40; --line:#e0c79c;
+  --accent:#b4552c; --accent-ink:#fff; --earth:#5e2410;
+  --sky1:#f2c879; --sky2:#e39a4a; --sky3:#b4552c; --hero-ink:#2b160b;
+  --now:#2f7a4a; --now-bg:#dcefd9;
+  --display:"Karantina","Assistant",sans-serif; --body:"Assistant",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1c1420; --paper:#271c2b; --fg:#f4e3c4; --muted:#c3a483; --line:#3d2d40;
+  --accent:#f0a35a; --accent-ink:#2b160b; --earth:#0f0a12;
+  --sky1:#3a2550; --sky2:#7b3f4f; --sky3:#c46a3a; --hero-ink:#fbeed6;
+  --now:#7ed69a; --now-bg:#203a2a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1c1420; --paper:#271c2b; --fg:#f4e3c4; --muted:#c3a483; --line:#3d2d40;
+  --accent:#f0a35a; --accent-ink:#2b160b; --earth:#0f0a12;
+  --sky1:#3a2550; --sky2:#7b3f4f; --sky3:#c46a3a; --hero-ink:#fbeed6;
+  --now:#7ed69a; --now-bg:#203a2a; color-scheme:dark}
+html,body{direction:rtl}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--earth)}
+a{color:var(--accent)}
+.in{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* hero */
+.hero{background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 55%,var(--sky3) 100%);color:var(--hero-ink);position:relative;overflow:hidden}
+.hero .in{padding-block:22px 96px;display:grid;gap:14px;position:relative;z-index:1}
+.lockup{display:flex;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:700}
+.logo-ph{padding:3px 10px;border:1.5px dashed currentColor;border-radius:6px;opacity:.85}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(76px,20vw,136px);line-height:.85;margin:6px 0 0;letter-spacing:.01em}
+.tag{margin:0;font-size:19px;font-weight:600;max-width:34ch}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-weight:700;font-size:15px}
+.arc{position:absolute;inset-inline-end:-20px;top:18px;width:260px;height:140px;opacity:.9;pointer-events:none}
+@media (max-width:560px){.arc{width:180px;height:100px;top:auto;bottom:70px;inset-inline-end:-10px;opacity:.6}}
+.dunes{position:absolute;inset:auto 0 -1px 0;height:80px;width:100%}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--earth);}
+nav .in{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav a{color:#f6e2bf;text-decoration:none;font-weight:700;font-size:15px;padding:6px 12px;border-radius:999px;white-space:nowrap}
+nav a:hover,nav a:focus-visible{background:rgba(246,226,191,.15);outline:none}
+
+section{padding-block:36px 8px}
+h2{font-family:var(--display);font-size:52px;line-height:1;margin:0 0 14px;color:var(--accent);font-weight:700}
+h3{margin:0;font-size:19px;line-height:1.3}
+.lead{color:var(--muted);margin:-6px 0 16px}
+
+/* now panel */
+.nowbox{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px;margin-top:-56px;position:relative;z-index:2;box-shadow:0 10px 30px rgba(60,25,5,.12)}
+.nowlabel{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;color:var(--now);background:var(--now-bg);padding:3px 10px;border-radius:999px;width:fit-content}
+.pulse{width:8px;height:8px;border-radius:50%;background:currentColor;animation:p 1.6s infinite}
+@keyframes p{50%{opacity:.2}}
+.nowtitle{font-size:24px;font-weight:800;line-height:1.25;margin:0}
+.nowtime{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:700}
+.next{border-top:1px dashed var(--line);padding-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.next b{color:var(--accent)}
+.prog{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0}
+
+/* schedule */
+.sched{list-style:none;margin:0;padding:0;display:grid}
+.sched li{display:grid;grid-template-columns:92px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.sched .t{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent);font-size:15px;padding-top:2px;direction:ltr;text-align:right}
+.sched .w{min-width:0}
+.sched .w span{display:block;color:var(--muted);font-size:15px}
+.sched li.brk .w{color:var(--muted)}
+.sched li.is-now{background:var(--now-bg);border-radius:10px;padding-inline:10px;border-bottom-color:transparent}
+.sched li.is-now .t{color:var(--now)}
+.sched li.done{opacity:.5}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start}
+.card .when{font-size:14px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.card p{margin:0;font-size:16px}
+.role{font-size:15px;color:var(--muted);font-weight:600}
+.ph{font-size:14px;color:var(--muted);font-style:italic}
+
+/* arrival */
+.how{display:grid;gap:12px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--accent-ink);font-weight:800;text-decoration:none;padding:9px 16px;border-radius:999px;font-size:15px;border:0;cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.warn{font-weight:700}
+
+/* groups */
+.steps{margin:0;padding-inline-start:20px;display:grid;gap:4px}
+.gnote{background:var(--paper);border:1px dashed var(--accent);border-radius:12px;padding:12px 16px;font-size:15px;margin-bottom:12px}
+
+/* videos */
+.vid{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;text-decoration:none;color:var(--fg)}
+.play{width:72px;aspect-ratio:1;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.play svg{width:26px;height:26px;margin-inline-start:4px}
+.vid .s{color:var(--muted);font-size:14px}
+
+footer{padding-block:40px 48px;color:var(--muted);font-size:14px;text-align:center}
+.demo{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+</style>
+</head>
+<body>
+<header class="hero" dir="rtl">
+  <svg class="arc" viewBox="0 0 260 140" aria-hidden="true">
+    <path d="M10 130 A120 120 0 0 1 250 130" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 6" opacity=".55"/>
+    <circle id="sun" cx="250" cy="130" r="14" fill="#fff3c4" stroke="currentColor" stroke-width="1.5"/>
+  </svg>
+  <div class="in">
+    <div class="lockup"><span class="logo-ph">צוערים לשלטון המקומי</span><span class="logo-ph">עיריית דימונה</span></div>
+    <h1>מהתלונה<br>לתובנה</h1>
+    <p class="tag">יום עיון על שירות לתושב</p>
+    <div class="facts"><span>יום ראשון, 15.11.2026</span><span>מרכז ההפעלה, עיריית דימונה</span></div>
+  </div>
+  <svg class="dunes" viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 44 C120 12 220 66 340 38 S520 22 600 40 V80 H0Z" fill="var(--sky3)" opacity=".5"/><path d="M0 62 C140 40 260 78 400 56 S540 48 600 60 V80 H0Z" fill="var(--earth)"/></svg>
+</header>
+
+<nav aria-label="ניווט" dir="rtl"><div class="in">
+  <a href="#now">עכשיו</a><a href="#schedule">לו"ז</a><a href="#arrive">הגעה</a><a href="#speakers">דוברים</a><a href="#groups">קבוצות</a><a href="#videos">סרטון</a>
+</div></nav>
+
+<main dir="rtl">
+  <div class="in" id="now">
+    <div class="nowbox" aria-live="polite">
+      <span class="nowlabel" id="nowLabel"><span class="pulse"></span><span id="nowLabelText">עכשיו</span></span>
+      <div>
+        <p class="nowtitle" id="nowTitle">טוען…</p>
+        <div class="nowtime" id="nowTime"></div>
+      </div>
+      <div class="prog" aria-hidden="true"><i id="prog"></i></div>
+      <div class="next" id="nextRow"><b>הבא:</b><span id="nextText"></span></div>
+    </div>
+  </div>
+
+  <section id="schedule"><div class="in">
+    <h2>לו"ז</h2>
+    <ol class="sched" id="sched"></ol>
+  </div></section>
+
+  <section id="arrive"><div class="in">
+    <h2>הגעה</h2>
+    <div class="how">
+      <div class="card">
+        <span class="when">09:00 · הסעה</span>
+        <h3>תחנת רכבת באר שבע צפון</h3>
+        <p class="warn">ההסעה יוצאת בדיוק ב-9:00. לא מחכים למאחרים.</p>
+        <div class="btns"><a class="btn" href="https://waze.com/ul?q=%D7%AA%D7%97%D7%A0%D7%AA%20%D7%A8%D7%9B%D7%91%D7%AA%20%D7%91%D7%90%D7%A8%20%D7%A9%D7%91%D7%A2%20%D7%A6%D7%A4%D7%95%D7%9F&navigate=yes" target="_blank" rel="noopener">ניווט ב-Waze</a><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=%D7%AA%D7%97%D7%A0%D7%AA%20%D7%A8%D7%9B%D7%91%D7%AA%20%D7%91%D7%90%D7%A8%20%D7%A9%D7%91%D7%A2%20%D7%A6%D7%A4%D7%95%D7%9F" target="_blank" rel="noopener">Google Maps</a></div>
+      </div>
+      <div class="card">
+        <span class="when">הגעה עצמית</span>
+        <h3>מרכז ההפעלה של עיריית דימונה</h3>
+        <p>רחוב יצחק שדה 10, דימונה. כדאי להגיע עד 9:30.</p>
+        <div class="btns"><a class="btn" href="https://waze.com/ul?q=%D7%99%D7%A6%D7%97%D7%A7%20%D7%A9%D7%93%D7%94%2010%20%D7%93%D7%99%D7%9E%D7%95%D7%A0%D7%94&navigate=yes" target="_blank" rel="noopener">ניווט ב-Waze</a><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=%D7%99%D7%A6%D7%97%D7%A7%20%D7%A9%D7%93%D7%94%2010%20%D7%93%D7%99%D7%9E%D7%95%D7%A0%D7%94" target="_blank" rel="noopener">Google Maps</a></div>
+      </div>
+      <div class="card">
+        <span class="when">09:30–10:00 · ארוחת בוקר</span>
+        <h3>ממאפה נאמן</h3>
+        <p>עוגות, סביח ומיני פיצה, עם קפה חם.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section id="speakers"><div class="in">
+    <h2>דוברים</h2>
+    <div class="grid">
+      <div class="card"><span class="when">10:00</span><h3>ברכת בכיר מהעירייה</h3><span class="ph">השם יעודכן</span></div>
+      <div class="card"><span class="when">10:30</span><h3>ימית רווח</h3><span class="role">מנהלת אגף השירות, עיריית דימונה</span><p>עם צוות האגף והצוערת שמשובצת אצלה.</p></div>
+      <div class="card"><span class="when">13:30</span><h3>מוקד עירוני 106</h3><span class="role">הסבר וסיור קצר במוקד</span><p>איפה כל פנייה של תושב מתחילה את הדרך.</p></div>
+      <div class="card"><span class="when">13:45</span><h3>אבי בוחבוט</h3><span class="role">חיבור בין קהילה לבין שירות</span><p>מקרה בוחן: נפילת הטיל בדימונה.</p></div>
+      <div class="card"><span class="when">14:45</span><h3>אסתי</h3><span class="role">בוגרת התוכנית, אגף השירות</span><p>סיכום, עיבוד ושיח פתוח.</p></div>
+    </div>
+  </div></section>
+
+  <section id="groups"><div class="in">
+    <h2>קבוצות</h2>
+    <p class="lead">11:45–12:30 · פרויקטים בנושאי שירות משולחנם של בעלי תפקידים</p>
+    <div class="gnote">שלוש קבוצות. כל קבוצה יושבת עם בעל או בעלת תפקיד אחד, שומעת על פרויקט שירות אמיתי, ומציגה במליאה ב-12:30. השיבוץ הסופי יעודכן כאן.</div>
+    <div class="grid">
+      <div class="card"><span class="when">קבוצה 1</span><h3>מרים כהן</h3><span class="role">מנמר"ית העירייה</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
+      <div class="card"><span class="when">קבוצה 2</span><h3>נחמה אוחנה</h3><span class="role">מנהלת אגף הרווחה</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
+      <div class="card"><span class="when">קבוצה 3</span><h3>נועם נגאוקר</h3><span class="role">מנהל הדיגיטל העירוני</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
+      <div class="card"><span class="when">קבוצה 3 (חלופה)</span><h3>אסתר אלישייב דנון</h3><span class="role">צוערת באגף שירות לתושב</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h3>מה עושים בקבוצה</h3>
+      <ol class="steps">
+        <li>שומעים מבעל התפקיד על הפרויקט: מה הבעיה של התושב, ומה נעשה.</li>
+        <li>מחפשים את הרגע שבו התלונה הפכה לתובנה.</li>
+        <li>מכינים הצגה של 3 דקות למליאה: מה למדנו, ומה הייתי לוקח לרשות שלי.</li>
+      </ol>
+    </div>
+  </div></section>
+
+  <section id="videos"><div class="in">
+    <h2>סרטון</h2>
+    <div class="grid">
+      <a class="card vid" href="https://youtu.be/cpr2_Avg16I" target="_blank" rel="noopener"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="var(--accent-ink)"/></svg></span><span><h3>סרטון ליום העיון</h3><span class="s">צפייה ביוטיוב</span></span></a>
+    </div>
+  </div></section>
+</main>
+
+<footer dir="rtl"><div class="in">
+  צוערים לשלטון המקומי · עיריית דימונה · 15.11.2026<br>
+  <button class="demo" id="demo" type="button">תצוגה לדוגמה: איך האתר ייראה ב-11:00 ביום עצמו</button>
+</div></footer>
+
+<script>
+const DAY={y:2026,m:11,d:15};
+const S=[
+  ["09:00","09:30","יציאת ההסעה מתחנת רכבת באר שבע צפון","",1],
+  ["09:30","10:00","התכנסות וארוחת בוקר","מאפה נאמן וקפה חם",1],
+  ["10:00","10:30","ברכת בכיר מהעירייה",""],
+  ["10:30","11:30","ימית רווח וצוות אגף השירות","עם הצוערת שמשובצת אצלה"],
+  ["11:30","11:45","הפסקה","",1],
+  ["11:45","12:30","פרויקטים משולחנם של בעלי תפקידים","עבודה בקבוצות קטנות"],
+  ["12:30","12:45","הצגת הקבוצות במליאה",""],
+  ["12:45","13:30","ארוחת צהריים","",1],
+  ["13:30","13:45","מוקד עירוני 106","הסבר וסיור קצר"],
+  ["13:45","14:45","אבי בוחבוט: קהילה ושירות","מקרה בוחן: נפילת הטיל בדימונה"],
+  ["14:45","15:30","סיכום ושיח פתוח עם אסתי","בוגרת התוכנית, אגף השירות"]
+];
+const m=t=>{const[a,b]=t.split(":").map(Number);return a*60+b};
+const START=m("09:00"),END=m("15:30");
+let demoMin=null;
+
+function israelNow(){
+  const p=Object.fromEntries(new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Jerusalem",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date()).map(x=>[x.type,x.value]));
+  return {y:+p.year,mo:+p.month,d:+p.day,min:(+p.hour%24)*60+ +p.minute};
+}
+function dayDiff(n){return Math.round((Date.UTC(DAY.y,DAY.m-1,DAY.d)-Date.UTC(n.y,n.mo-1,n.d))/864e5)}
+
+const list=document.getElementById("sched");
+list.innerHTML=S.map(r=>`<li class="${r[4]?"brk":""}"><span class="t">${r[0]}–${r[1]}</span><div class="w"><b>${r[2]}</b>${r[3]?`<span>${r[3]}</span>`:""}</div></li>`).join("");
+const items=[...list.children];
+
+function setSun(f){
+  f=Math.max(0,Math.min(1,f));const a=Math.PI*(1-f);
+  // RTL: day starts on the right (east)
+  const s=document.getElementById("sun");s.setAttribute("cx",(130+120*Math.cos(Math.PI-a)).toFixed(1));s.setAttribute("cy",(130-120*Math.sin(a)).toFixed(1));
+}
+function render(){
+  const n=israelNow();let diff=dayDiff(n),cur=n.min;
+  if(demoMin!==null){diff=0;cur=demoMin}
+  const T=document.getElementById("nowTitle"),TT=document.getElementById("nowTime"),L=document.getElementById("nowLabelText"),NX=document.getElementById("nextText"),NR=document.getElementById("nextRow"),P=document.getElementById("prog");
+  items.forEach(li=>li.classList.remove("is-now","done"));
+  if(diff>0){
+    L.textContent=diff===1?"מחר":"בקרוב";
+    T.textContent=diff===1?"נפגשים מחר ב-9:00 בבאר שבע צפון":`עוד ${diff} ימים ליום העיון`;
+    TT.textContent="יום ראשון, 15.11.2026";NR.hidden=false;NX.textContent="09:00 · יציאת ההסעה מתחנת רכבת באר שבע צפון";P.style.width="0";setSun(0);return;
+  }
+  if(diff<0||cur>=END){
+    L.textContent="הסתיים";T.textContent="תודה שהייתם איתנו";TT.textContent="מהתלונה לתובנה · דימונה, 15.11.2026";NR.hidden=true;P.style.width="100%";setSun(1);
+    if(diff<=0)items.forEach(li=>li.classList.add("done"));return;
+  }
+  setSun((cur-START)/(END-START));
+  if(cur<START){L.textContent="הבוקר";T.textContent="ההסעה יוצאת ב-9:00 מבאר שבע צפון";TT.textContent="";NR.hidden=true;P.style.width="0";return}
+  const i=S.findIndex(r=>cur>=m(r[0])&&cur<m(r[1]));
+  items.forEach((li,k)=>{if(k<i)li.classList.add("done");if(k===i)li.classList.add("is-now")});
+  const r=S[i];L.textContent="עכשיו";T.textContent=r[2];TT.textContent=`${r[0]}–${r[1]}`+(r[3]?` · ${r[3]}`:"");
+  P.style.width=((cur-m(r[0]))/(m(r[1])-m(r[0]))*100).toFixed(0)+"%";
+  const nx=S[i+1];NR.hidden=!nx;if(nx)NX.textContent=`${nx[0]} · ${nx[2]}`;
+}
+document.getElementById("demo").addEventListener("click",e=>{
+  if(demoMin===null){demoMin=m("11:00");e.target.textContent="חזרה לזמן אמת"}else{demoMin=null;e.target.textContent="תצוגה לדוגמה: איך האתר ייראה ב-11:00 ביום עצמו"}
+  render();document.getElementById("now").scrollIntoView({behavior:"smooth"});
+});
+render();setInterval(render,30000);
+</script>
+</body>
+</html>
