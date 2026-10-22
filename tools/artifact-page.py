@@ -13,4 +13,6 @@ src = open(sys.argv[1], encoding="utf-8").read()
 head = re.search(r"<head>(.*?)</head>", src, re.S).group(1)
 head = re.sub(r'<meta (charset|name="viewport")[^>]*>\n?', "", head)
 body = re.search(r"<body>(.*?)</body>", src, re.S).group(1)
-open(sys.argv[2], "w", encoding="utf-8").write(head.strip() + "\n" + body.strip() + "\n")
+# The host's <html> has no lang/dir, so set them from the page.
+lang = "<script>document.documentElement.lang='he';document.documentElement.dir='rtl';</script>"
+open(sys.argv[2], "w", encoding="utf-8").write(head.strip() + "\n" + lang + "\n" + body.strip() + "\n")
