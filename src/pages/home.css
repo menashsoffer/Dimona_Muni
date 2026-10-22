@@ -1,8 +1,10 @@
-/* Home page bits that belong to no feature: sun arc, arrival, quiz teaser, demo button. */
-.arc{position:absolute;inset-inline-end:-20px;top:18px;width:260px;height:140px;opacity:.9;pointer-events:none}
+/* Home page bits that belong to no feature: sun arc, arrival, Ma'afe Ne'eman logo, link cards, demo button. */
+.arc{position:absolute;inset-inline-end:-20px;top:120px;width:260px;height:140px;opacity:.9;pointer-events:none}
 @media (max-width:560px){.arc{width:180px;height:100px;top:auto;bottom:70px;inset-inline-end:-10px;opacity:.6}}
 .how{display:grid;gap:12px}
 .warn{font-weight:700}
-.teaser{grid-template-columns:1fr auto;align-items:center;text-decoration:none;color:var(--fg);background:linear-gradient(120deg,var(--paper),color-mix(in oklab,var(--sky1) 45%,var(--paper)))}
-.teaser .btn{pointer-events:none}
+.vendor{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.vendor-logo{height:26px;width:auto}
+.link-card{text-decoration:none;color:var(--fg)}
+.link-card h3::after{content:" ←";color:var(--accent)}
 .demo{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}

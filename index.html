@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>מהתלונה לתובנה</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Karantina:wght@400;700&display=swap">
 </head>
@@ -16,7 +17,7 @@
     <circle id="sun" cx="250" cy="130" r="14" fill="#fff3c4" stroke="currentColor" stroke-width="1.5"/>
   </svg>
   <div class="in">
-    <div class="lockup"><span class="logos"><img src="assets/logo-tzoarim.png" alt="צוערים לשלטון המקומי" class="lg-t"><img src="assets/logo-dimona.png" alt="עיריית דימונה" class="lg-d"></span></div>
+    <div class="lockup"><a href="index.html" class="partner"><img src="assets/logo-tzoarim.png" alt="צוערים לשלטון המקומי" class="lg-t"></a><a href="index.html" class="partner"><img src="assets/logo-dimona.png" alt="עיריית דימונה" class="lg-d"></a></div>
     <h1>מהתלונה<br>לתובנה</h1>
     <p class="tag">יום עיון על שירות לתושב</p>
     <div class="facts"><span>יום ראשון, 15.11.2026</span><span>מרכז ההפעלה, עיריית דימונה</span></div>
@@ -44,6 +45,16 @@
     <ol class="sched" id="sched"></ol>
   </div></section>
 
+  <div class="in"><a class="quiz-cta" href="quiz.html">
+    <span class="qc-mark" aria-hidden="true">?</span>
+    <span class="qc-body">
+      <span class="qc-eyebrow">חידון · 13 שאלות · בלי שעון</span>
+      <span class="qc-title">מכירים את דימונה?</span>
+      <span class="qc-sub">היסטוריה, אנשים ומספרים על העיר שמארחת אותנו.</span>
+    </span>
+    <span class="qc-btn">לחידון <span aria-hidden="true">←</span></span>
+  </a></div>
+
   <section id="arrive"><div class="in">
     <h2>הגעה</h2>
     <div class="how">
@@ -61,29 +72,17 @@
       </div>
       <div class="card">
         <span class="when">09:30–10:00 · ארוחת בוקר</span>
-        <h3>ממאפה נאמן</h3>
+        <h3 class="vendor">מאפה נאמן <img src="assets/logo-neeman.png" alt="לוגו מאפה נאמן" class="vendor-logo"></h3>
         <p>עוגות, סביח ומיני פיצה, עם קפה חם.</p>
       </div>
     </div>
   </div></section>
 
-  <section id="people"><div class="in">
-    <h2>האנשים של היום</h2>
-    <div class="grid people" id="peopleGrid"></div>
-  </div></section>
-
-  <section id="groups"><div class="in">
-    <h2>קבוצות</h2>
-    <p class="lead">11:45–12:30 · פרויקטים בנושאי שירות משולחנם של בעלי תפקידים</p>
-    <div class="gnote">שלוש קבוצות. כל קבוצה יושבת עם אחד מבעלי התפקידים, שומעת על פרויקט שירות אמיתי מהעירייה, ומציגה במליאה ב-12:30, כ-5 דקות לכל קבוצה. אם יהיו שינויים, נעדכן כאן.</div>
-    <div class="grid" id="groupGrid"></div>
-    <div class="card" style="margin-top:12px">
-      <h3>מה עושים בקבוצה</h3>
-      <ol class="steps">
-        <li>שומעים על הפרויקט: מה הבעיה של התושבים, ומה נעשה כדי לפתור אותה.</li>
-        <li>מחפשים את הרגע שבו התלונה הפכה לתובנה.</li>
-        <li>מכינים הצגה קצרה למליאה: מה למדנו, ומה הייתם לוקחים לרשות שלכם.</li>
-      </ol>
+  <section id="more"><div class="in">
+    <h2>לעיין עוד</h2>
+    <div class="grid">
+      <a class="card link-card" href="people.html"><span class="when">10:00–15:30</span><h3>האנשים של היום</h3><span class="role">מי מדבר, מתי ועל מה</span></a>
+      <a class="card link-card" href="groups.html"><span class="when">11:45–12:30</span><h3>הקבוצות</h3><span class="role">שלושה פרויקטי שירות משולחנם של בעלי תפקידים</span></a>
     </div>
   </div></section>
 
@@ -91,7 +90,6 @@
     <h2>הכירו את דימונה</h2>
     <div class="grid">
       <div class="card video" id="video"></div>
-      <a class="card teaser" href="quiz.html"><span><span class="when">חידון · 13 שאלות</span><h3>מכירים את דימונה?</h3><span class="role">היסטוריה, אנשים ומספרים. בלי שעון ובלי לחץ.</span></span><span class="btn">לחידון</span></a>
     </div>
   </div></section>
 </main>
