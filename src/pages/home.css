@@ -1,6 +1,4 @@
-/* Home page bits that belong to no feature: sun arc, arrival, Ma'afe Ne'eman logo, link cards, demo button. */
-.arc{position:absolute;inset-inline-end:-20px;top:120px;width:260px;height:140px;opacity:.9;pointer-events:none}
-@media (max-width:560px){.arc{width:180px;height:100px;top:auto;bottom:70px;inset-inline-end:-10px;opacity:.6}}
+/* Home page bits that belong to no feature: arrival, Ma'afe Ne'eman logo, link cards, demo button. */
 .how{display:grid;gap:12px}
 .warn{font-weight:700}
 .vendor{display:flex;align-items:center;gap:10px;flex-wrap:wrap}

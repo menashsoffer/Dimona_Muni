@@ -6,8 +6,10 @@ import { byId } from "../core/dom.ts";
 import { renderNav } from "../core/nav.ts";
 import { revealOnScroll, scrollEffects } from "../core/scroll.ts";
 import { renderPeople } from "../features/people/cards.ts";
+import { mountSun } from "../features/sun/sun.ts";
 
 renderNav("people");
+mountSun();
 renderPeople(byId("peopleGrid"));
 scrollEffects();
 revealOnScroll(".card");
