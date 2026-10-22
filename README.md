@@ -7,15 +7,18 @@
 ## מבנה
 
 ```
-index.html, quiz.html      העמודים (רק המבנה; התוכן נכנס מהקוד)
+index.html, people.html,   העמודים (רק המבנה; התוכן נכנס מהקוד)
+groups.html, quiz.html
 public/assets/             לוגואים ותמונות (public/assets/people/<שם>.png)
+public/favicon.svg         האייקון בלשונית הדפדפן
 src/
   content/                 כל התוכן: לו"ז, אנשים וקבוצות, סרטון, שאלות החידון ומקורות
   core/                    כלים משותפים: ניווט, אפקטי גלילה, שעון ישראל, עזרי DOM
   features/                כל פיצ'ר בתיקייה משלו, עם הקוד וה-CSS שלו
     now/                   "עכשיו": מה קורה עכשיו ומה הבא
     schedule/              הלו"ז וקו הזמן
-    people/                כרטיסי האנשים והקבוצות
+    people/                כרטיסי האנשים (people.html)
+    groups/                כרטיסי הקבוצות (groups.html)
     video/                 נגן יוטיוב בתוך האתר
     quiz/                  החידון: game (מצב), view (תצוגה), quiz (חיבור)
   pages/                   נקודת הכניסה של כל עמוד

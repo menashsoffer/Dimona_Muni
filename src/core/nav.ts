@@ -13,13 +13,15 @@ export const PAGES: NavItem[] = [
   { label: "עכשיו", anchor: "now" },
   { label: "לו\"ז", anchor: "schedule" },
   { label: "הגעה", anchor: "arrive" },
-  { label: "אנשים", anchor: "people" },
-  { label: "קבוצות", anchor: "groups" },
   { label: "דימונה", anchor: "city" },
+  { label: "אנשים", page: "people", href: "people.html" },
+  { label: "קבוצות", page: "groups", href: "groups.html" },
   { label: "חידון דימונה", page: "quiz", href: "quiz.html", feature: true },
 ];
 
-export function renderNav(current: "home" | "quiz"): void {
+export type PageName = "home" | "people" | "groups" | "quiz";
+
+export function renderNav(current: PageName): void {
   const nav = document.getElementById("nav");
   if (!nav) return;
   nav.innerHTML = PAGES.map((p) => {
