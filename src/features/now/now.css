@@ -1,0 +1,12 @@
+/* Live "now" panel. */
+.nowbox{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px;margin-top:20px;position:relative;z-index:2;box-shadow:0 10px 30px rgba(60,25,5,.12)}
+.nowlabel{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;color:var(--now);background:var(--now-bg);padding:3px 10px;border-radius:999px;width:fit-content}
+.pulse{width:8px;height:8px;border-radius:50%;background:currentColor;animation:p 1.6s infinite}
+@keyframes p{50%{opacity:.2}}
+.nowtitle{font-size:24px;font-weight:800;line-height:1.25;margin:0}
+.nowtime{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:700}
+.next{border-top:1px dashed var(--line);padding-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.next b{color:var(--accent)}
+.prog{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}

@@ -1,4 +1,4 @@
-/* Quiz page. One card ("stage") that swaps between intro, question and result. */
+/* Quiz: one card ("stage") that swaps between intro, question and result. */
 .stage{margin-top:20px;position:relative;z-index:2;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 18px;box-shadow:0 10px 30px rgba(60,25,5,.12);display:grid;gap:16px}
 @media (min-width:600px){.stage{padding:28px 30px}}
 .stage h2{margin:0}
@@ -55,3 +55,5 @@
 details summary{cursor:pointer;font-weight:700;color:var(--earth)}
 
 @media (prefers-reduced-motion:reduce){.fb{animation:none}.opt:hover:not(:disabled){transform:none}}
+.intro{margin:0}
+.next-row{margin-top:12px}

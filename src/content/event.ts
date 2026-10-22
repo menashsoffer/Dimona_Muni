@@ -1,9 +1,9 @@
 // The day itself: date and schedule. Times and wording as Menash set them (22.10.26).
-// brk: true marks breaks and logistics (shown muted).
+import type { Slot } from "./types.ts";
 
 export const DAY = { y: 2026, m: 11, d: 15 };
 
-export const SCHEDULE = [
+export const SCHEDULE: Slot[] = [
   { from: "09:00", to: "09:30", title: "יציאת ההסעה מתחנת רכבת באר שבע צפון", brk: true },
   { from: "09:30", to: "10:00", title: "התכנסות וארוחת בוקר", note: "מאפה נאמן וקפה חם", brk: true },
   { from: "10:00", to: "10:30", title: "ברכת בכיר מהעירייה" },
