@@ -7,8 +7,6 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Karantina:wght@400;700&display=swap">
-<link rel="stylesheet" href="css/site.css">
-<link rel="stylesheet" href="css/home.css">
 </head>
 <body>
 <div class="skyfx" aria-hidden="true"></div>
@@ -92,8 +90,8 @@
   <section id="city"><div class="in">
     <h2>הכירו את דימונה</h2>
     <div class="grid">
+      <div class="card video" id="video"></div>
       <a class="card teaser" href="quiz.html"><span><span class="when">חידון · 13 שאלות</span><h3>מכירים את דימונה?</h3><span class="role">היסטוריה, אנשים ומספרים. בלי שעון ובלי לחץ.</span></span><span class="btn">לחידון</span></a>
-      <a class="card vid" href="https://youtu.be/cpr2_Avg16I" target="_blank" rel="noopener"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="var(--accent-ink)"/></svg></span><span><h3>הצצה קטנה לדימונה</h3><span class="s">צפייה ביוטיוב</span></span></a>
     </div>
   </div></section>
 </main>
@@ -103,6 +101,6 @@
   <button class="demo" id="demo" type="button"></button>
 </div></footer>
 
-<script type="module" src="js/home.js"></script>
+<script type="module" src="/src/pages/home.ts"></script>
 </body>
 </html>

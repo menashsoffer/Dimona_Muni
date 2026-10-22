@@ -1,8 +1,8 @@
 // "האנשים של היום" cards and the three work groups.
-// To add a photo: put it in assets/people/<slug>.png and set photo: "<slug>".
-// Without a photo the card shows `initial`.
+// To add a photo: put it in public/assets/people/<slug>.png and set photo: "<slug>".
+import type { Group, Person } from "./types.ts";
 
-export const PEOPLE = [
+export const PEOPLE: Person[] = [
   { when: "10:00", name: "ברכת בכיר מהעירייה", role: "השם יעודכן", initial: "✦" },
   { when: "10:30", name: "ימית רווח", role: "מנהלת אגף השירות, עיריית דימונה", text: "מציגה עם צוות האגף איך נראה השירות מבפנים.", initial: "י" },
   { when: "10:30 · 14:45", name: "אסתר אלישייב דנון (אסתי)", role: "בוגרת התוכנית, צוערת באגף שירות לתושב", text: "מצטרפת לימית בבוקר, ומובילה את הסיכום והשיח הפתוח בסוף היום.", photo: "esther" },
@@ -14,7 +14,7 @@ export const PEOPLE = [
 ];
 
 // project: short description of the group's project (pending, arrives 26.10.26).
-export const GROUPS = [
+export const GROUPS: Group[] = [
   { lead: "מרים כהן", role: "מנמר\"ית העירייה" },
   { lead: "נחמה אוחנה", role: "מנהלת אגף הרווחה" },
   { lead: "נועם נגאוקר", role: "מנהל הדיגיטל העירוני" },

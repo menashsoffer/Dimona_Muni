@@ -1,0 +1,13 @@
+/* Cards and buttons. */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start;transition:transform .25s,box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 12px 26px color-mix(in oklab,var(--accent) 22%,transparent)}
+.card .when{font-size:14px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.card p{margin:0;font-size:16px}
+.role{font-size:15px;color:var(--muted);font-weight:600}
+.ph{font-size:14px;color:var(--muted);font-style:italic}
+
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--accent-ink);font-weight:800;text-decoration:none;padding:9px 16px;border-radius:999px;font-size:15px;border:0;cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn:focus-visible{outline:3px solid var(--fg);outline-offset:2px}

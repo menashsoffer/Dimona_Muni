@@ -1,0 +1,14 @@
+/* Embedded YouTube player: a 16:9 poster that turns into the player on tap. */
+.video{display:grid;gap:10px;padding:12px;grid-column:1/-1}
+.player{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;background:linear-gradient(160deg,var(--sky1),var(--sky2) 50%,var(--sky3))}
+.player iframe,.poster{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{padding:0;cursor:pointer;background:none;display:grid;place-items:center}
+.poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.poster:focus-visible{outline:3px solid var(--fg);outline-offset:-3px}
+.play{position:relative;width:72px;aspect-ratio:1;border-radius:50%;background:var(--accent);display:grid;place-items:center;animation:glowp 2.4s ease-in-out infinite;box-shadow:0 6px 18px rgba(60,25,5,.3)}
+.play svg{width:26px;height:26px;margin-inline-start:4px;fill:var(--accent-ink)}
+.poster:hover .play{transform:scale(1.06)}
+.vmeta{display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap;padding-inline:4px}
+.vmeta .s{color:var(--muted);font-size:14px}
+@keyframes glowp{50%{box-shadow:0 0 0 10px color-mix(in oklab,var(--accent) 18%,transparent)}}
+@media (prefers-reduced-motion:reduce){.play{animation:none}}
