@@ -7,24 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Karantina:wght@400;700&display=swap">
 <style>
-/* Layout: one phone-first column. Sun-gradient hero with a sun arc that tracks the day, sticky tab bar, then sections on sand paper. */
+/* One bright sunset look in every theme (deliberately single-theme). Layout: one phone-first column. Sun-gradient hero with a sun arc that tracks the day, sticky tab bar, then sections on sand paper. */
 :root{
-  --bg:#f6ead2; --paper:#fbf4e6; --fg:#2b160b; --muted:#7a5a40; --line:#e0c79c;
-  --accent:#b4552c; --accent-ink:#fff; --earth:#5e2410;
-  --sky1:#f2c879; --sky2:#e39a4a; --sky3:#b4552c; --hero-ink:#2b160b;
+  --bg:#fff6e8; --paper:#fffcf6; --fg:#3a1d0e; --muted:#8a6446; --line:#f0d6ad;
+  --accent:#d4602c; --accent-ink:#fff; --earth:#9c3f1c;
+  --sky1:#ffe1a0; --sky2:#ffb066; --sky3:#f07a45; --hero-ink:#3a1d0e;
   --now:#2f7a4a; --now-bg:#dcefd9; --logo-t:none;
   --display:"Karantina","Assistant",sans-serif; --body:"Assistant",system-ui,sans-serif;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#1c1420; --paper:#271c2b; --fg:#f4e3c4; --muted:#c3a483; --line:#3d2d40;
-  --accent:#f0a35a; --accent-ink:#2b160b; --earth:#0f0a12;
-  --sky1:#3a2550; --sky2:#7b3f4f; --sky3:#c46a3a; --hero-ink:#fbeed6;
-  --now:#7ed69a; --now-bg:#203a2a; --logo-t:brightness(0) invert(.93) sepia(.25); color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#1c1420; --paper:#271c2b; --fg:#f4e3c4; --muted:#c3a483; --line:#3d2d40;
-  --accent:#f0a35a; --accent-ink:#2b160b; --earth:#0f0a12;
-  --sky1:#3a2550; --sky2:#7b3f4f; --sky3:#c46a3a; --hero-ink:#fbeed6;
-  --now:#7ed69a; --now-bg:#203a2a; --logo-t:brightness(0) invert(.93) sepia(.25); color-scheme:dark}
 html,body{direction:rtl}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--earth)}
@@ -37,7 +27,8 @@ a{color:var(--accent)}
 .lockup{display:flex;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:700}
 .logos{display:inline-flex;align-items:center;gap:18px}
 .lg-t{height:46px;width:auto;filter:var(--logo-t)}.lg-d{height:58px;width:auto;filter:drop-shadow(0 3px 6px rgba(60,25,5,.25))}
-@media (max-width:420px){.lg-t{height:36px}.lg-d{height:42px}}
+@media (max-width:420px){.lg-t{height:42px}.lg-d{height:48px}}
+section,#now{scroll-margin-top:64px}
 .logo-ph{padding:3px 10px;border:1.5px dashed currentColor;border-radius:6px;opacity:.85}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(76px,20vw,136px);line-height:.85;margin:6px 0 0;letter-spacing:.01em}
 .tag{margin:0;font-size:19px;font-weight:600;max-width:34ch}
@@ -58,7 +49,7 @@ h3{margin:0;font-size:19px;line-height:1.3}
 .lead{color:var(--muted);margin:-6px 0 16px}
 
 /* now panel */
-.nowbox{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px;margin-top:-56px;position:relative;z-index:2;box-shadow:0 10px 30px rgba(60,25,5,.12)}
+.nowbox{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px;margin-top:20px;position:relative;z-index:2;box-shadow:0 10px 30px rgba(60,25,5,.12)}
 .nowlabel{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;color:var(--now);background:var(--now-bg);padding:3px 10px;border-radius:999px;width:fit-content}
 .pulse{width:8px;height:8px;border-radius:50%;background:currentColor;animation:p 1.6s infinite}
 @keyframes p{50%{opacity:.2}}
@@ -111,13 +102,11 @@ footer{padding-block:40px 48px;color:var(--muted);font-size:14px;text-align:cent
 @media (prefers-reduced-motion:reduce){.pulse{animation:none}}
 
 /* ---- scroll effects: the page "lives through the day" as you scroll ---- */
-:root{--pp:0%;--sp:0;--gold:#d98b2b}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--gold:#ffd28a}}
-:root[data-theme="dark"]{--gold:#ffd28a}
+:root{--pp:0%;--sp:0;--gold:#f2a531}
 .skyfx{position:fixed;inset:0;z-index:-1;pointer-events:none;
   --glow:color-mix(in oklab,var(--sky1),var(--sky3) var(--pp));
   background:
-    radial-gradient(90% 55% at 50% 108%,color-mix(in oklab,var(--glow) 55%,transparent),transparent 70%),
+    radial-gradient(90% 55% at 50% 108%,color-mix(in oklab,var(--glow) 40%,transparent),transparent 70%),
     radial-gradient(60% 40% at calc(100% - var(--pp)) 0%,color-mix(in oklab,var(--gold) 22%,transparent),transparent 70%),
     var(--bg)}
 main h2{background:linear-gradient(100deg,var(--accent) 0%,var(--gold) 28%,var(--sky3) 52%,var(--accent) 78%,var(--gold) 100%);background-size:260% 100%;background-position:calc(var(--pp) * 1.6) 50%;-webkit-background-clip:text;background-clip:text;color:transparent;width:fit-content}
@@ -138,6 +127,11 @@ nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px
 .play{animation:glowp 2.4s ease-in-out infinite}
 @keyframes glowp{50%{box-shadow:0 0 0 10px color-mix(in oklab,var(--accent) 18%,transparent)}}
 @media (prefers-reduced-motion:reduce){.pend{opacity:1;transform:none;filter:none}.play{animation:none}.card:hover{transform:none}}
+
+.person{grid-template-columns:72px 1fr;gap:14px;align-items:start}
+.pbody{display:grid;gap:4px;min-width:0}
+.av{width:72px;height:72px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:linear-gradient(135deg,var(--sky1),var(--sky3));color:#fff;font-family:var(--display);font-size:38px;font-weight:700;box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--sky2)}
+.av img{width:100%;height:100%;object-fit:cover}
 </style>
 </head>
 <body>
@@ -157,7 +151,7 @@ nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px
 </header>
 
 <nav aria-label="ניווט" dir="rtl"><div class="in">
-  <a href="#now">עכשיו</a><a href="#schedule">לו"ז</a><a href="#arrive">הגעה</a><a href="#speakers">דוברים</a><a href="#groups">קבוצות</a><a href="#videos">סרטון</a>
+  <a href="#now">עכשיו</a><a href="#schedule">לו"ז</a><a href="#arrive">הגעה</a><a href="#people">אנשים</a><a href="#groups">קבוצות</a><a href="#videos">סרטון</a>
 </div></nav>
 
 <main dir="rtl">
@@ -184,7 +178,7 @@ nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px
       <div class="card">
         <span class="when">09:00 · הסעה</span>
         <h3>תחנת רכבת באר שבע צפון</h3>
-        <p class="warn">ההסעה יוצאת בדיוק ב-9:00. לא מחכים למאחרים.</p>
+        <p class="warn">ההסעה יוצאת בדיוק ב-9:00, ואיחורים לא יתקבלו בברכה 🙂</p>
         <div class="btns"><a class="btn" href="https://waze.com/ul?q=%D7%AA%D7%97%D7%A0%D7%AA%20%D7%A8%D7%9B%D7%91%D7%AA%20%D7%91%D7%90%D7%A8%20%D7%A9%D7%91%D7%A2%20%D7%A6%D7%A4%D7%95%D7%9F&navigate=yes" target="_blank" rel="noopener">ניווט ב-Waze</a><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=%D7%AA%D7%97%D7%A0%D7%AA%20%D7%A8%D7%9B%D7%91%D7%AA%20%D7%91%D7%90%D7%A8%20%D7%A9%D7%91%D7%A2%20%D7%A6%D7%A4%D7%95%D7%9F" target="_blank" rel="noopener">Google Maps</a></div>
       </div>
       <div class="card">
@@ -201,33 +195,36 @@ nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px
     </div>
   </div></section>
 
-  <section id="speakers"><div class="in">
-    <h2>דוברים</h2>
-    <div class="grid">
-      <div class="card"><span class="when">10:00</span><h3>ברכת בכיר מהעירייה</h3><span class="ph">השם יעודכן</span></div>
-      <div class="card"><span class="when">10:30</span><h3>ימית רווח</h3><span class="role">מנהלת אגף השירות, עיריית דימונה</span><p>עם צוות האגף ועם אסתר אלישייב דנון, הצוערת שמשובצת אצלה.</p></div>
-      <div class="card"><span class="when">13:30</span><h3>מוקד עירוני 106</h3><span class="role">הסבר וסיור קצר במוקד</span><p>איפה כל פנייה של תושב מתחילה את הדרך.</p></div>
-      <div class="card"><span class="when">13:45</span><h3>אבי בוחבוט</h3><span class="role">חיבור בין קהילה לבין שירות</span><p>מקרה בוחן: נפילת הטיל בדימונה.</p></div>
-      <div class="card"><span class="when">14:45</span><h3>אסתר אלישייב דנון (אסתי)</h3><span class="role">בוגרת התוכנית, אגף שירות לתושב</span><p>סיכום, עיבוד ושיח פתוח.</p></div>
+  <section id="people"><div class="in">
+    <h2>האנשים של היום</h2>
+    <div class="grid people">
+      <article class="card person"><span class="av"><span>✦</span></span><div class="pbody"><span class="when">10:00</span><h3>ברכת בכיר מהעירייה</h3><span class="role">השם יעודכן</span><span class="ph">פרטים נוספים יעודכנו</span></div></article>
+      <article class="card person"><span class="av"><span>י</span></span><div class="pbody"><span class="when">10:30</span><h3>ימית רווח</h3><span class="role">מנהלת אגף השירות, עיריית דימונה</span><p>מציגה עם צוות האגף איך נראה השירות מבפנים.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
+      <article class="card person"><span class="av"><img src="assets/people/esther.png" alt="אסתר אלישייב דנון (אסתי)"></span><div class="pbody"><span class="when">10:30 · 14:45</span><h3>אסתר אלישייב דנון (אסתי)</h3><span class="role">בוגרת התוכנית, צוערת באגף שירות לתושב</span><p>מצטרפת לימית בבוקר, ומובילה את הסיכום והשיח הפתוח בסוף היום.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
+      <article class="card person"><span class="av"><span>מ</span></span><div class="pbody"><span class="when">11:45</span><h3>מרים כהן</h3><span class="role">מנמר"ית העירייה</span><p>מובילה קבוצה בעבודה על פרויקט שירות.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
+      <article class="card person"><span class="av"><span>נ</span></span><div class="pbody"><span class="when">11:45</span><h3>נחמה אוחנה</h3><span class="role">מנהלת אגף הרווחה</span><p>מובילה קבוצה בעבודה על פרויקט שירות.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
+      <article class="card person"><span class="av"><img src="assets/people/noam.png" alt="נועם נגאוקר"></span><div class="pbody"><span class="when">11:45</span><h3>נועם נגאוקר</h3><span class="role">מנהל הדיגיטל העירוני</span><p>מוביל קבוצה בעבודה על פרויקט שירות.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
+      <article class="card person"><span class="av"><span>106</span></span><div class="pbody"><span class="when">13:30</span><h3>מוקד עירוני 106</h3><span class="role">הסבר וסיור קצר במוקד</span><p>המקום שבו כל פנייה של תושב מתחילה את הדרך.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
+      <article class="card person"><span class="av"><span>א</span></span><div class="pbody"><span class="when">13:45</span><h3>אבי בוחבוט</h3><span class="role">חיבור בין קהילה לבין שירות</span><p>מקרה בוחן: נפילת טיל בדימונה.</p><span class="ph">פרטים נוספים יעודכנו</span></div></article>
     </div>
   </div></section>
 
   <section id="groups"><div class="in">
     <h2>קבוצות</h2>
     <p class="lead">11:45–12:30 · פרויקטים בנושאי שירות משולחנם של בעלי תפקידים</p>
-    <div class="gnote">שלוש קבוצות. כל קבוצה יושבת עם בעל או בעלת תפקיד אחד, שומעת על פרויקט שירות אמיתי, ומציגה במליאה ב-12:30. השיבוץ הסופי יעודכן כאן.</div>
+    <div class="gnote">שלוש קבוצות. כל קבוצה יושבת עם אחד מבעלי התפקידים, שומעת על פרויקט שירות אמיתי מהעירייה, ומציגה במליאה ב-12:30. השיבוץ הסופי יעודכן כאן.</div>
     <div class="grid">
       <div class="card"><span class="when">קבוצה 1</span><h3>מרים כהן</h3><span class="role">מנמר"ית העירייה</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
       <div class="card"><span class="when">קבוצה 2</span><h3>נחמה אוחנה</h3><span class="role">מנהלת אגף הרווחה</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
       <div class="card"><span class="when">קבוצה 3</span><h3>נועם נגאוקר</h3><span class="role">מנהל הדיגיטל העירוני</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
-      <div class="card"><span class="when">קבוצה 3 (חלופה)</span><h3>אסתר אלישייב דנון</h3><span class="role">בוגרת התוכנית, אגף שירות לתושב</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
+      <div class="card"><span class="when">אפשרות נוספת</span><h3>אסתר אלישייב דנון</h3><span class="role">בוגרת התוכנית, אגף שירות לתושב</span><span class="ph">תיאור הפרויקט יעודכן</span></div>
     </div>
     <div class="card" style="margin-top:12px">
       <h3>מה עושים בקבוצה</h3>
       <ol class="steps">
-        <li>שומעים מבעל התפקיד על הפרויקט: מה הבעיה של התושב, ומה נעשה.</li>
+        <li>שומעים על הפרויקט: מה הבעיה של התושבים, ומה נעשה כדי לפתור אותה.</li>
         <li>מחפשים את הרגע שבו התלונה הפכה לתובנה.</li>
-        <li>מכינים הצגה של 3 דקות למליאה: מה למדנו, ומה הייתי לוקח לרשות שלי.</li>
+        <li>מכינים הצגה קצרה למליאה, כ-5 דקות: מה למדנו, ומה הייתם לוקחים לרשות שלכם.</li>
       </ol>
     </div>
   </div></section>
@@ -257,8 +254,8 @@ const S=[
   ["12:30","12:45","הצגת הקבוצות במליאה",""],
   ["12:45","13:30","ארוחת צהריים","",1],
   ["13:30","13:45","מוקד עירוני 106","הסבר וסיור קצר"],
-  ["13:45","14:45","אבי בוחבוט: קהילה ושירות","מקרה בוחן: נפילת הטיל בדימונה"],
-  ["14:45","15:30","סיכום ושיח פתוח עם אסתר אלישייב דנון","בוגרת התוכנית, אגף השירות"]
+  ["13:45","14:45","אבי בוחבוט: חיבור בין קהילה לבין שירות","מקרה בוחן: נפילת טיל בדימונה"],
+  ["14:45","15:30","סיכום ושיח פתוח עם אסתר אלישייב דנון","בוגרת התוכנית, אגף שירות לתושב"]
 ];
 const m=t=>{const[a,b]=t.split(":").map(Number);return a*60+b};
 const START=m("09:00"),END=m("15:30");
@@ -286,7 +283,7 @@ function render(){
   items.forEach(li=>li.classList.remove("is-now","done"));
   if(diff>0){
     L.textContent=diff===1?"מחר":"בקרוב";
-    T.textContent=diff===1?"נפגשים מחר ב-9:00 בבאר שבע צפון":`עוד ${diff} ימים ליום העיון`;
+    T.textContent=diff===1?"נפגשים מחר ב-9:00 בבאר שבע צפון":(diff===2?"עוד יומיים ליום העיון":`עוד ${diff} ימים ליום העיון`);
     TT.textContent="יום ראשון, 15.11.2026";NR.hidden=false;NX.textContent="09:00 · יציאת ההסעה מתחנת רכבת באר שבע צפון";P.style.width="0";setSun(0);return;
   }
   if(diff<0||cur>=END){
