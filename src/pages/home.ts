@@ -13,8 +13,10 @@ import { revealOnScroll, scrollEffects } from "../core/scroll.ts";
 import { startNowPanel } from "../features/now/panel.ts";
 import { fillTimeline, renderSchedule } from "../features/schedule/schedule.ts";
 import { mountPlayer } from "../features/video/player.ts";
+import { mountSun } from "../features/sun/sun.ts";
 
 renderNav("home");
+mountSun();
 mountPlayer(byId("video"), VIDEO);
 
 const list = byId("sched");

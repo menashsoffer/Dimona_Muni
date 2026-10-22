@@ -1,0 +1,17 @@
+/* The scrolling sun. It sits above the hero sky but behind the dunes, the hero text and the page content.
+   --e is its elevation: 0 on the horizon (large, deep orange), 1 overhead (smaller, pale and bright). */
+.sun{position:fixed;top:0;left:0;z-index:1;pointer-events:none;--e:0;
+  width:clamp(64px,13vw,120px);aspect-ratio:1;will-change:transform}
+.sun-disc,.sun-halo{position:absolute;border-radius:50%;inset:0;
+  scale:calc(1.22 - .22 * var(--e))}
+.sun-disc{
+  --core:color-mix(in oklab,#ffb25e,#fffdf2 calc(var(--e) * 100%));
+  --rim:color-mix(in oklab,#f2552a,#ffd36e calc(var(--e) * 100%));
+  background:radial-gradient(circle,var(--core) 0%,var(--core) 42%,color-mix(in oklab,var(--core),var(--rim)) 70%,var(--rim) 94%,transparent 100%);
+  box-shadow:0 0 18px 4px color-mix(in oklab,var(--rim) 70%,transparent),0 0 60px 18px color-mix(in oklab,var(--rim) 35%,transparent)}
+.sun-halo{inset:-140%;
+  background:radial-gradient(circle,color-mix(in oklab,#ffc46b 45%,transparent) 0%,color-mix(in oklab,#ff9a4d 18%,transparent) 35%,transparent 68%);
+  opacity:calc(.55 + .35 * (1 - var(--e)))}
+/* Keep the dunes, hero text and content in front of the sun. */
+.dunes{z-index:1}
+main,footer{position:relative;z-index:2}
