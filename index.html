@@ -35,6 +35,9 @@ a{color:var(--accent)}
 .hero{background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 55%,var(--sky3) 100%);color:var(--hero-ink);position:relative;overflow:hidden}
 .hero .in{padding-block:22px 96px;display:grid;gap:14px;position:relative;z-index:1}
 .lockup{display:flex;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:700}
+.logos{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:0 4px 14px rgba(60,25,5,.15)}
+.lg-t{height:44px;width:auto}.lg-d{height:52px;width:auto}
+@media (max-width:420px){.lg-t{height:36px}.lg-d{height:42px}}
 .logo-ph{padding:3px 10px;border:1.5px dashed currentColor;border-radius:6px;opacity:.85}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(76px,20vw,136px);line-height:.85;margin:6px 0 0;letter-spacing:.01em}
 .tag{margin:0;font-size:19px;font-weight:600;max-width:34ch}
@@ -115,7 +118,7 @@ footer{padding-block:40px 48px;color:var(--muted);font-size:14px;text-align:cent
     <circle id="sun" cx="250" cy="130" r="14" fill="#fff3c4" stroke="currentColor" stroke-width="1.5"/>
   </svg>
   <div class="in">
-    <div class="lockup"><span class="logo-ph">צוערים לשלטון המקומי</span><span class="logo-ph">עיריית דימונה</span></div>
+    <div class="lockup"><span class="logos"><img src="assets/logo-tzoarim.png" alt="צוערים לשלטון המקומי" class="lg-t"><img src="assets/logo-dimona.png" alt="עיריית דימונה" class="lg-d"></span></div>
     <h1>מהתלונה<br>לתובנה</h1>
     <p class="tag">יום עיון על שירות לתושב</p>
     <div class="facts"><span>יום ראשון, 15.11.2026</span><span>מרכז ההפעלה, עיריית דימונה</span></div>
