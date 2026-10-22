@@ -1,5 +1,5 @@
 /* Home-page invitation to the quiz: a sunset card with a big "?" behind it. */
-.quiz-cta{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px 18px;margin-top:28px;padding:22px 22px 22px 18px;border-radius:18px;text-decoration:none;color:var(--hero-ink);background:linear-gradient(115deg,var(--sky1) 0%,var(--sky2) 55%,var(--sky3) 100%);box-shadow:0 14px 34px color-mix(in oklab,var(--sky3) 35%,transparent);transition:transform .25s,box-shadow .25s}
+.quiz-cta{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px 18px;margin-block:28px 14px;padding:22px 22px 22px 18px;border-radius:18px;text-decoration:none;color:var(--hero-ink);background:linear-gradient(115deg,var(--sky1) 0%,var(--sky2) 55%,var(--sky3) 100%);box-shadow:0 14px 34px color-mix(in oklab,var(--sky3) 35%,transparent);transition:transform .25s,box-shadow .25s}
 .quiz-cta:hover{transform:translateY(-3px);box-shadow:0 18px 40px color-mix(in oklab,var(--sky3) 45%,transparent)}
 .quiz-cta:focus-visible{outline:3px solid var(--fg);outline-offset:3px}
 .qc-mark{position:absolute;inset-inline-end:-6px;bottom:-46px;font-family:var(--display);font-size:200px;line-height:1;color:var(--paper);opacity:.28;pointer-events:none;transform:rotate(-8deg)}

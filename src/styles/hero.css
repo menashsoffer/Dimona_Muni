@@ -3,11 +3,11 @@
 .hero .in{padding-block:22px 96px;display:grid;gap:14px;position:relative;z-index:1}
 .hero.compact .in{padding-block:18px 78px;gap:10px}
 /* Partner logos: the program on the right, the municipality on the left, on a soft glass strip. */
-.lockup{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 16px;border-radius:16px;background:color-mix(in oklab,var(--paper) 55%,transparent);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 6px 18px rgba(60,25,5,.10);backdrop-filter:blur(6px)}
+.lockup{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 22px;border-radius:18px;background:color-mix(in oklab,var(--paper) 55%,transparent);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 6px 18px rgba(60,25,5,.10);backdrop-filter:blur(6px)}
 .partner{display:inline-flex;align-items:center;border-radius:8px}
 .partner:focus-visible{outline:3px solid var(--fg);outline-offset:3px}
-.lg-t{height:62px;width:auto;filter:var(--logo-t)}.lg-d{height:80px;width:auto;filter:drop-shadow(0 3px 6px rgba(60,25,5,.25))}
-@media (max-width:420px){.lg-t{height:50px}.lg-d{height:64px}}
+.lg-t{height:70px;width:auto;filter:var(--logo-t)}.lg-d{height:74px;width:auto;filter:drop-shadow(0 3px 6px rgba(60,25,5,.25))}
+@media (max-width:420px){.lockup{padding:10px 16px}.lg-t{height:56px}.lg-d{height:60px}}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(76px,20vw,136px);line-height:.85;margin:6px 0 0;letter-spacing:.01em;text-wrap:balance}
 .hero.compact h1{font-size:clamp(64px,16vw,108px)}
 .tag{margin:0;font-size:19px;font-weight:600;max-width:34ch}
