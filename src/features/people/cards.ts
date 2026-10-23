@@ -15,8 +15,7 @@ export function renderPeople(grid: HTMLElement): void {
         <span class="when">${esc(p.when)}</span>
         <h3>${esc(p.name)}</h3>
         <span class="role">${esc(p.role)}</span>
-        ${p.text ? `<p>${esc(p.text)}</p>` : ""}
-        <span class="ph">פרטים נוספים יעודכנו</span>
+        ${p.text ? `<p>${esc(p.text)}</p>` : `<span class="ph">פרטים נוספים יעודכנו</span>`}
       </div>
     </article>`).join("");
 }
