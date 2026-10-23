@@ -4,7 +4,7 @@
 .quiz-cta:focus-visible{outline:3px solid var(--fg);outline-offset:3px}
 .qc-mark{position:absolute;inset-inline-end:-6px;bottom:-46px;font-family:var(--display);font-size:200px;line-height:1;color:var(--paper);opacity:.28;pointer-events:none;transform:rotate(-8deg)}
 .qc-body{position:relative;display:grid;gap:2px;min-width:0}
-.qc-eyebrow{font-size:14px;font-weight:800;color:var(--earth);letter-spacing:.02em}
+.qc-eyebrow{font-size:14px;font-weight:800;color:var(--hero-ink);letter-spacing:.02em}
 .qc-title{font-family:var(--display);font-size:clamp(44px,11vw,64px);line-height:.95;font-weight:700}
 .qc-sub{font-size:16px;font-weight:600}
 .qc-btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:var(--earth);color:#fff6e8;font-weight:800;font-size:17px;white-space:nowrap;overflow:hidden;box-shadow:0 6px 16px rgba(60,25,5,.25)}

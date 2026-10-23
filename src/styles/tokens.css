@@ -1,10 +1,12 @@
-/* Design tokens. One bright sunset look in every theme (deliberately single-theme, by Menash's request). */
+/* Design tokens. One bright sunset look in every theme (deliberately single-theme, by Menash's request).
+   Text colors (--accent, --gold-ink, --muted) meet WCAG AA on --bg and --paper;
+   --accent-soft, --gold and the sky colors are for decoration only. */
 :root{
   --bg:#fff6e8; --paper:#fffcf6; --fg:#3a1d0e; --muted:#8a6446; --line:#f0d6ad;
-  --accent:#d4602c; --accent-ink:#fff; --earth:#9c3f1c;
+  --accent:#b84d1f; --accent-soft:#d4602c; --accent-ink:#fff; --earth:#9c3f1c;
   --sky1:#ffe1a0; --sky2:#ffb066; --sky3:#f07a45; --hero-ink:#3a1d0e;
-  --now:#2f7a4a; --now-bg:#dcefd9; --bad:#b3361f; --bad-bg:#fbe1d8; --logo-t:none;
-  --gold:#f2a531; --pp:0%;
+  --now:#276b3f; --now-bg:#dcefd9; --bad:#b3361f; --bad-bg:#fbe1d8; --logo-t:none;
+  --gold:#f2a531; --gold-ink:#a8580f; --pp:0%;
   --display:"Karantina","Assistant",sans-serif; --body:"Assistant",system-ui,sans-serif;
   color-scheme:light;
 }
