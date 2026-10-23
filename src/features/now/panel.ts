@@ -1,6 +1,7 @@
-// The live "now" panel, and the "how it will look at 11:00" demo button.
+// The live "now" panel, and the "how it will look at 11:00" demo, which is hidden on the day itself.
 import { DAY } from "../../content/event.ts";
 import { byId } from "../../core/dom.ts";
+import { scrollBehavior } from "../../core/scroll.ts";
 import { daysUntil, israelNow, toMinutes } from "../../core/time.ts";
 import { nowState } from "./state.ts";
 
@@ -12,7 +13,9 @@ export function startNowPanel(items: HTMLLIElement[]): void {
   function render(): void {
     const now = israelNow();
     const s = demoMin === null ? nowState(daysUntil(DAY, now), now.min) : nowState(0, demoMin);
-    byId("nowLabelText").textContent = s.label;
+    byId("now").classList.toggle("is-demo", demoMin !== null);
+    byId("nowLabelText").textContent = demoMin === null ? s.label : "מצב הדגמה · 11:00";
+    byId("demoExit").hidden = demoMin === null;
     byId("nowTitle").textContent = s.title;
     byId("nowTime").textContent = s.time;
     byId("nextRow").hidden = !s.next;
@@ -24,14 +27,18 @@ export function startNowPanel(items: HTMLLIElement[]): void {
     });
   }
 
+  function setDemo(on: boolean): void {
+    demoMin = on ? toMinutes("11:00") : null;
+    demo.textContent = on ? "חזרה לזמן אמת" : DEMO_LABEL;
+    render();
+    if (on) byId("now").scrollIntoView({ behavior: scrollBehavior() });
+  }
+
   const demo = byId<HTMLButtonElement>("demo");
   demo.textContent = DEMO_LABEL;
-  demo.addEventListener("click", () => {
-    demoMin = demoMin === null ? toMinutes("11:00") : null;
-    demo.textContent = demoMin === null ? DEMO_LABEL : "חזרה לזמן אמת";
-    render();
-    byId("now").scrollIntoView({ behavior: "smooth" });
-  });
+  demo.hidden = daysUntil(DAY, israelNow()) === 0;
+  demo.addEventListener("click", () => setDemo(demoMin === null));
+  byId("demoExit").addEventListener("click", () => setDemo(false));
 
   render();
   setInterval(render, 30_000);

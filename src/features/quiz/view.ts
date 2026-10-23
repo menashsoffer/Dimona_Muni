@@ -33,7 +33,7 @@ export function questionView(g: Game): string {
   return `
     <div class="top"><span class="eyebrow">שאלה ${g.index + 1} מתוך ${g.questions.length}</span><span class="score">${score(g)} תשובות נכונות</span></div>
     ${dots(g)}
-    <h2 class="qtext">${esc(q.q)}</h2>
+    <h2 class="qtext" tabindex="-1" data-focus>${esc(q.q)}</h2>
     <div class="opts" role="group" aria-label="תשובות">${opts}</div>
     <div id="fbSlot"></div>`;
 }
@@ -58,7 +58,7 @@ export function resultView(g: Game, ending: Ending): string {
   return `
     <span class="eyebrow">סיימתם!</span>
     ${dots(g)}
-    <div class="result">
+    <div class="result" tabindex="-1" data-focus>
       <div class="total">${score(g)}</div>
       <span class="of">תשובות נכונות מתוך ${g.questions.length}</span>
       <p class="endtxt">${esc(ending.text)}</p>

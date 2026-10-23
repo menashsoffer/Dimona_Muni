@@ -1,8 +1,7 @@
 // A sun that rises on the right (east) as the page starts, climbs overhead mid-page
 // and sets on the left at the bottom, warming as it nears the horizon.
+import { reducedMotion } from "../../core/scroll.ts";
 import "./sun.css";
-
-const reducedMotion = (): boolean => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export function mountSun(): void {
   const sun = document.createElement("div");

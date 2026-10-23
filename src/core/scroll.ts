@@ -1,7 +1,9 @@
 // Scroll-driven effects shared by every page: the sky and nav progress (--pp) and the hero parallax.
 // Page-specific effects hook in through `onFrame`.
 
-const reducedMotion = (): boolean => matchMedia("(prefers-reduced-motion: reduce)").matches;
+export const reducedMotion = (): boolean => matchMedia("(prefers-reduced-motion: reduce)").matches;
+/** "smooth" unless the visitor asked for reduced motion. */
+export const scrollBehavior = (): ScrollBehavior => (reducedMotion() ? "auto" : "smooth");
 
 export function scrollEffects(onFrame?: () => void): void {
   const root = document.documentElement;

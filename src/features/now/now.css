@@ -9,4 +9,11 @@
 .next b{color:var(--accent)}
 .prog{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
 .prog i{display:block;height:100%;background:var(--accent);width:0}
+.nowhead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.demo-exit{font:inherit;font-size:14px;font-weight:800;color:var(--accent);background:none;border:1.5px solid var(--accent);border-radius:999px;padding:3px 12px;cursor:pointer}
+.demo-exit[hidden]{display:none}
+/* Demo mode: a dashed frame and an amber label, so it never reads as the real time. */
+#now.is-demo .nowbox{border:2px dashed var(--accent)}
+#now.is-demo .nowlabel{color:var(--fg);background:var(--sky1)}
+#now.is-demo .pulse{animation:none}
 @media (prefers-reduced-motion:reduce){.pulse{animation:none}}
