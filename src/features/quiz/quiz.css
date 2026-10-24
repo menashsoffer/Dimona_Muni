@@ -57,4 +57,5 @@ details summary{cursor:pointer;font-weight:700;color:var(--earth)}
 @media (prefers-reduced-motion:reduce){.fb{animation:none}.opt:hover:not(:disabled){transform:none}}
 .intro{margin:0}
 .next-row{margin-top:12px}
+[data-focus]{scroll-margin-top:72px}
 [data-focus]:focus{outline:none}
