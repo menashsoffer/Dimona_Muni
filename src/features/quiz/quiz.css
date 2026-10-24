@@ -59,3 +59,6 @@ details summary{cursor:pointer;font-weight:700;color:var(--earth)}
 .next-row{margin-top:12px}
 [data-focus]{scroll-margin-top:72px}
 [data-focus]:focus{outline:none}
+/* WhatsApp share: the site's deep green (white text 6:1), not WhatsApp's own light green. */
+.btn.wa{background:var(--now);color:#fff}
+.btn.wa svg{flex:none}

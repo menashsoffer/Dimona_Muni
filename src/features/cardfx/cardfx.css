@@ -5,6 +5,17 @@
 .solo{display:block}
 .slot{position:relative}
 .slot>.card{position:sticky;max-width:560px;margin-inline:auto}
+/* "02 / 08 · גללו לעוד ↓" at the bottom of the screen. On the last card only the count stays. */
+.more-hint{position:fixed;inset-inline:0;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);margin-inline:auto;width:max-content;z-index:6;
+  display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;font-size:14px;font-weight:700;color:var(--accent);
+  background:color-mix(in oklab,var(--paper) 88%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid var(--line);box-shadow:0 8px 22px -10px color-mix(in oklab,var(--earth) 45%,transparent)}
+.more-hint .n{font-variant-numeric:tabular-nums;color:var(--earth);direction:ltr;unicode-bidi:isolate}
+.more-hint .go{color:#6b4a30}
+.more-hint svg{animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(4px)}}
+.more-hint.last .go,.more-hint.last svg{display:none}
+@media (prefers-reduced-motion:reduce){.more-hint{display:none}}
 /* Depth for the tilt; set on the slot so the card leans toward the viewer. */
 .slot:has(> .tilted){perspective:900px}
 /* The tossed cards reach past the column; clip so the page never scrolls sideways. */

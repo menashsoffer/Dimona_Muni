@@ -2,6 +2,7 @@
 import type { Quiz } from "../../content/types.ts";
 import { byId } from "../../core/dom.ts";
 import { scrollBehavior } from "../../core/scroll.ts";
+import { celebrate, popFrom } from "../confetti/confetti.ts";
 import { advance, type Game, isLast, isOver, newGame, pick, score } from "./game.ts";
 import { feedbackView, introView, questionView, resultView } from "./view.ts";
 
@@ -40,7 +41,10 @@ export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
     stage.querySelectorAll<HTMLButtonElement>(".opt").forEach((b, n) => {
       b.disabled = true;
       const mark = b.querySelector(".mark")!;
-      if (g.options[g.index][n].ok) { b.classList.add("right"); mark.textContent = "✓"; }
+      if (g.options[g.index][n].ok) {
+        b.classList.add("right"); mark.textContent = "✓";
+        if (n === k) popFrom(b);
+      }
       else if (n === k) { b.classList.add("wrong"); mark.textContent = "✗"; }
       else b.classList.add("dim");
     });
@@ -60,6 +64,8 @@ export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
     byId("again").onclick = start;
     focusHeading();
     stage.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+    // Every finish gets a celebration; a better score gets a bigger one.
+    setTimeout(() => celebrate(score(game!) / game!.questions.length), 250);
   }
 
   // Keyboard for whoever runs the projector: 1–4 picks an answer.
