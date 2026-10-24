@@ -73,21 +73,26 @@ export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
 
   // The result picture, shown on the results screen. One share button: on phones that can share
   // pictures it sends the picture and the message through the share sheet (pick WhatsApp, then
-  // the group); elsewhere it stays a plain wa.me link with the message.
-  async function showPicture(s: number, total: number, ending: string): Promise<void> {
-    const blob = await resultCard(s, total, ending);
-    const img = document.getElementById("shareImg") as HTMLImageElement | null;
-    if (!blob || !img) return;
-    const url = URL.createObjectURL(blob);
-    img.src = url;
-    byId("shareCard").hidden = false;
-    const file = new File([blob], "dimona-quiz.png", { type: "image/png" });
-    if (!canSharePicture(file)) return;
+  // the group); elsewhere, or if the browser refuses, it opens wa.me with the message.
+  function showPicture(s: number, total: number, ending: string): void {
+    const picture = resultCard(s, total, ending).then((blob) => blob && new File([blob], "dimona-quiz.png", { type: "image/png" }));
     const link = byId<HTMLAnchorElement>("wa");
-    link.onclick = (e) => {
-      e.preventDefault();
-      void sharePicture(file, shareText(s, total)).then((ok) => { if (!ok) open(link.href, "_blank", "noopener"); });
-    };
+    // Take over the tap straight away, so a tap before the picture is drawn still shares it.
+    if ("canShare" in navigator) {
+      link.onclick = (e) => {
+        e.preventDefault();
+        void picture.then(async (file) => {
+          const ok = !!file && canSharePicture(file) && (await sharePicture(file, shareText(s, total)));
+          if (!ok) open(link.href, "_blank", "noopener");
+        });
+      };
+    }
+    void picture.then((file) => {
+      const img = document.getElementById("shareImg") as HTMLImageElement | null;
+      if (!file || !img) return;
+      img.src = URL.createObjectURL(file);
+      byId("shareCard").hidden = false;
+    });
   }
 
   // Keyboard for whoever runs the projector: 1–4 picks an answer.
