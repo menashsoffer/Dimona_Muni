@@ -6,12 +6,26 @@
 /* The tossed cards reach past the column; clip so the page never scrolls sideways. */
 main{overflow-x:clip}
 
-/* Glass cards: frosted paper over the sky and sun. The fill stays at 72% so body text keeps AA
-   even when the sun passes right behind a card. */
+/* Glass cards (clip-path keeps the fixed orbs inside main, off the hero): frosted paper over warm sunset orbs that drift behind the page, so the glass has
+   colour to blur. Fill is 55%; text inside switches to deeper inks that keep AA even where a card
+   sits right over the brightest orb (worst case about #f8c2a6: 4.9:1 and up). */
+main.glass{position:relative;isolation:isolate;clip-path:inset(0)}
+main.glass::before{content:"";position:fixed;inset:-15%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(40% 32% at 78% 30%,color-mix(in oklab,var(--gold) 70%,transparent),color-mix(in oklab,var(--gold) 28%,transparent) 35%,color-mix(in oklab,var(--gold) 7%,transparent) 55%,transparent 72%),
+    radial-gradient(42% 34% at 18% 55%,color-mix(in oklab,var(--sky3) 55%,transparent),color-mix(in oklab,var(--sky3) 22%,transparent) 35%,color-mix(in oklab,var(--sky3) 5%,transparent) 55%,transparent 72%),
+    radial-gradient(46% 36% at 65% 85%,color-mix(in oklab,var(--sky2) 65%,transparent),color-mix(in oklab,var(--sky2) 26%,transparent) 35%,color-mix(in oklab,var(--sky2) 6%,transparent) 55%,transparent 72%);
+  animation:orbs 22s ease-in-out infinite alternate}
+@keyframes orbs{to{transform:translate(4%,-5%)}}
+@media (prefers-reduced-motion:reduce){main.glass::before{animation:none}}
+
 .glass .card,.glass .gnote{
-  background:linear-gradient(155deg,color-mix(in oklab,#fff 60%,transparent),transparent 45%),color-mix(in oklab,var(--paper) 72%,transparent);
-  -webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5);
-  border:1px solid color-mix(in oklab,#fff 85%,transparent);
-  box-shadow:inset 0 1px 0 color-mix(in oklab,#fff 90%,transparent),inset 0 -1px 0 color-mix(in oklab,var(--gold) 35%,transparent),0 14px 34px -14px color-mix(in oklab,var(--earth) 45%,transparent);
+  background:linear-gradient(155deg,color-mix(in oklab,#fff 55%,transparent),transparent 50%),color-mix(in oklab,var(--paper) 55%,transparent);
+  -webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6);
+  border:1px solid color-mix(in oklab,#fff 80%,transparent);
+  box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 color-mix(in oklab,var(--gold) 40%,transparent),0 18px 40px -16px color-mix(in oklab,var(--earth) 50%,transparent);
 }
 .glass .gnote{border-style:dashed;border-color:color-mix(in oklab,var(--accent) 60%,transparent)}
+.glass .card .when{color:#8a3a17}
+.glass .role,.glass .ph{color:#6b4a30}
+.glass .person h3{color:#8a3a17}
