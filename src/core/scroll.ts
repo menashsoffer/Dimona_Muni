@@ -62,7 +62,8 @@ export function startAtTop(): void {
   if (location.hash) return;
   history.scrollRestoration = "manual";
   // scrollIntoView also scrolls a host page that shows this page in a frame as tall as the page.
-  const reset = (): void => { scrollTo(0, 0); document.body.scrollIntoView({ block: "start" }); };
+  // scrollIntoView first (it may also scroll sideways while the page slides in), then scrollTo(0, 0).
+  const reset = (): void => { document.body.scrollIntoView({ block: "start" }); scrollTo(0, 0); };
   const stop = (): void => {
     guard = null;
     removeEventListener("load", reset);
