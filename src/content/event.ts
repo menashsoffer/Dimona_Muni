@@ -2,6 +2,8 @@
 import type { Slot } from "./types.ts";
 
 export const DAY = { y: 2026, m: 11, d: 15 };
+/** The public site (GitHub Pages), for links shared outside it. */
+export const SITE_URL = "https://menashsoffer.github.io/Dimona_Muni/";
 
 export const SCHEDULE: Slot[] = [
   { from: "09:00", to: "09:30", title: "יציאת ההסעה מתחנת רכבת באר שבע צפון", brk: true },

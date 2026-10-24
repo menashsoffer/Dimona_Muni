@@ -1,23 +1,36 @@
-/* Schedule with a timeline that fills as you scroll. */
-.sched{list-style:none;margin:0;padding:0;display:grid;position:relative;padding-inline-start:22px}
-.sched li{display:grid;grid-template-columns:92px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start;position:relative}
+/* The schedule as stacking cards. Each card sticks a little lower than the one before it,
+   so as you scroll the next slot slides up and covers the previous one, leaving its edge showing. */
+.sched{list-style:none;margin:0;padding:0 0 40px;display:flex;flex-direction:column;gap:14px}
+.sched li{position:sticky;top:calc(env(safe-area-inset-top,0px) + 104px + var(--i) * 6px);
+  display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:start;padding:16px;
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 -6px 18px rgba(60,25,5,.08),0 8px 22px rgba(60,25,5,.10);
+  transform-origin:50% 0;transition:transform .35s cubic-bezier(.2,.7,.2,1),filter .35s}
+.sched li.under{transform:scale(.96);filter:brightness(.97)}
 .sched .t{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent);font-size:15px;padding-top:2px;direction:ltr;text-align:right}
 .sched .w{min-width:0}
 .sched .w span{display:block;color:var(--muted);font-size:15px}
+.sched li.brk{background:color-mix(in oklab,var(--paper),var(--sky1) 35%)}
 .sched li.brk .w{color:var(--muted)}
-.sched li.is-now{background:var(--now-bg);border-radius:10px;padding-inline:10px;border-bottom-color:transparent}
+.sched li.is-now{background:var(--now-bg);border-color:var(--now)}
 .sched li.is-now .t{color:var(--now)}
-/* Finished items stay readable (AA): muted text, a ✓ before the title, and only the dot is faded. */
+/* Finished items stay readable (AA): muted text and a ✓ before the title. */
 .sched li.done .t,.sched li.done .w{color:var(--muted)}
 .sched li.done .w::before{content:"✓ ";color:var(--now);font-weight:800}
-.sched li.done::before{opacity:.45}
-.sched::before,.sched::after{content:"";position:absolute;inset-inline-start:6px;top:0;width:3px;border-radius:3px}
-.sched::before{bottom:0;background:var(--line)}
-.sched::after{height:calc(var(--sp,0) * 100%);background:linear-gradient(180deg,var(--gold),var(--accent-soft),var(--sky3))}
-.sched li::before{content:"";position:absolute;inset-inline-start:-21px;top:19px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--line);transition:background .4s,border-color .4s,transform .4s}
-.sched li.lit::before{background:var(--accent);border-color:var(--accent);transform:scale(1.15)}
-.sched li.is-now::before{background:var(--now);border-color:var(--now);box-shadow:0 0 0 5px var(--now-bg)}
-/* "03 / 11": which slot the reader has reached. Sticks under the nav while the schedule scrolls by. */
-.slotpill{position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);z-index:3;width:fit-content;margin:0 auto 6px 0;
-  padding:4px 12px;border-radius:999px;background:var(--earth);color:#fff6e8;font-weight:800;font-size:14px;letter-spacing:.06em;
-  font-variant-numeric:tabular-nums;direction:ltr;box-shadow:0 4px 12px rgba(60,25,5,.2)}
+/* Beside the cards: a quiet rail with one dot per slot. The line fills up to where you are (--reach). */
+.sched-wrap{display:grid;grid-template-columns:14px 1fr;gap:12px;align-items:start}
+.rail{list-style:none;margin:0;padding:0;position:sticky;top:calc(env(safe-area-inset-top,0px) + 112px);display:grid;gap:14px;justify-items:center;--reach:0}
+.rail::before,.rail::after{content:"";position:absolute;top:4px;width:2px;border-radius:2px;z-index:-1}
+.rail::before{bottom:4px;background:var(--line)}
+.rail::after{height:calc((100% - 8px) * var(--reach));background:linear-gradient(180deg,var(--gold),var(--accent-soft));transition:height .3s}
+.rail li{width:8px;height:8px;border-radius:50%;background:var(--bg);box-shadow:0 0 0 2px var(--line);transition:background .3s,box-shadow .3s,transform .3s}
+.rail li.lit{background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent-soft)}
+.rail li.cur{background:var(--paper);box-shadow:0 0 0 2.5px var(--accent),0 0 0 6px color-mix(in oklab,var(--accent-soft) 22%,transparent);transform:scale(1.25)}
+/* "05 / 11": which slot you have reached. A small paper tag in line with the rail. */
+.slotpill{grid-column:1/-1;position:sticky;top:calc(env(safe-area-inset-top,0px) + 66px);z-index:3;width:fit-content;margin:0 0 0 auto;
+  padding:3px 11px;border-radius:999px;background:var(--paper);border:1px solid var(--line);color:var(--accent);
+  font-weight:800;font-size:13px;letter-spacing:.08em;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;
+  box-shadow:0 4px 12px rgba(60,25,5,.08)}
+.slotpill b{color:var(--muted);font-weight:700}
+/* Reduced motion: a plain list of cards, no sticking or sinking. */
+@media (prefers-reduced-motion:reduce){.rail li,.rail::after{transition:none}.sched li{position:static}.sched li.under{transform:none;filter:none}}

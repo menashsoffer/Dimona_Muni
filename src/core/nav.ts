@@ -1,4 +1,5 @@
 // The nav bar shared by every page.
+import { view } from "./scroll.ts";
 // To add a page: create <name>.html (copy quiz.html), add it to vite.config.ts, and add one entry here.
 
 interface NavItem {
@@ -33,4 +34,27 @@ export function renderNav(current: PageName): void {
   // Keep the current page's tab visible on narrow screens.
   const active = nav.querySelector("[aria-current]");
   if (active) nav.scrollLeft += active.getBoundingClientRect().left - nav.getBoundingClientRect().left - 8;
+}
+
+/** Home page: light up the tab of the section the visitor is in, and keep it in view. */
+export function spyNav(): () => void {
+  const nav = document.getElementById("nav");
+  const tabs = PAGES.filter((p) => p.anchor).map((p) => ({
+    link: nav?.querySelector<HTMLAnchorElement>(`a[href="#${p.anchor}"]`),
+    section: document.getElementById(p.anchor ?? ""),
+  }));
+  let lit: HTMLAnchorElement | null | undefined;
+  return () => {
+    const { top, bottom } = view();
+    const line = top + (document.querySelector("nav")?.offsetHeight ?? 0) + (bottom - top) * 0.3;
+    let cur = tabs[0];
+    for (const t of tabs) if (t.section && t.section.getBoundingClientRect().top <= line) cur = t;
+    // At the very end of the page the last section may never reach the line; it is the one in view.
+    if (bottom >= document.documentElement.getBoundingClientRect().bottom - 12) cur = tabs[tabs.length - 1];
+    if (!nav || !cur?.link || cur.link === lit) return;
+    lit?.removeAttribute("aria-current");
+    cur.link.setAttribute("aria-current", "location");
+    lit = cur.link;
+    nav.scrollTo({ left: nav.scrollLeft + cur.link.getBoundingClientRect().left - nav.getBoundingClientRect().left - 8, behavior: "smooth" });
+  };
 }

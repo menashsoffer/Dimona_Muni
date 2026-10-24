@@ -3,6 +3,7 @@ nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--
 nav .in{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
 nav a{color:#f6e2bf;text-decoration:none;font-weight:700;font-size:15px;padding:6px 12px;border-radius:999px;white-space:nowrap}
 nav a:hover,nav a:focus-visible{background:rgba(246,226,191,.15);outline:none}
-nav a[aria-current="page"]{background:#f6e2bf;color:var(--earth)}
+nav a{transition:background-color .3s,color .3s}
+nav a[aria-current]{background:#f6e2bf;color:var(--earth)}
 nav a.feature{border:1.5px solid rgba(246,226,191,.55)}
 nav::after{content:"";position:absolute;bottom:0;inset-inline-start:0;height:3px;width:var(--pp);background:linear-gradient(90deg,var(--sky3),var(--accent-soft),var(--gold));transition:width .1s linear}

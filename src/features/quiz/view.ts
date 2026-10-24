@@ -2,6 +2,9 @@
 import type { Ending, Quiz, Source } from "../../content/types.ts";
 import { esc } from "../../core/dom.ts";
 import { type Game, isLast, rightOption, score } from "./game.ts";
+import { shareText, whatsappHref } from "./share.ts";
+
+const WA_ICON = `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.6-.3Z"/></svg>`;
 
 const KEYS = ["א", "ב", "ג", "ד"];
 
@@ -63,6 +66,14 @@ export function resultView(g: Game, ending: Ending): string {
       <span class="of">תשובות נכונות מתוך ${g.questions.length}</span>
       <p class="endtxt">${esc(ending.text)}</p>
     </div>
-    <div class="act"><button class="btn big" id="again" type="button">משחק חוזר</button><a class="btn ghost" href="index.html">חזרה לאתר</a></div>
+    <div class="act">
+      <a class="btn big wa" id="wa" href="${whatsappHref(shareText(score(g), g.questions.length))}" target="_blank" rel="noopener">${WA_ICON}שליחה בוואטסאפ</a>
+      <button class="btn ghost wa-ghost" id="sharePic" type="button" hidden>שיתוף התמונה</button>
+    </div>
+    <figure class="share-card" id="shareCard" hidden>
+      <img id="shareImg" alt="תמונת התוצאה לשיתוף: ${score(g)} מתוך ${g.questions.length} בחידון מכירים את דימונה">
+      <figcaption>אפשר לשמור את התמונה ולצרף אותה להודעה: בטלפון בלחיצה ארוכה עליה, או <a id="savePic" download="dimona-quiz.png">בהורדה</a>.</figcaption>
+    </figure>
+    <div class="act"><button class="btn ghost" id="again" type="button">משחק חוזר</button><a class="btn ghost" href="index.html">חזרה לאתר</a></div>
     <details><summary>כל המקורות של החידון</summary><ul class="allsrc">${all.map((s) => `<li>${links([s])}</li>`).join("")}</ul></details>`;
 }

@@ -1,6 +1,7 @@
 // Quiz page: "מכירים את דימונה?".
 import "../styles/site.css";
 import "../features/quiz/quiz.css";
+import "../features/confetti/confetti.css";
 
 import { QUIZ } from "../content/quiz.ts";
 import { byId } from "../core/dom.ts";

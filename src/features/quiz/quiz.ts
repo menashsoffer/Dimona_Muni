@@ -2,7 +2,10 @@
 import type { Quiz } from "../../content/types.ts";
 import { byId } from "../../core/dom.ts";
 import { scrollBehavior } from "../../core/scroll.ts";
+import { celebrate, popFrom } from "../confetti/confetti.ts";
 import { advance, type Game, isLast, isOver, newGame, pick, score } from "./game.ts";
+import { resultCard } from "./card.ts";
+import { canSharePicture, sharePicture, shareText } from "./share.ts";
 import { feedbackView, introView, questionView, resultView } from "./view.ts";
 
 export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
@@ -40,7 +43,10 @@ export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
     stage.querySelectorAll<HTMLButtonElement>(".opt").forEach((b, n) => {
       b.disabled = true;
       const mark = b.querySelector(".mark")!;
-      if (g.options[g.index][n].ok) { b.classList.add("right"); mark.textContent = "✓"; }
+      if (g.options[g.index][n].ok) {
+        b.classList.add("right"); mark.textContent = "✓";
+        if (n === k) popFrom(b);
+      }
       else if (n === k) { b.classList.add("wrong"); mark.textContent = "✗"; }
       else b.classList.add("dim");
     });
@@ -58,8 +64,28 @@ export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
     const ending = quiz.endings.find((e) => score(game!) >= e.min) ?? quiz.endings[quiz.endings.length - 1];
     stage.innerHTML = resultView(game, ending);
     byId("again").onclick = start;
+    showPicture(score(game), game.questions.length, ending.text);
     focusHeading();
     stage.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+    // Every finish gets a celebration; a better score gets a bigger one.
+    setTimeout(() => celebrate(score(game!) / game!.questions.length), 250);
+  }
+
+  // The result picture, shown on the results screen so it can be saved or shared from there;
+  // on phones that can share pictures, a button sends it through the share sheet too.
+  async function showPicture(s: number, total: number, ending: string): Promise<void> {
+    const blob = await resultCard(s, total, ending);
+    const img = document.getElementById("shareImg") as HTMLImageElement | null;
+    if (!blob || !img) return;
+    const url = URL.createObjectURL(blob);
+    img.src = url;
+    byId<HTMLAnchorElement>("savePic").href = url;
+    byId("shareCard").hidden = false;
+    const file = new File([blob], "dimona-quiz.png", { type: "image/png" });
+    if (!canSharePicture(file)) return;
+    const btn = byId<HTMLButtonElement>("sharePic");
+    btn.hidden = false;
+    btn.onclick = () => void sharePicture(file, shareText(s, total));
   }
 
   // Keyboard for whoever runs the projector: 1–4 picks an answer.
