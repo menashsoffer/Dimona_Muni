@@ -1,0 +1,17 @@
+/* Scroll effects for the people (dealt) and groups (tilted) cards. */
+.dealt{transform-origin:50% 100%;will-change:translate,rotate,opacity}
+.tilted{transform-origin:50% 100%;will-change:rotate,scale,opacity}
+/* Depth for the tilt; set on the parent so every card shares one vanishing point. */
+:has(> .tilted){perspective:900px}
+/* The tossed cards reach past the column; clip so the page never scrolls sideways. */
+main{overflow-x:clip}
+
+/* Glass cards: frosted paper over the sky and sun. The fill stays at 72% so body text keeps AA
+   even when the sun passes right behind a card. */
+.glass .card,.glass .gnote{
+  background:linear-gradient(155deg,color-mix(in oklab,#fff 60%,transparent),transparent 45%),color-mix(in oklab,var(--paper) 72%,transparent);
+  -webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5);
+  border:1px solid color-mix(in oklab,#fff 85%,transparent);
+  box-shadow:inset 0 1px 0 color-mix(in oklab,#fff 90%,transparent),inset 0 -1px 0 color-mix(in oklab,var(--gold) 35%,transparent),0 14px 34px -14px color-mix(in oklab,var(--earth) 45%,transparent);
+}
+.glass .gnote{border-style:dashed;border-color:color-mix(in oklab,var(--accent) 60%,transparent)}

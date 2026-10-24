@@ -1,4 +1,0 @@
-/* Dealt cards: rotate around the bottom corner like a card leaving the hand. */
-.dealt{transform-origin:50% 100%;will-change:translate,rotate,opacity}
-/* The tossed cards reach past the column; clip so the page never scrolls sideways. */
-main{overflow-x:clip}
