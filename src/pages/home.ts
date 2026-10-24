@@ -8,7 +8,7 @@ import "./home.css";
 
 import { VIDEO } from "../content/video.ts";
 import { byId } from "../core/dom.ts";
-import { renderNav } from "../core/nav.ts";
+import { renderNav, spyNav } from "../core/nav.ts";
 import { revealOnScroll, scrollEffects } from "../core/scroll.ts";
 import { startNowPanel } from "../features/now/panel.ts";
 import { renderRail, renderSchedule, stackCards } from "../features/schedule/schedule.ts";
@@ -26,5 +26,6 @@ startNowPanel(items);
 const rail = byId("schedRail");
 const pill = byId("slotPill");
 renderRail(rail, items.length);
-scrollEffects(() => stackCards(items, rail, pill));
+const spy = spyNav();
+scrollEffects(() => { stackCards(items, rail, pill); spy(); });
 revealOnScroll("main h2,main .lead,.card");
