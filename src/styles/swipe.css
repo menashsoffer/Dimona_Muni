@@ -1,0 +1,22 @@
+/* Swiping between pages (src/core/swipe.ts). */
+.swipe-tab{position:fixed;top:50%;z-index:20;pointer-events:none;padding:10px 16px;border-radius:999px;
+  font-weight:800;font-size:16px;color:var(--earth);background:color-mix(in oklab,var(--paper) 92%,transparent);
+  border:1px solid var(--line);box-shadow:0 10px 26px -10px color-mix(in oklab,var(--earth) 50%,transparent);
+  opacity:0;transform:translate(var(--shift,0),-50%);transition:opacity .15s,background-color .15s,color .15s}
+.swipe-tab[data-side="left"]{left:12px;--shift:calc((var(--pull,0) - 1) * 40px)}
+.swipe-tab[data-side="right"]{right:12px;--shift:calc((1 - var(--pull,0)) * 40px)}
+.swipe-tab.on{opacity:calc(.35 + .65 * var(--pull,0))}
+.swipe-tab.ready{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Leaving: the page slides toward the side opposite the one the next page comes from. */
+.swipe-out-right body{animation:swipeOutRight .22s ease-in forwards}
+.swipe-out-left body{animation:swipeOutLeft .22s ease-in forwards}
+@keyframes swipeOutRight{to{transform:translateX(30%);opacity:0}}
+@keyframes swipeOutLeft{to{transform:translateX(-30%);opacity:0}}
+/* Arriving. */
+.swipe-in-left body{animation:swipeInLeft .4s cubic-bezier(.2,.7,.2,1)}
+.swipe-in-right body{animation:swipeInRight .4s cubic-bezier(.2,.7,.2,1)}
+@keyframes swipeInLeft{from{transform:translateX(-30%);opacity:0}}
+@keyframes swipeInRight{from{transform:translateX(30%);opacity:0}}
+/* No browser back/forward on a sideways trackpad swipe: here that swipe changes page itself. */
+html{overflow-x:clip;overscroll-behavior-x:none}

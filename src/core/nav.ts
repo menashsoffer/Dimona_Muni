@@ -1,5 +1,6 @@
 // The nav bar shared by every page.
 import { view } from "./scroll.ts";
+import { swipePages } from "./swipe.ts";
 // To add a page: create <name>.html (copy quiz.html), add it to vite.config.ts, and add one entry here.
 
 interface NavItem {
@@ -34,6 +35,7 @@ export function renderNav(current: PageName): void {
   // Keep the current page's tab visible on narrow screens.
   const active = nav.querySelector("[aria-current]");
   if (active) nav.scrollLeft += active.getBoundingClientRect().left - nav.getBoundingClientRect().left - 8;
+  swipePages(current);
 }
 
 /** Home page: light up the tab of the section the visitor is in, and keep it in view. */
