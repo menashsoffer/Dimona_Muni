@@ -62,3 +62,7 @@ details summary{cursor:pointer;font-weight:700;color:var(--earth)}
 /* WhatsApp share: the site's deep green (white text 6:1), not WhatsApp's own light green. */
 .btn.wa{background:var(--now);color:#fff}
 .btn.wa svg{flex:none}
+.btn.wa-ghost{color:var(--now);border-color:var(--now)}
+.share-card{margin:0;display:grid;gap:8px;justify-items:center}
+.share-card img{width:min(100%,320px);border-radius:14px;box-shadow:0 12px 30px -12px color-mix(in oklab,var(--earth) 55%,transparent)}
+.share-card figcaption{font-size:15px;color:var(--muted);text-align:center}

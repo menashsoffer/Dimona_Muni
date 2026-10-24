@@ -67,8 +67,13 @@ export function resultView(g: Game, ending: Ending): string {
       <p class="endtxt">${esc(ending.text)}</p>
     </div>
     <div class="act">
-      <a class="btn big wa" id="share" href="${whatsappHref(shareText(score(g), g.questions.length))}" target="_blank" rel="noopener">${WA_ICON}שיתוף בקבוצת הוואטסאפ</a>
-      <button class="btn ghost" id="again" type="button">משחק חוזר</button><a class="btn ghost" href="index.html">חזרה לאתר</a>
+      <a class="btn big wa" id="wa" href="${whatsappHref(shareText(score(g), g.questions.length))}" target="_blank" rel="noopener">${WA_ICON}שליחה בוואטסאפ</a>
+      <button class="btn ghost wa-ghost" id="sharePic" type="button" hidden>שיתוף התמונה</button>
     </div>
+    <figure class="share-card" id="shareCard" hidden>
+      <img id="shareImg" alt="תמונת התוצאה לשיתוף: ${score(g)} מתוך ${g.questions.length} בחידון מכירים את דימונה">
+      <figcaption>אפשר לשמור את התמונה ולצרף אותה להודעה: בטלפון בלחיצה ארוכה עליה, או <a id="savePic" download="dimona-quiz.png">בהורדה</a>.</figcaption>
+    </figure>
+    <div class="act"><button class="btn ghost" id="again" type="button">משחק חוזר</button><a class="btn ghost" href="index.html">חזרה לאתר</a></div>
     <details><summary>כל המקורות של החידון</summary><ul class="allsrc">${all.map((s) => `<li>${links([s])}</li>`).join("")}</ul></details>`;
 }
