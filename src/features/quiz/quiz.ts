@@ -71,21 +71,23 @@ export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
     setTimeout(() => celebrate(score(game!) / game!.questions.length), 250);
   }
 
-  // The result picture, shown on the results screen so it can be saved or shared from there;
-  // on phones that can share pictures, a button sends it through the share sheet too.
+  // The result picture, shown on the results screen. One share button: on phones that can share
+  // pictures it sends the picture and the message through the share sheet (pick WhatsApp, then
+  // the group); elsewhere it stays a plain wa.me link with the message.
   async function showPicture(s: number, total: number, ending: string): Promise<void> {
     const blob = await resultCard(s, total, ending);
     const img = document.getElementById("shareImg") as HTMLImageElement | null;
     if (!blob || !img) return;
     const url = URL.createObjectURL(blob);
     img.src = url;
-    byId<HTMLAnchorElement>("savePic").href = url;
     byId("shareCard").hidden = false;
     const file = new File([blob], "dimona-quiz.png", { type: "image/png" });
     if (!canSharePicture(file)) return;
-    const btn = byId<HTMLButtonElement>("sharePic");
-    btn.hidden = false;
-    btn.onclick = () => void sharePicture(file, shareText(s, total));
+    const link = byId<HTMLAnchorElement>("wa");
+    link.onclick = (e) => {
+      e.preventDefault();
+      void sharePicture(file, shareText(s, total)).then((ok) => { if (!ok) open(link.href, "_blank", "noopener"); });
+    };
   }
 
   // Keyboard for whoever runs the projector: 1–4 picks an answer.
