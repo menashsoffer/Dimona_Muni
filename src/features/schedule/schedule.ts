@@ -11,11 +11,20 @@ export function renderSchedule(list: HTMLElement): HTMLLIElement[] {
   return [...list.children] as HTMLLIElement[];
 }
 
-/** Called on every scroll frame: fill the line and light the dots that are above the fill. */
-export function fillTimeline(list: HTMLElement, items: HTMLLIElement[]): void {
+const pad = (n: number): string => String(n).padStart(2, "0");
+
+/** Called on every scroll frame: fill the line, light the dots that are above the fill,
+ *  and show which slot the reader has reached in the "03 / 11" pill. */
+export function fillTimeline(list: HTMLElement, items: HTMLLIElement[], pill?: HTMLElement): void {
   const r = list.getBoundingClientRect();
   const sp = Math.max(0, Math.min(1, (innerHeight * 0.62 - r.top) / r.height));
   list.style.setProperty("--sp", sp.toFixed(3));
   const limit = r.top + r.height * sp;
-  items.forEach((li) => li.classList.toggle("lit", li.getBoundingClientRect().top + 20 < limit));
+  let reached = 0;
+  items.forEach((li) => {
+    const lit = li.getBoundingClientRect().top + 20 < limit;
+    li.classList.toggle("lit", lit);
+    if (lit) reached++;
+  });
+  if (pill) pill.textContent = `${pad(Math.max(1, reached))} / ${pad(items.length)}`;
 }

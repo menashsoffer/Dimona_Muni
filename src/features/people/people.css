@@ -2,4 +2,6 @@
 .person{grid-template-columns:72px 1fr;gap:14px;align-items:start}
 .pbody{display:grid;gap:4px;min-width:0}
 .av{width:72px;height:72px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:linear-gradient(135deg,var(--sky1),var(--sky3));color:#fff;font-family:var(--display);font-size:38px;font-weight:700;box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--sky2)}
-.av img{width:100%;height:100%;object-fit:cover}
+.av img{width:100%;height:100%;object-fit:cover;filter:url(#duotone)}
+/* Names in the same earth tone as the photo shadows (6.5:1 on the card). */
+.person h3{color:var(--earth)}
