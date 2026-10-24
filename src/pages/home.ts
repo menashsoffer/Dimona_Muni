@@ -23,5 +23,6 @@ const list = byId("sched");
 const items = renderSchedule(list);
 startNowPanel(items);
 
-scrollEffects(() => fillTimeline(list, items));
+const pill = byId("slotPill");
+scrollEffects(() => fillTimeline(list, items, pill));
 revealOnScroll("main h2,main .lead,.card,.sched li");
