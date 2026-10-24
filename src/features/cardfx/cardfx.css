@@ -1,8 +1,12 @@
 /* Scroll effects for the people (dealt) and groups (tilted) cards. */
 .dealt{transform-origin:50% 100%;will-change:translate,rotate,opacity}
 .tilted{transform-origin:50% 100%;will-change:rotate,scale,opacity}
-/* Depth for the tilt; set on the parent so every card shares one vanishing point. */
-:has(> .tilted){perspective:900px}
+/* One card at a time: each card sticks centred in a slot as tall as the view (sized in run.ts). */
+.solo{display:block}
+.slot{position:relative}
+.slot>.card{position:sticky;max-width:560px;margin-inline:auto}
+/* Depth for the tilt; set on the slot so the card leans toward the viewer. */
+.slot:has(> .tilted){perspective:900px}
 /* The tossed cards reach past the column; clip so the page never scrolls sideways. */
 main{overflow-x:clip}
 

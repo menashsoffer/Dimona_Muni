@@ -25,6 +25,8 @@ function watchBand(onChange: () => void): void {
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => seen.set(e.target, e.isIntersecting ? e.intersectionRect : null));
     if (!framed()) return;
+    // A host that restores its own scroll after load shows up here first; undo it while guarding.
+    guard?.();
     const rects = [...seen.values()].filter((r): r is DOMRectReadOnly => !!r && r.height > 0);
     if (!rects.length) return;
     band = { top: Math.min(...rects.map((r) => r.top)), bottom: Math.max(...rects.map((r) => r.bottom)) };
@@ -51,12 +53,28 @@ function watchBand(onChange: () => void): void {
   addEventListener("resize", tile);
 }
 
-/** Open at the top of the page, even if the browser or a host frame kept the last position. */
+let guard: (() => void) | null = null;
+
+/** Open at the top of the page, even if the browser or a host frame kept the last position.
+ *  A host may restore its own scroll or resize the frame after load, so the reset repeats on
+ *  load and on resize for a short while, until the visitor scrolls, taps or presses a key. */
 export function startAtTop(): void {
   if (location.hash) return;
   history.scrollRestoration = "manual";
-  scrollTo(0, 0);
-  if (framed()) document.body.scrollIntoView({ block: "start" });
+  // scrollIntoView also scrolls a host page that shows this page in a frame as tall as the page.
+  const reset = (): void => { scrollTo(0, 0); document.body.scrollIntoView({ block: "start" }); };
+  const stop = (): void => {
+    guard = null;
+    removeEventListener("load", reset);
+    removeEventListener("resize", reset);
+    ["wheel", "touchstart", "pointerdown", "keydown"].forEach((t) => removeEventListener(t, stop));
+  };
+  guard = reset;
+  reset();
+  addEventListener("load", reset);
+  addEventListener("resize", reset);
+  ["wheel", "touchstart", "pointerdown", "keydown"].forEach((t) => addEventListener(t, stop, { passive: true }));
+  setTimeout(stop, 2000);
 }
 
 export function scrollEffects(onFrame?: () => void): void {
