@@ -26,8 +26,13 @@ export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
     focusHeading();
   }
 
-  // The screen was replaced, so move focus to its heading for keyboard and screen-reader users.
-  const focusHeading = (): void => stage.querySelector<HTMLElement>("[data-focus]")?.focus({ preventScroll: true });
+  // The screen was replaced, so move focus to its heading for keyboard and screen-reader users,
+  // and bring the heading into view if the reader had scrolled down to the explanation.
+  function focusHeading(): void {
+    const heading = stage.querySelector<HTMLElement>("[data-focus]");
+    heading?.focus({ preventScroll: true });
+    heading?.scrollIntoView({ behavior: scrollBehavior(), block: "nearest" });
+  }
 
   function answer(k: number): void {
     if (!game || !pick(game, k)) return;
