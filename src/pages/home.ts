@@ -11,7 +11,7 @@ import { byId } from "../core/dom.ts";
 import { renderNav } from "../core/nav.ts";
 import { revealOnScroll, scrollEffects } from "../core/scroll.ts";
 import { startNowPanel } from "../features/now/panel.ts";
-import { renderSchedule, stackCards } from "../features/schedule/schedule.ts";
+import { renderRail, renderSchedule, stackCards } from "../features/schedule/schedule.ts";
 import { mountPlayer } from "../features/video/player.ts";
 import { mountSun } from "../features/sun/sun.ts";
 
@@ -23,5 +23,8 @@ const list = byId("sched");
 const items = renderSchedule(list);
 startNowPanel(items);
 
-scrollEffects(() => stackCards(items));
+const rail = byId("schedRail");
+const pill = byId("slotPill");
+renderRail(rail, items.length);
+scrollEffects(() => stackCards(items, rail, pill));
 revealOnScroll("main h2,main .lead,.card");
