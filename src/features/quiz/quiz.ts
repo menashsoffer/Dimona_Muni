@@ -71,21 +71,28 @@ export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
     setTimeout(() => celebrate(score(game!) / game!.questions.length), 250);
   }
 
-  // The result picture, shown on the results screen so it can be saved or shared from there;
-  // on phones that can share pictures, a button sends it through the share sheet too.
-  async function showPicture(s: number, total: number, ending: string): Promise<void> {
-    const blob = await resultCard(s, total, ending);
-    const img = document.getElementById("shareImg") as HTMLImageElement | null;
-    if (!blob || !img) return;
-    const url = URL.createObjectURL(blob);
-    img.src = url;
-    byId<HTMLAnchorElement>("savePic").href = url;
-    byId("shareCard").hidden = false;
-    const file = new File([blob], "dimona-quiz.png", { type: "image/png" });
-    if (!canSharePicture(file)) return;
-    const btn = byId<HTMLButtonElement>("sharePic");
-    btn.hidden = false;
-    btn.onclick = () => void sharePicture(file, shareText(s, total));
+  // The result picture, shown on the results screen. One share button: on phones that can share
+  // pictures it sends the picture and the message through the share sheet (pick WhatsApp, then
+  // the group); elsewhere, or if the browser refuses, it opens wa.me with the message.
+  function showPicture(s: number, total: number, ending: string): void {
+    const picture = resultCard(s, total, ending).then((blob) => blob && new File([blob], "dimona-quiz.png", { type: "image/png" }));
+    const link = byId<HTMLAnchorElement>("wa");
+    // Take over the tap straight away, so a tap before the picture is drawn still shares it.
+    if ("canShare" in navigator) {
+      link.onclick = (e) => {
+        e.preventDefault();
+        void picture.then(async (file) => {
+          const ok = !!file && canSharePicture(file) && (await sharePicture(file, shareText(s, total)));
+          if (!ok) open(link.href, "_blank", "noopener");
+        });
+      };
+    }
+    void picture.then((file) => {
+      const img = document.getElementById("shareImg") as HTMLImageElement | null;
+      if (!file || !img) return;
+      img.src = URL.createObjectURL(file);
+      byId("shareCard").hidden = false;
+    });
   }
 
   // Keyboard for whoever runs the projector: 1–4 picks an answer.
