@@ -9,7 +9,7 @@ export interface Slot {
 }
 
 export interface Person {
-  when: string;
+  slots: string[]; // "HH:MM" start times of this person's slots in SCHEDULE
   name: string;
   role: string;
   text?: string;

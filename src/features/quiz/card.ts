@@ -93,7 +93,7 @@ export async function resultCard(score: number, total: number, ending: string): 
   // Event line on the dark dune.
   ctx.fillStyle = "#fff6e8";
   ctx.font = '800 46px "Assistant", sans-serif';
-  ctx.fillText("מהתלונה לתובנה · יום עיון", W - 80, 1228);
+  ctx.fillText("מהפניה לתובנה · יום עיון", W - 80, 1228);
   ctx.font = '600 38px "Assistant", sans-serif';
   ctx.fillStyle = "#ffe1a0";
   ctx.fillText("15.11.2026 · עיריית דימונה · מי עוקף אותי?", W - 80, 1292);

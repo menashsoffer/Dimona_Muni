@@ -27,7 +27,7 @@ export function nowState(daysLeft: number, min: number): NowState {
     return { label: daysLeft === 1 ? "מחר" : "בקרוב", title, time: DATE_LINE, next: slotLine(0), progress: 0, current: -1, done: 0 };
   }
   if (daysLeft < 0 || min >= END) {
-    return { label: "הסתיים", title: "תודה שהייתם איתנו", time: "מהתלונה לתובנה · דימונה, 15.11.2026", progress: 1, current: -1, done: SCHEDULE.length };
+    return { label: "הסתיים", title: "תודה שהייתם איתנו", time: "מהפניה לתובנה · דימונה, 15.11.2026", progress: 1, current: -1, done: SCHEDULE.length };
   }
   if (min < START) {
     return { label: "הבוקר", title: "ההסעה יוצאת ב-9:00 מבאר שבע צפון", time: "", progress: 0, current: -1, done: 0 };

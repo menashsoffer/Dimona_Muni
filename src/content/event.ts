@@ -8,7 +8,7 @@ export const SITE_URL = "https://menashsoffer.github.io/Dimona_Muni/";
 export const SCHEDULE: Slot[] = [
   { from: "09:00", to: "09:30", title: "יציאת ההסעה מתחנת רכבת באר שבע צפון", brk: true },
   { from: "09:30", to: "10:00", title: "התכנסות וארוחת בוקר", note: "מאפה נאמן וקפה חם", brk: true },
-  { from: "10:00", to: "10:30", title: "ברכת בכיר מהעירייה" },
+  { from: "10:00", to: "10:30", title: "ברכה: יהודה בצלאל, ממלא מקום ראש העיר" },
   { from: "10:30", to: "11:30", title: "ימית רווח וצוות אגף השירות", note: "עם אסתר אלישייב דנון, הצוערת שמשובצת אצלה" },
   { from: "11:30", to: "11:45", title: "הפסקה", brk: true },
   { from: "11:45", to: "12:30", title: "פרויקטים משולחנם של בעלי תפקידים", note: "עבודה בקבוצות קטנות" },
