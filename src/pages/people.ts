@@ -14,5 +14,6 @@ import { mountSun } from "../features/sun/sun.ts";
 
 renderNav("people");
 mountSun();
-mountThread(byId("thread"), renderPeople(byId("peopleGrid")));
-scrollEffects(dealCards(".grid > .card"));
+const thread = mountThread(byId("thread"), renderPeople(byId("peopleGrid")));
+const deal = dealCards(".grid > .card");
+scrollEffects(() => { deal?.(); thread.sync(); });

@@ -1,5 +1,4 @@
-// Where a person stands at a given minute of the day: on stage now, coming up, or done.
-// Pure, so the cards and the thread read the same answer.
+// Where a person stands right now: on stage, coming up (with a countdown), or done. Pure.
 import { SCHEDULE } from "../../content/event.ts";
 import type { Person } from "../../content/types.ts";
 import { toMinutes } from "../../core/time.ts";
@@ -39,8 +38,14 @@ function inTime(min: number): string {
   return `בעוד ${hours}${m ? ` ו-${m} דק׳` : ""}`;
 }
 
-export function status(p: Person, min: number): Status {
+/** Where the person stands at the real date and time: counts down to the day itself, then
+ *  to their slot on the day. @param daysLeft days until the event (0 = today) */
+export function status(p: Person, daysLeft: number, min: number): Status {
   const s = spans(p);
+  const at = SCHEDULE.find((r) => r.from === p.slots[0])!.from;
+  if (daysLeft > 1) return { stage: "next", text: `15.11 ב-${at} · בעוד ${daysLeft === 2 ? "יומיים" : `${daysLeft} ימים`}` };
+  if (daysLeft === 1) return { stage: "next", text: `מחר ב-${at}` };
+  if (daysLeft < 0) return { stage: "done", text: "✓ הסתיים" };
   if (s.some((r) => min >= r.from && min < r.to)) return { stage: "now", text: "עכשיו על הבמה" };
   const next = s.find((r) => r.from > min);
   if (next) return { stage: "next", text: inTime(next.from - min) };
