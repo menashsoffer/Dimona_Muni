@@ -7,9 +7,7 @@
 .thread .clock{align-self:start;white-space:nowrap;font:inherit;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums;color:var(--accent);
   background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 8px;cursor:pointer;
   box-shadow:0 4px 12px rgba(60,25,5,.08)}
-.thread.live .clock{color:var(--now);border-color:var(--now)}
-.thread.live .clock::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-inline-end:5px;vertical-align:middle;animation:tpulse 1.6s infinite}
-@keyframes tpulse{50%{opacity:.25}}
+.thread .clock:disabled{cursor:default}
 .thread .track{position:relative;width:36px;height:100%;cursor:grab;touch-action:none;border-radius:18px;outline:none}
 .thread.dragging .track{cursor:grabbing}
 .thread .track:focus-visible{box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 35%,transparent)}
@@ -20,6 +18,7 @@
   background:var(--bg);box-shadow:0 0 0 2px var(--line);cursor:pointer;transition:background .3s,box-shadow .3s,transform .3s}
 .thread .bead.lit{background:var(--accent-soft,var(--accent));box-shadow:0 0 0 2px var(--accent-soft,var(--accent))}
 .thread .bead.cur{background:var(--now);box-shadow:0 0 0 2px var(--now),0 0 0 6px var(--now-bg);transform:scale(1.2)}
+.thread .nowmark{position:absolute;top:calc(var(--y) * 100%);left:50%;width:30px;height:3px;translate:-50% -50%;border-radius:3px;background:var(--now);box-shadow:0 0 0 2px var(--paper)}
 .thread .sun{position:absolute;top:calc(var(--sun) * 100%);left:50%;width:24px;height:24px;translate:-50% -50%;border-radius:50%;
   background:radial-gradient(circle at 40% 35%,#fff6cf,var(--gold) 70%);box-shadow:0 0 0 3px var(--paper),0 0 18px 4px color-mix(in oklab,var(--gold) 60%,transparent);
   transition:top .2s;pointer-events:none}
@@ -31,4 +30,4 @@
 .live[data-stage="now"]{background:var(--now-bg);color:var(--now)}
 .live[data-stage="done"]{background:transparent;color:var(--muted);padding-inline:0}
 .person.on-stage{border-color:var(--now);box-shadow:0 0 0 3px var(--now-bg),0 14px 30px -12px color-mix(in oklab,var(--now) 45%,transparent)}
-@media (prefers-reduced-motion:reduce){.thread .sun,.thread .fill,.thread .bead{transition:none}.thread.live .clock::before{animation:none}}
+@media (prefers-reduced-motion:reduce){.thread .sun,.thread .fill,.thread .bead{transition:none}}
