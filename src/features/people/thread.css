@@ -1,0 +1,34 @@
+/* The thread beside the people cards: a line through the day with a bead per person and a sun to drag.
+   --sun (0–1) is how far down the line the sun is; set from the chosen time in thread.ts. */
+.people-wrap{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:start}
+.people-wrap>.grid{min-width:0}
+.thread{position:sticky;top:calc(env(safe-area-inset-top,0px) + 104px);display:grid;grid-template-rows:auto 1fr;justify-items:center;gap:10px;--sun:0;
+  height:max(320px,calc(100svh - 104px - 150px))}
+.thread .clock{align-self:start;white-space:nowrap;font:inherit;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums;color:var(--accent);
+  background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 8px;cursor:pointer;
+  box-shadow:0 4px 12px rgba(60,25,5,.08)}
+.thread.live .clock{color:var(--now);border-color:var(--now)}
+.thread.live .clock::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-inline-end:5px;vertical-align:middle;animation:tpulse 1.6s infinite}
+@keyframes tpulse{50%{opacity:.25}}
+.thread .track{position:relative;width:36px;height:100%;cursor:grab;touch-action:none;border-radius:18px;outline:none}
+.thread.dragging .track{cursor:grabbing}
+.thread .track:focus-visible{box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 35%,transparent)}
+.thread .track::before{content:"";position:absolute;inset-block:0;left:calc(50% - 1px);width:2px;border-radius:2px;background:var(--line)}
+.thread .fill{position:absolute;top:0;left:calc(50% - 1.5px);width:3px;border-radius:3px;height:calc(var(--sun) * 100%);
+  background:linear-gradient(180deg,var(--gold),var(--accent));transition:height .2s}
+.thread .bead{position:absolute;top:calc(var(--y) * 100%);left:50%;width:12px;height:12px;translate:-50% -50%;border-radius:50%;
+  background:var(--bg);box-shadow:0 0 0 2px var(--line);cursor:pointer;transition:background .3s,box-shadow .3s,transform .3s}
+.thread .bead.lit{background:var(--accent-soft,var(--accent));box-shadow:0 0 0 2px var(--accent-soft,var(--accent))}
+.thread .bead.cur{background:var(--now);box-shadow:0 0 0 2px var(--now),0 0 0 6px var(--now-bg);transform:scale(1.2)}
+.thread .sun{position:absolute;top:calc(var(--sun) * 100%);left:50%;width:24px;height:24px;translate:-50% -50%;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#fff6cf,var(--gold) 70%);box-shadow:0 0 0 3px var(--paper),0 0 18px 4px color-mix(in oklab,var(--gold) 60%,transparent);
+  transition:top .2s;pointer-events:none}
+.thread.dragging .sun,.thread.dragging .fill{transition:none}
+/* Live status on each card, beside its times. */
+.person .when .rng{white-space:nowrap}
+.person .when{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.live{font-size:12px;font-weight:800;padding:1px 9px;border-radius:999px;background:color-mix(in oklab,var(--sky1) 55%,var(--paper));color:var(--earth)}
+.live[data-stage="now"]{background:var(--now-bg);color:var(--now)}
+.live[data-stage="done"]{background:transparent;color:var(--muted);padding-inline:0}
+.person.on-stage{border-color:var(--now);box-shadow:0 0 0 3px var(--now-bg),0 14px 30px -12px color-mix(in oklab,var(--now) 45%,transparent)}
+@media (prefers-reduced-motion:reduce){.thread .sun,.thread .fill,.thread .bead{transition:none}.thread.live .clock::before{animation:none}}

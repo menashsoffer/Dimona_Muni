@@ -7,7 +7,7 @@
   box-shadow:0 -6px 18px rgba(60,25,5,.08),0 8px 22px rgba(60,25,5,.10);
   transform-origin:50% 0;transition:transform .35s cubic-bezier(.2,.7,.2,1),filter .35s}
 .sched li.under{transform:scale(.96);filter:brightness(.97)}
-.sched .t{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent);font-size:15px;padding-top:2px;direction:ltr;text-align:right}
+.sched .t{font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent);font-size:15px;padding-top:2px;white-space:nowrap}
 .sched .w{min-width:0}
 .sched .w span{display:block;color:var(--muted);font-size:15px}
 .sched li.brk{background:color-mix(in oklab,var(--paper),var(--sky1) 35%)}

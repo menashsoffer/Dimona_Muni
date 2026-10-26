@@ -5,7 +5,7 @@ import { SITE_URL } from "../../content/event.ts";
 export function shareText(score: number, total: number): string {
   return [
     `עניתי נכון על ${score} מתוך ${total} בחידון "מכירים את דימונה?" 🌅`,
-    "לקראת יום העיון מהתלונה לתובנה, 15.11. מי עוקף אותי?",
+    "לקראת יום העיון מהפניה לתובנה, 15.11. מי עוקף אותי?",
     `${SITE_URL}quiz.html`,
   ].join("\n");
 }
