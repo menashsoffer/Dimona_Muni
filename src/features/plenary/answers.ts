@@ -71,8 +71,9 @@ export function toAnswers(rows: string[][]): Map<number, Answers> {
   return out;
 }
 
-export async function loadAnswers(sheetId: string): Promise<Map<number, Answers>> {
-  const url = `https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/gviz/tq?tqx=out:csv&t=${Date.now()}`;
+export async function loadAnswers(sheetId: string, gid: string): Promise<Map<number, Answers>> {
+  const q = new URLSearchParams({ tqx: "out:csv", gid, headers: "1", t: String(Date.now()) });
+  const url = `https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/gviz/tq?${q}`;
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error(`sheet ${res.status}`);
   return toAnswers(parseCsv(await res.text()));
