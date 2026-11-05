@@ -1,8 +1,8 @@
 // Reads the group form's answers from the public CSV of its Google Sheet.
-import { GROUPS } from "../../content/people.ts";
+import { GROUP_FORM } from "../../content/groupform.ts";
 
 export interface Answers {
-  group: number; // index into GROUPS
+  group: number; // index into GROUPS (and GROUP_FORM.choices)
   presenter: string;
   members: string;
   role: string;
@@ -58,7 +58,8 @@ export function toAnswers(rows: string[][]): Map<number, Answers> {
   const out = new Map<number, Answers>();
   for (const r of body) {
     const choice = (r[groupCol] ?? "").trim();
-    const group = GROUPS.findIndex((g) => choice.startsWith(g.lead));
+    // The form sends each group's choice text; its position matches the group's place in GROUPS.
+    const group = GROUP_FORM.choices.indexOf(choice);
     if (group < 0) continue;
     const a = { group, learned: learnedCols.map((i) => (r[i] ?? "").trim()).filter(Boolean) } as Answers;
     for (const [key, phrase] of Object.entries(FIELDS)) {
