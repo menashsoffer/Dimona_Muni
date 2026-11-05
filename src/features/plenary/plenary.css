@@ -80,10 +80,18 @@ body.plenary::after{content:"";position:fixed;inset:auto 0 0 0;height:9vh;pointe
 .pl-focus-card.is-pending { opacity:.24; }
 .pl-focus-card.is-pending .pl-card-content { visibility:hidden; }
 .pl-focus-card.is-focused { opacity:1; transform:scale(1); box-shadow:0 12px 32px rgba(58,29,14,.2); animation:pl-focus-in .55s ease both; }
-.pl-focus-card::after { content:""; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .4s; }
-.pl-focus-card.is-focused::after { opacity:.24; }
-.pl-theme-tech .pl-focus-card::after { background:repeating-linear-gradient(90deg,transparent 0 48px,var(--accent) 49px 50px,transparent 51px 78px); mask-image:linear-gradient(to top,black,transparent 32%); }
-.pl-theme-build .pl-focus-card::after { background-image:linear-gradient(var(--accent) 1px,transparent 1px),linear-gradient(90deg,var(--accent) 1px,transparent 1px); background-size:24px 24px; mask-image:linear-gradient(to top,black,transparent 38%); }
-.pl-theme-care .pl-focus-card::after { border:3px solid var(--accent); border-radius:inherit; inset:8px; }
+/* Role illustrations use the existing accent, leaving the answer unobstructed. */
+.pl-focus-card { border-top-width:3px; }
+.pl-focus-card.is-focused { box-shadow:0 12px 32px rgba(58,29,14,.2),0 0 0 2px var(--paper); }
+.pl-card-content { position:relative; }
+.pl-art { display:block; width:min(100%, 240px); height:clamp(42px,7vh,74px); margin:0 auto 1vh; color:var(--accent); fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; opacity:.72; }
+.pl-art-grid { opacity:.15; stroke-width:.6; }
+.pl-art-nodes circle { fill:var(--paper); }
+.pl-focus-card.is-focused .pl-art-lines { stroke-dasharray:420; animation:pl-draw 1.8s ease-out both; }
+.pl-focus-card.is-focused .pl-art-nodes { animation:pl-glow 2.4s ease-in-out infinite; }
+@keyframes pl-draw { from { stroke-dashoffset:420 } to { stroke-dashoffset:0 } }
+@keyframes pl-glow { 50% { filter:drop-shadow(0 0 4px var(--accent)); opacity:.55 } }
 @keyframes pl-focus-in { from { opacity:.55; transform:scale(.96) translateY(12px) } to { opacity:1; transform:scale(1) translateY(0) } }
 @media (prefers-reduced-motion:reduce) { .pl-focus-card { transition:none } .pl-focus-card.is-focused { animation:none } }
+
+@media (prefers-reduced-motion:reduce) { .pl-focus-card.is-focused .pl-art-lines,.pl-focus-card.is-focused .pl-art-nodes { animation:none; } }
