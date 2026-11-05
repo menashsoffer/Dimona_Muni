@@ -21,7 +21,6 @@ export interface Group {
   lead: string;
   role: string;
   project?: string;
-  form?: string; // the group's Google Form link, with the group already chosen
 }
 
 export interface Source {
@@ -52,4 +51,18 @@ export interface Quiz {
   intro: string;
   questions: Question[];
   endings: Ending[];
+}
+
+export interface FormField {
+  entry: string; // the Google Form field name, "entry.<id>"
+  label: string;
+  required?: boolean;
+  long?: boolean; // multi-line answer
+}
+
+export interface GroupForm {
+  action: string; // the Google Form's formResponse URL
+  group: string; // field that gets the group's choice text
+  choices: string[]; // choice text per group, same order as GROUPS
+  steps: { title: string; say?: string; fields: FormField[] }[];
 }
