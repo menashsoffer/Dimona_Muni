@@ -42,7 +42,8 @@ function group(i: number, a: Answers | undefined, step: number): string {
     `<h2>מה למדנו</h2><ol>${a.learned.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>`,
     `<h2>מה אנחנו לוקחים</h2>${p("", a.take)}${p("שאלה פתוחה:", a.open)}`,
   ];
-  return head + `<div class="pl-blocks">${blocks.map((b, k) => `<section class="pl-block${on(k, step)}">${b}</section>`).join("")}</div>`;
+  const theme = ["tech", "care", "build"][i] || "care";
+  return head + `<div class="pl-blocks pl-theme-${theme}">${blocks.map((b, k) => `<section class="pl-block pl-focus-card${k < step ? " is-revealed" : " is-pending"}${step > 0 && k === step - 1 ? " is-focused" : ""}"><div class="pl-card-content">${b}</div></section>`).join("")}</div>`;
 }
 
 function compare(answers: Map<number, Answers>, step: number): string {
