@@ -1,6 +1,7 @@
 // The group form inside the site: one step at a time, draft kept on the phone, sent to the Google Form.
 // Sending again is fine: the plenary screen shows each group's latest answers.
 import { GROUP_FORM as F } from "../../content/groupform.ts";
+import { CADETS } from "../../content/cadets.ts";
 import { GROUPS } from "../../content/people.ts";
 import { esc } from "../../core/dom.ts";
 
@@ -42,8 +43,16 @@ export function mountGroupForm(root: HTMLElement): void {
         <h2><i>${step + 1}</i>${esc(s.title)}</h2>${s.say ? `<p class="gf-say">${esc(s.say)}</p>` : ""}
         ${s.fields.map((f, k) => {
           const id = `f${k}`, v = esc(draft[f.label] ?? "");
-          const input = f.long ? `<textarea id="${id}" rows="3">${v}</textarea>` : `<input id="${id}" value="${v}" autocomplete="off">`;
-          return `<label class="gf-field" for="${id}"><span>${esc(f.label)}${f.required ? " <em>*</em>" : ""}</span>${input}</label>`;
+          const title = `<span>${esc(f.label)}${f.required ? " <em>*</em>" : ""}</span>`;
+          if (f.pick === "many") {
+            const chosen = new Set((draft[f.label] ?? "").split(", "));
+            return `<fieldset class="gf-field" id="${id}"><legend>${title}</legend><div class="gf-chips">${CADETS.map((c) =>
+              `<label class="gf-chip"><input type="checkbox" value="${esc(c)}"${chosen.has(c) ? " checked" : ""}><span>${esc(c)}</span></label>`).join("")}</div></fieldset>`;
+          }
+          const input = f.pick === "one"
+            ? `<select id="${id}"><option value="">בחרו מהרשימה</option>${CADETS.map((c) => `<option${draft[f.label] === c ? " selected" : ""}>${esc(c)}</option>`).join("")}</select>`
+            : f.long ? `<textarea id="${id}" rows="3">${v}</textarea>` : `<input id="${id}" value="${v}" autocomplete="off">`;
+          return `<label class="gf-field" for="${id}">${title}${input}</label>`;
         }).join("")}
         <p class="gf-err" hidden></p>
         <div class="gf-nav">
@@ -54,8 +63,13 @@ export function mountGroupForm(root: HTMLElement): void {
     const form = root.querySelector("form")!;
     form.addEventListener("input", (e) => {
       const el = e.target as HTMLInputElement;
-      const f = s.fields[Number(el.id.slice(1))];
-      if (f) { draft[f.label] = el.value; saveDraft(g, draft); }
+      const box = el.type === "checkbox" ? el.closest<HTMLElement>("fieldset") : el;
+      const f = box ? s.fields[Number(box.id.slice(1))] : undefined;
+      if (!f || !box) return;
+      draft[f.label] = el.type === "checkbox"
+        ? [...box.querySelectorAll<HTMLInputElement>("input:checked")].map((c) => c.value).join(", ")
+        : el.value;
+      saveDraft(g, draft);
     });
     form.addEventListener("submit", (e) => { e.preventDefault(); void next(form); });
     (form.querySelector("input,textarea") as HTMLElement | null)?.focus({ preventScroll: true });

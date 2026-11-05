@@ -58,6 +58,7 @@ export interface FormField {
   label: string;
   required?: boolean;
   long?: boolean; // multi-line answer
+  pick?: "one" | "many"; // choose from CADETS instead of typing: one name, or several
 }
 
 export interface GroupForm {
