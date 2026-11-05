@@ -60,7 +60,7 @@ export function startShow(stage: HTMLElement, bar: HTMLElement, clock: HTMLEleme
   stage.addEventListener("click", () => go(1));
 
   const refresh = async () => {
-    try { s.answers = await loadAnswers(PLENARY.sheetId); s.error = false; } catch { s.error = true; }
+    try { s.answers = await loadAnswers(PLENARY.sheetId, PLENARY.gid); s.error = false; } catch { s.error = true; }
     render();
   };
   if (demo) s.answers = new Map(DEMO.map((a) => [a.group, a]));
