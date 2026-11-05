@@ -21,12 +21,15 @@ export function startShow(stage: HTMLElement, bar: HTMLElement, clock: HTMLEleme
   const s: State = { scene: 0, step: 0, answers: new Map(), error: false, timerEnd: 0 };
 
   const journey = mountJourney(bar);
-  const render = () => {
+  const render = (animateCompare = false) => {
     const scene = SCENES[s.scene];
     journey.move(stopOf(scene));
     stage.dataset.kind = scene.kind;
     stage.innerHTML = sceneHtml(scene, s.answers, s.step)
       + (demo ? `<span class="pl-status">הדגמה עם תשובות לדוגמה</span>` : s.error ? `<span class="pl-status">אין חיבור לתשובות כרגע</span>` : "");
+    if (animateCompare && scene.kind === "compare" && s.step > 0) {
+      stage.querySelectorAll(".pl-col")[s.step - 1]?.classList.add("pl-surprise-enter");
+    }
   };
   const tick = () => {
     const total = seconds(SCENES[s.scene]);
@@ -38,6 +41,8 @@ export function startShow(stage: HTMLElement, bar: HTMLElement, clock: HTMLEleme
     clock.classList.toggle("over", left < 0);
   };
   const go = (dir: 1 | -1) => {
+    const previousScene = s.scene;
+    const previousStep = s.step;
     const max = stepsOf(SCENES[s.scene], s.answers);
     if (dir === 1 && s.step < max) s.step++;
     else if (dir === -1 && s.step > 0) s.step--;
@@ -48,7 +53,7 @@ export function startShow(stage: HTMLElement, bar: HTMLElement, clock: HTMLEleme
       s.step = dir === -1 ? stepsOf(SCENES[next], s.answers) : 0;
       s.timerEnd = Date.now() + seconds(SCENES[next]) * 1000;
     }
-    render();
+    render(dir === 1 && s.scene === previousScene && s.step > previousStep);
     tick();
   };
 
