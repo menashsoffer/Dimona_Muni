@@ -4,6 +4,7 @@ export const PLENARY = {
   // Id of the Google Sheet that collects the group form's answers.
   // The sheet must be shared as "anyone with the link can view"; only its public CSV is read.
   sheetId: "1lI4xie91iyNh3nwhIlyyy4KrTMFkyZv65mSJ8Ay-ob8",
-  minutes: 5, // per group
+  minutes: 4, // per group
+  compareMinutes: 2, // "desk against desk"
   refreshSeconds: 20, // re-read the answers while the screen is open
 };
