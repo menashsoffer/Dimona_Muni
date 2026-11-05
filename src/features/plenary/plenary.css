@@ -95,3 +95,13 @@ body.plenary::after{content:"";position:fixed;inset:auto 0 0 0;height:9vh;pointe
 @media (prefers-reduced-motion:reduce) { .pl-focus-card { transition:none } .pl-focus-card.is-focused { animation:none } }
 
 @media (prefers-reduced-motion:reduce) { .pl-focus-card.is-focused .pl-art-lines,.pl-focus-card.is-focused .pl-art-nodes { animation:none; } }
+
+/* Center the illustration and answer as a single block, while allowing long answers to scroll. */
+.pl-focus-card { display:flex; min-width:0; }
+.pl-card-content { width:100%; min-width:0; margin:auto; text-align:center; overflow-wrap:anywhere; }
+.pl-block ol { display:table; max-width:100%; margin:0 auto; padding-inline-start:1.5em; text-align:center; }
+.pl-block li { overflow-wrap:anywhere; }
+.pl-blocks,.pl-cols,.pl-insights { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.pl-col,.pl-ins { min-width:0; overflow-wrap:anywhere; }
+.pl-ins > *, .pl-col > * { min-width:0; max-width:100%; }
+@media (max-width:760px) { .pl-blocks,.pl-cols,.pl-insights { grid-template-columns:minmax(0,1fr); } }
