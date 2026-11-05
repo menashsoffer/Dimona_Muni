@@ -72,3 +72,18 @@ body.plenary::after{content:"";position:fixed;inset:auto 0 0 0;height:9vh;pointe
 .pl-status{position:fixed;bottom:2.6vh;right:3vw;z-index:3;font-size:14px;font-weight:800;color:var(--paper);background:rgba(58,29,14,.35);padding:.3em .8em;border-radius:999px}
 @media (max-width:760px){.pl-blocks,.pl-cols,.pl-insights{grid-template-columns:1fr;overflow:auto}}
 @media (prefers-reduced-motion:reduce){.pl-block,.pl-col,.pl-ins,.jr-track b,.jr-sun{transition:none}.jr-sun.hop i{animation:none}}
+
+/* Group answers remain in place while the current answer takes the spotlight. */
+.pl-blocks { align-items:stretch; }
+.pl-focus-card { position:relative; opacity:.62; transform:scale(.96); overflow:auto;
+  transition:opacity .45s, transform .45s, box-shadow .45s; }
+.pl-focus-card.is-pending { opacity:.24; }
+.pl-focus-card.is-pending .pl-card-content { visibility:hidden; }
+.pl-focus-card.is-focused { opacity:1; transform:scale(1); box-shadow:0 12px 32px rgba(58,29,14,.2); animation:pl-focus-in .55s ease both; }
+.pl-focus-card::after { content:""; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .4s; }
+.pl-focus-card.is-focused::after { opacity:.24; }
+.pl-theme-tech .pl-focus-card::after { background:repeating-linear-gradient(90deg,transparent 0 48px,var(--accent) 49px 50px,transparent 51px 78px); mask-image:linear-gradient(to top,black,transparent 32%); }
+.pl-theme-build .pl-focus-card::after { background-image:linear-gradient(var(--accent) 1px,transparent 1px),linear-gradient(90deg,var(--accent) 1px,transparent 1px); background-size:24px 24px; mask-image:linear-gradient(to top,black,transparent 38%); }
+.pl-theme-care .pl-focus-card::after { border:3px solid var(--accent); border-radius:inherit; inset:8px; }
+@keyframes pl-focus-in { from { opacity:.55; transform:scale(.96) translateY(12px) } to { opacity:1; transform:scale(1) translateY(0) } }
+@media (prefers-reduced-motion:reduce) { .pl-focus-card { transition:none } .pl-focus-card.is-focused { animation:none } }
