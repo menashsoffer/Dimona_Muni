@@ -1,23 +1,18 @@
 // The plenary slideshow. Next = click, Space or ←; back = →; f = fullscreen.
 // plenary.html?demo (and the claude.ai preview) shows made-up answers instead of the real sheet.
-import { GROUPS } from "../../content/people.ts";
 import { PLENARY } from "../../content/plenary.ts";
 import { loadAnswers, type Answers } from "./answers.ts";
 import { DEMO } from "./demo.ts";
-import { journeyBar, stopAt } from "./journey.ts";
+import { COMPARE_STOP, END_STOP, mountJourney } from "./journey.ts";
 import { SCENES, sceneHtml, stepsOf, type Scene } from "./scenes.ts";
 
 interface State { scene: number; step: number; answers: Map<number, Answers>; error: boolean; timerEnd: number }
 
 const demo = new URLSearchParams(location.search).has("demo") || window.top !== window;
 
-/** Where the letter is on the journey bar, and which stop it is at. */
-function place(s: Scene): [number, number] {
-  if (s.kind === "intro") return [0, -1];
-  if (s.kind === "group") return [stopAt(s.i), s.i];
-  if (s.kind === "compare") return [stopAt(GROUPS.length - 1) + 0.5 * stopAt(0), GROUPS.length];
-  return [1, GROUPS.length];
-}
+/** Which stop of the journey bar the sun is at for a scene. */
+const stopOf = (s: Scene): number =>
+  s.kind === "intro" ? -1 : s.kind === "group" ? s.i : s.kind === "compare" ? COMPARE_STOP : END_STOP;
 
 /** Seconds on the clock for a scene, or 0 for none. */
 const seconds = (s: Scene) => (s.kind === "group" ? PLENARY.minutes * 60 : s.kind === "compare" ? PLENARY.compareMinutes * 60 : 0);
@@ -25,10 +20,10 @@ const seconds = (s: Scene) => (s.kind === "group" ? PLENARY.minutes * 60 : s.kin
 export function startShow(stage: HTMLElement, bar: HTMLElement, clock: HTMLElement): void {
   const s: State = { scene: 0, step: 0, answers: new Map(), error: false, timerEnd: 0 };
 
+  const journey = mountJourney(bar);
   const render = () => {
     const scene = SCENES[s.scene];
-    const [pos, at] = place(scene);
-    bar.innerHTML = journeyBar(pos, at);
+    journey.move(stopOf(scene));
     stage.dataset.kind = scene.kind;
     stage.innerHTML = sceneHtml(scene, s.answers, s.step)
       + (demo ? `<span class="pl-status">הדגמה עם תשובות לדוגמה</span>` : s.error ? `<span class="pl-status">אין חיבור לתשובות כרגע</span>` : "");
