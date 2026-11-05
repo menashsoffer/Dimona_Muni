@@ -127,3 +127,29 @@ body.plenary::after{content:"";position:fixed;inset:auto 0 0 0;height:9vh;pointe
   100% { opacity:1; transform:none; }
 }
 @media (prefers-reduced-motion:reduce) { .pl-col.pl-surprise-enter { animation:none; } }
+
+/* Finale: paper notes taped to the wall. */
+.pl-insights { align-items:start; padding:2vh 1vw; }
+.pl-ins {
+  position:relative; overflow:auto; max-height:100%; box-sizing:border-box;
+  background:var(--paper); color:var(--fg); border:0; border-radius:3px;
+  padding:clamp(34px,5vh,52px) 1.8vw 2.4vh;
+  box-shadow:0 7px 14px rgba(58,29,14,.22); rotate:-1.5deg;
+}
+.pl-ins:nth-child(2) { rotate:1.5deg; }
+.pl-ins:nth-child(3) { rotate:-1deg; }
+.pl-ins::before {
+  content:""; position:absolute; top:4px; left:50%; width:clamp(60px,7vw,100px); height:clamp(18px,2.5vh,26px);
+  transform:translateX(-50%) rotate(-3deg);
+  background:rgba(225,178,128,.68); box-shadow:0 1px 2px rgba(58,29,14,.12);
+}
+.pl-ins .pl-req { color:var(--earth); }
+.pl-ins .pl-arrow, .pl-ins small { color:var(--accent); }
+.pl-ins:not(.on) { opacity:0; visibility:hidden; }
+.pl-ins.pl-memo-enter { animation:pl-memo-stick .7s cubic-bezier(.2,.75,.25,1) both; transform-origin:50% 8%; }
+@keyframes pl-memo-stick {
+  0% { opacity:0; transform:translateY(-45px) scale(1.12) rotate(5deg); }
+  65% { opacity:1; transform:translateY(5px) scale(.98) rotate(-1deg); }
+  100% { opacity:1; transform:none; }
+}
+@media (prefers-reduced-motion:reduce) { .pl-ins.pl-memo-enter { animation:none; } }
