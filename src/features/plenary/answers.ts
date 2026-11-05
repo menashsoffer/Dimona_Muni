@@ -5,12 +5,9 @@ export interface Answers {
   group: number; // index into GROUPS (and GROUP_FORM.choices)
   presenter: string;
   members: string;
-  role: string;
-  project: string;
   surprise: string;
   learned: string[];
   take: string;
-  open: string;
   request: string;
   insight: string;
 }
@@ -19,11 +16,8 @@ export interface Answers {
 const FIELDS: Record<Exclude<keyof Answers, "group" | "learned">, string> = {
   presenter: "מי מציג",
   members: "חברי הקבוצה",
-  role: "התפקיד שלו",
-  project: "פרויקט או אתגר",
   surprise: "שהפתיע",
   take: "רעיון או כלי",
-  open: "נשארה פתוחה",
   request: "פניה של תושב",
   insight: "התובנה",
 };

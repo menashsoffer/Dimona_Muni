@@ -197,3 +197,7 @@ body.plenary::after{content:"";position:fixed;inset:auto 0 0 0;height:9vh;pointe
 @media (max-width:760px) {
   .pl-insights { overflow:auto; gap:clamp(28px,4vh,40px); }
 }
+.pl-team{margin-inline-start:auto;display:flex;flex-direction:column;align-items:flex-end;gap:.4em}
+.pl-team .pl-presenter{margin-inline-start:0}
+.pl-members{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.3em;max-width:34vw}
+.pl-members span{background:rgba(255,255,255,.55);border-radius:999px;padding:.15em .7em;font-weight:700;font-size:clamp(12px,1.2vw,17px)}

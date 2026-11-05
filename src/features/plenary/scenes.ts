@@ -25,6 +25,11 @@ function face(i: number, size = ""): string {
 }
 
 const p = (label: string, text: string) => (text ? `<p>${label ? `<b>${esc(label)}</b> ` : ""}${esc(text)}</p>` : "");
+/** The group members as small name chips (the presenter already has their own label). */
+const team = (members: string, presenter: string) => {
+  const names = members.split(",").map((n) => n.trim()).filter((n) => n && n !== presenter);
+  return names.length ? `<span class="pl-members">${names.map((n) => `<span>${esc(n)}</span>`).join("")}</span>` : "";
+};
 const on = (k: number, step: number) => (k < step ? " on" : "");
 
 function intro(): string {
@@ -51,12 +56,12 @@ const roleArt: Record<string, string> = {
 function group(i: number, a: Answers | undefined, step: number): string {
   const g = GROUPS[i];
   const head = `<header class="pl-head">${face(i)}<div><span class="pl-kicker">תחנה ${i + 1}</span><h1>${esc(g.lead)}</h1><span class="pl-role">${esc(g.role)}</span></div>
-    ${a?.presenter ? `<span class="pl-presenter">מציג/ה: ${esc(a.presenter)}</span>` : ""}</header>`;
+    ${a?.presenter || a?.members ? `<div class="pl-team">${a.presenter ? `<span class="pl-presenter">מציג/ה: ${esc(a.presenter)}</span>` : ""}${team(a.members, a.presenter)}</div>` : ""}</header>`;
   if (!a) return `${head}<p class="pl-wait">התשובות של הקבוצה עוד לא הגיעו. המסך מתעדכן לבד.</p>`;
   const blocks = [
-    `<h2>מי ישב איתנו</h2>${p("התפקיד:", a.role)}${p("מהשולחן:", a.project)}`,
+    `<h2>מי ישב איתנו</h2>${p("התפקיד:", g.role)}${p("מהשולחן:", g.project ?? "")}`,
     `<h2>מה למדנו</h2><ol>${a.learned.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>`,
-    `<h2>מה אנחנו לוקחים</h2>${p("", a.take)}${p("שאלה פתוחה:", a.open)}`,
+    `<h2>מה אנחנו לוקחים</h2>${p("", a.take)}`,
   ];
   const theme = ["tech", "care", "build"][i] || "care";
   return head + `<div class="pl-blocks pl-theme-${theme}">${blocks.map((b, k) => `<section class="pl-block pl-focus-card${k < step ? " is-revealed" : " is-pending"}${step > 0 && k === step - 1 ? " is-focused" : ""}"><div class="pl-card-content">${roleArt[theme]}${b}</div></section>`).join("")}</div>`;

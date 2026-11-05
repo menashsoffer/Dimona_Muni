@@ -16,10 +16,8 @@ export const GROUP_FORM: GroupForm = {
     },
     {
       title: "מי ישב איתנו",
-      say: "פותחים כך: \"ישבנו עם...\"",
+      say: "התפקיד והנושא מהשולחן כבר יופיעו על המסך. כאן רק מה שהפתיע אתכם.",
       fields: [
-        { entry: "entry.1168593331", label: "התפקיד שלו/ה במשפט אחד", required: true },
-        { entry: "entry.1282880893", label: "פרויקט או אתגר משולחן העבודה שלו/ה", long: true },
         { entry: "entry.2071948304", label: "משהו שהפתיע אותנו לשמוע" },
       ],
     },
@@ -36,7 +34,6 @@ export const GROUP_FORM: GroupForm = {
       title: "מה אנחנו לוקחים",
       fields: [
         { entry: "entry.1091459384", label: "רעיון או כלי שהיינו מיישמים ברשות שלנו", required: true, long: true },
-        { entry: "entry.1629477646", label: "שאלה שעוד נשארה פתוחה" },
       ],
     },
     {
