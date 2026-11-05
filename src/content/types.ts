@@ -21,6 +21,7 @@ export interface Group {
   lead: string;
   role: string;
   project?: string;
+  form?: string; // the group's Google Form link, with the group already chosen
 }
 
 export interface Source {
