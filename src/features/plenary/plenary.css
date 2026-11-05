@@ -153,3 +153,32 @@ body.plenary::after{content:"";position:fixed;inset:auto 0 0 0;height:9vh;pointe
   100% { opacity:1; transform:none; }
 }
 @media (prefers-reduced-motion:reduce) { .pl-ins.pl-memo-enter { animation:none; } }
+
+/* Exaggerated, distinct entrances for the three surprise answers. */
+.pl-col.pl-surprise-enter { animation:pl-big-bounce 1.5s both; transform-origin:center; }
+.pl-col.pl-surprise-enter:nth-child(2) { animation:pl-big-flip 1.6s both; }
+.pl-col.pl-surprise-enter:nth-child(3) { animation:pl-big-spin 1.6s both; }
+@keyframes pl-big-bounce {
+  0% { opacity:0; transform:translateY(-80vh) scaleY(1.8); }
+  48% { opacity:1; transform:translateY(24px) scaleY(.75) scaleX(1.12); }
+  62% { transform:translateY(-65px) scaleY(1.12); }
+  75% { transform:translateY(12px) scaleY(.88); }
+  87% { transform:translateY(-18px); }
+  100% { opacity:1; transform:none; }
+}
+@keyframes pl-big-flip {
+  0% { opacity:0; transform:perspective(800px) rotateY(-200deg) scale(.2); }
+  45% { opacity:1; transform:perspective(800px) rotateY(35deg) scale(1.16); }
+  65% { transform:perspective(800px) rotateY(-20deg) scale(.94); }
+  82% { transform:perspective(800px) rotateY(8deg) scale(1.03); }
+  100% { opacity:1; transform:none; }
+}
+@keyframes pl-big-spin {
+  0% { opacity:0; transform:translateX(-65vw) rotate(-540deg) scale(.15); }
+  65% { opacity:1; transform:translateX(18px) rotate(16deg) scale(1.15); }
+  80% { transform:translateX(-8px) rotate(-7deg) scale(.96); }
+  100% { opacity:1; transform:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .pl-col.pl-surprise-enter,.pl-col.pl-surprise-enter:nth-child(2),.pl-col.pl-surprise-enter:nth-child(3) { animation:none; }
+}
