@@ -9,5 +9,6 @@ export function renderGroups(grid: HTMLElement): void {
       <h3>${esc(g.lead)}</h3>
       <span class="role">${esc(g.role)}</span>
       ${g.project ? `<p>${esc(g.project)}</p>` : `<span class="ph">תיאור הפרויקט יעודכן</span>`}
+      ${g.form ? `<a class="btn" href="${esc(g.form)}" target="_blank" rel="noopener">לטופס של הקבוצה</a>` : ""}
     </div>`).join("");
 }
