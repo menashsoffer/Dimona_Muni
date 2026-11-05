@@ -21,14 +21,17 @@ export function startShow(stage: HTMLElement, bar: HTMLElement, clock: HTMLEleme
   const s: State = { scene: 0, step: 0, answers: new Map(), error: false, timerEnd: 0 };
 
   const journey = mountJourney(bar);
-  const render = (animateCompare = false) => {
+  const render = (animateReveal = false) => {
     const scene = SCENES[s.scene];
     journey.move(stopOf(scene));
     stage.dataset.kind = scene.kind;
     stage.innerHTML = sceneHtml(scene, s.answers, s.step)
       + (demo ? `<span class="pl-status">הדגמה עם תשובות לדוגמה</span>` : s.error ? `<span class="pl-status">אין חיבור לתשובות כרגע</span>` : "");
-    if (animateCompare && scene.kind === "compare" && s.step > 0) {
+    if (animateReveal && scene.kind === "compare" && s.step > 0) {
       stage.querySelectorAll(".pl-col")[s.step - 1]?.classList.add("pl-surprise-enter");
+    }
+    if (animateReveal && scene.kind === "finale" && s.step > 0) {
+      stage.querySelectorAll(".pl-ins")[s.step - 1]?.classList.add("pl-memo-enter");
     }
   };
   const tick = () => {
