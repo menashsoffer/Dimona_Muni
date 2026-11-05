@@ -10,8 +10,8 @@ export const GROUP_FORM: GroupForm = {
     {
       title: "מי אנחנו",
       fields: [
-        { entry: "entry.880863007", label: "מי מציג/ה במליאה?", required: true },
-        { entry: "entry.1411893286", label: "חברי הקבוצה" },
+        { entry: "entry.880863007", label: "מי מציג/ה במליאה?", required: true, pick: "one" },
+        { entry: "entry.1411893286", label: "חברי הקבוצה", pick: "many" },
       ],
     },
     {
