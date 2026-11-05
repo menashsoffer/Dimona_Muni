@@ -1,19 +1,39 @@
-// The journey bar along the top of the plenary: a resident's request travels from the right edge
-// (פניה) through one stop per group to the left edge (תובנה).
+// The journey bar along the top of the plenary: a sun hops from the right edge (פניה) through one stop
+// per group and a shared "desk against desk" stop, to the left edge (תובנה).
 import { GROUPS } from "../../content/people.ts";
 import { esc } from "../../core/dom.ts";
 
-/** Position along the track, 0 (start) to 1 (end), for a stop index (-1 = start, GROUPS.length = end). */
-export const stopAt = (i: number): number => (i + 1) / (GROUPS.length + 1);
+const STOPS = [...GROUPS.map((g) => g.lead), "שולחן מול שולחן"];
 
-export function journeyBar(pos: number, current: number): string {
-  const arrived = pos >= 1;
-  const stops = GROUPS.map((g, i) =>
-    `<li class="${i < current ? "past" : i === current ? "here" : ""}" style="inset-inline-start:${stopAt(i) * 100}%"><i></i><span>${esc(g.lead)}</span></li>`).join("");
-  return `<div class="jr" aria-hidden="true">
+/** Position along the track, 0 (start) to 1 (end), for stop i (-1 = start, STOPS.length = end). */
+export const stopAt = (i: number): number => (i + 1) / (STOPS.length + 1);
+export const COMPARE_STOP = GROUPS.length;
+export const END_STOP = STOPS.length;
+
+export interface Journey { move(stop: number): void }
+
+export function mountJourney(bar: HTMLElement): Journey {
+  bar.innerHTML = `<div class="jr" aria-hidden="true">
     <span class="jr-end jr-start">פניה</span><span class="jr-end jr-finish">תובנה</span>
-    <div class="jr-track"><b style="width:${pos * 100}%"></b></div>
-    <ol>${stops}</ol>
-    <div class="jr-letter${arrived ? " sun" : ""}" style="inset-inline-start:${pos * 100}%">${arrived ? "☀" : "✉"}</div>
+    <div class="jr-track"><b></b></div>
+    <ol>${STOPS.map((name, i) => `<li style="inset-inline-start:${stopAt(i) * 100}%"><i></i><span>${esc(name)}</span></li>`).join("")}</ol>
+    <div class="jr-sun"><i></i></div>
   </div>`;
+  const fill = bar.querySelector<HTMLElement>(".jr-track b")!;
+  const sun = bar.querySelector<HTMLElement>(".jr-sun")!;
+  const dots = [...bar.querySelectorAll<HTMLElement>("li")];
+  let at = Number.NaN;
+  return {
+    move(stop) {
+      if (stop === at) return;
+      const pos = stopAt(stop) * 100;
+      fill.style.width = `${pos}%`;
+      sun.style.insetInlineStart = `${pos}%`;
+      sun.classList.toggle("arrived", stop >= END_STOP);
+      dots.forEach((d, i) => { d.className = i < stop ? "past" : i === stop ? "here" : ""; });
+      // Restart the hop each time the sun moves to another stop.
+      if (!Number.isNaN(at)) { sun.classList.remove("hop"); void sun.offsetWidth; sun.classList.add("hop"); }
+      at = stop;
+    },
+  };
 }
