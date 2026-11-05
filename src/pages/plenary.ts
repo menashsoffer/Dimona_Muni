@@ -5,4 +5,4 @@ import "../features/plenary/plenary.css";
 import { byId } from "../core/dom.ts";
 import { startShow } from "../features/plenary/show.ts";
 
-startShow(byId("stage"), byId("clock"));
+startShow(byId("stage"), byId("bar"), byId("clock"));
