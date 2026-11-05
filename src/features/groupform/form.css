@@ -1,0 +1,31 @@
+/* The group form (form.html). */
+.gf-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.gf-kicker{font-weight:800;color:var(--earth)}
+.gf-dots{display:flex;gap:6px;margin:0;padding:0;list-style:none}
+.gf-dots li{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.gf-dots li.done{background:var(--gold)}
+.gf-dots li.on{background:var(--accent);transform:scale(1.25)}
+.gf-card{background:var(--paper);border:1px solid var(--line);border-inline-start:5px solid var(--accent);border-radius:18px;padding:18px 18px 16px;box-shadow:0 10px 30px rgba(156,63,28,.12)}
+.gf-card h2{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:34px;line-height:1;margin:0 0 4px}
+.gf-card h2 i{font-style:normal;font-family:var(--body);font-size:15px;font-weight:800;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none}
+.gf-say{margin:0 0 10px;color:var(--muted);font-size:15px}
+.gf-field{display:grid;gap:5px;margin-top:12px;font-weight:700}
+.gf-field em{color:var(--accent);font-style:normal}
+.gf-field input,.gf-field textarea{font:inherit;font-weight:400;font-size:17px;color:var(--fg);background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;width:100%;box-sizing:border-box}
+.gf-field textarea{resize:vertical;min-height:84px}
+.gf-field input:focus,.gf-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(212,96,44,.18)}
+.gf-err{color:var(--bad);background:var(--bad-bg);border-radius:10px;padding:8px 12px;margin:12px 0 0;font-weight:700;font-size:15px}
+.gf-nav{display:flex;justify-content:space-between;margin-top:16px}
+.gf-nav .btn{font-size:17px;padding:11px 22px}
+.gf-nav .btn:disabled{opacity:.6}
+.gf-pick{display:grid;gap:10px;margin-top:12px}
+.gf-group{display:grid;gap:2px;text-decoration:none;color:var(--fg);background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px}
+.gf-group span{font-size:13px;font-weight:800;color:var(--earth)}
+.gf-group b{font-size:20px}
+.gf-group small{color:var(--muted);font-size:14px}
+.gf-done{text-align:center;padding:28px 18px}
+.gf-done h2{justify-content:center;text-align:center;font-size:52px}
+.gf-done p{font-size:17px;margin:6px 0 16px}
+.gf-sun{width:84px;height:84px;margin:0 auto 10px;border-radius:50%;background:radial-gradient(circle,#fff3c4 0 35%,#ffd36b 60%,rgba(255,211,107,0) 71%);animation:gf-rise 1.2s ease-out}
+@keyframes gf-rise{from{transform:translateY(30px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.gf-sun{animation:none}}

@@ -16,13 +16,8 @@ export const PEOPLE: Person[] = [
 ];
 
 // project: what the group works on with its lead (final details arrive 26.10.26).
-// Each group's link opens the group form (Google Forms) with the group already chosen.
-// The choice text must stay exactly as it is in the form.
-const FORM = "https://docs.google.com/forms/d/e/1FAIpQLSfDGnOJwV0kywjjZ6R3FnGapl1g4In5vcNGIRNs5Av94u8nzg/viewform?usp=pp_url&entry.1624475687=";
-const form = (choice: string) => FORM + encodeURIComponent(choice);
-
 export const GROUPS: Group[] = [
-  { lead: "מרים כהן", role: "מנהלת מערכות מידע (מנמר\"ית)", project: "מה קורה מאחורי המסך: איך מערכות המידע של העירייה תורמות לשירות לתושב, משפרות אותו ומייעלות אותו.", form: form("מרים כהן, מנמר\"ית העירייה") },
-  { lead: "נחמה אוחנה", role: "מנהלת אגף הרווחה", project: "שירות במקום הרגיש: השאיפה ליצור \"וואן סטופ שופ\", כתובת אחת לכל שירותי הרווחה העירוניים, ואיך שירות מיטבי משפר את המענה לתושבים שפונים.", form: form("נחמה אוחנה, מנהלת אגף הרווחה") },
-  { lead: "אריק", role: "מהנדס העיר", form: form("אריק, מהנדס העיר") },
+  { lead: "מרים כהן", role: "מנהלת מערכות מידע (מנמר\"ית)", project: "מה קורה מאחורי המסך: איך מערכות המידע של העירייה תורמות לשירות לתושב, משפרות אותו ומייעלות אותו." },
+  { lead: "נחמה אוחנה", role: "מנהלת אגף הרווחה", project: "שירות במקום הרגיש: השאיפה ליצור \"וואן סטופ שופ\", כתובת אחת לכל שירותי הרווחה העירוניים, ואיך שירות מיטבי משפר את המענה לתושבים שפונים." },
+  { lead: "אריק", role: "מהנדס העיר" },
 ];
