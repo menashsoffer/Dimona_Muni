@@ -9,8 +9,12 @@ import { scrollEffects } from "../core/scroll.ts";
 import { tiltCards } from "../features/cardfx/tilt.ts";
 import { renderGroups } from "../features/groups/cards.ts";
 import { mountSun } from "../features/sun/sun.ts";
+import { heroIntro, pressSprings, revealOnScroll } from "../core/motion.ts";
 
 renderNav("groups");
 mountSun();
 renderGroups(byId("groupGrid"));
 scrollEffects(tiltCards("#groups .card"));
+heroIntro();
+pressSprings();
+revealOnScroll(".gnote,.groups-steps");

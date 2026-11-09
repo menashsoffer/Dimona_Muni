@@ -111,25 +111,3 @@ export function scrollEffects(onFrame?: () => void): void {
   watchBand(frame);
   frame();
 }
-
-/** Fade elements in as they scroll into view. Only elements below the fold start hidden,
- *  so the first screen is complete at rest. */
-export function revealOnScroll(selector: string): void {
-  if (reducedMotion() || !("IntersectionObserver" in window)) return;
-  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
-    if (!e.isIntersecting) return;
-    const el = e.target as HTMLElement;
-    el.classList.remove("pend");
-    io.unobserve(el);
-    setTimeout(() => el.style.removeProperty("--d"), 900);
-  }), { rootMargin: "0px 0px -8% 0px" });
-
-  document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
-    el.classList.add("rv");
-    if (el.getBoundingClientRect().top <= innerHeight) return;
-    const idx = el.parentElement ? [...el.parentElement.children].indexOf(el) : 0;
-    el.style.setProperty("--d", `${Math.min(idx, 5) * 80}ms`);
-    el.classList.add("pend");
-    io.observe(el);
-  });
-}
