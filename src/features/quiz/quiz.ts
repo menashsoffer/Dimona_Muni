@@ -7,6 +7,7 @@ import { advance, type Game, isLast, isOver, newGame, pick, score } from "./game
 import { resultCard } from "./card.ts";
 import { canSharePicture, sharePicture, shareText } from "./share.ts";
 import { feedbackView, introView, questionView, resultView } from "./view.ts";
+import { answerFx } from "../../core/motion.ts";
 
 export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
   let game: Game | null = null;
@@ -50,6 +51,7 @@ export function startQuiz(stage: HTMLElement, quiz: Quiz): void {
       else if (n === k) { b.classList.add("wrong"); mark.textContent = "✗"; }
       else b.classList.add("dim");
     });
+    answerFx(stage.querySelector(".opt.right"), stage.querySelector(".opt.wrong"));
     stage.querySelector(".score")!.textContent = `${score(g)} תשובות נכונות`;
     byId("fbSlot").innerHTML = feedbackView(g);
     const next = byId<HTMLButtonElement>("next");

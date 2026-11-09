@@ -9,8 +9,11 @@ import { renderNav } from "../core/nav.ts";
 import { scrollEffects } from "../core/scroll.ts";
 import { startQuiz } from "../features/quiz/quiz.ts";
 import { mountSun } from "../features/sun/sun.ts";
+import { heroIntro, pressSprings } from "../core/motion.ts";
 
 renderNav("quiz");
 mountSun();
 scrollEffects();
 startQuiz(byId("stage"), QUIZ);
+heroIntro();
+pressSprings();
