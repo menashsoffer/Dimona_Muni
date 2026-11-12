@@ -76,6 +76,7 @@ export interface PrepPoint {
 /** A group's prep sheet (group.html?g=N and the printed sheets). */
 export interface Prep {
   group: string; // "קבוצת המחשוב"
+  angle: string; // the table's angle on how the city shapes residents' lives: "הזווית הדיגיטלית"
   tagline: string;
   question: string; // the group's central question
   intro: string;

@@ -35,7 +35,7 @@ const on = (k: number, step: number) => (k < step ? " on" : "");
 
 function intro(): string {
   return `<div class="pl-cover"><span class="pl-kicker">12:30 · הצגה במליאה</span><h1>מה לקחנו מהשולחן?</h1>
-    <p>פנייה אחת של תושב יוצאת לדרך, ועוברת בשלושה שולחנות.</p><p class="pl-hint">לחיצה או רווח כדי לצאת לדרך</p></div>`;
+    <p>שלושה שולחנות, שלוש זוויות שבהן העירייה משפיעה על איכות החיים של התושב.</p><p class="pl-hint">לחיצה או רווח כדי לצאת לדרך</p></div>`;
 }
 
 
@@ -56,9 +56,9 @@ const roleArt: Record<string, string> = {
 
 function group(i: number, a: Answers | undefined, step: number): string {
   const g = GROUPS[i];
-  const head = `<header class="pl-head">${face(i)}<div><span class="pl-kicker">תחנה ${i + 1}${PREP[i] ? ` · ${esc(PREP[i].group)}` : ""}</span><h1>${esc(g.lead)}</h1><span class="pl-role">${esc(g.role)}</span></div>
+  const head = `<header class="pl-head">${face(i)}<div><span class="pl-kicker">שולחן ${i + 1}${PREP[i] ? ` · ${esc(PREP[i].angle)}` : ""}</span><h1>${esc(g.lead)}</h1><span class="pl-role">${esc(g.role)}</span></div>
     ${a?.presenter || a?.members ? `<div class="pl-team">${a.presenter ? `<span class="pl-presenter">מציג/ה: ${esc(a.presenter)}</span>` : ""}${team(a.members, a.presenter)}</div>` : ""}</header>`;
-  if (!a) return `${head}<p class="pl-wait">התשובות של הקבוצה עוד לא הגיעו. המסך מתעדכן לבד.</p>`;
+  if (!a) return `${head}<p class="pl-wait">התשובות של השולחן עוד לא הגיעו. המסך מתעדכן לבד.</p>`;
   const blocks = [
     `<h2>${esc(PREP[i]?.tagline ?? "מי ישב איתנו")}</h2>${p("השאלה שלנו:", PREP[i]?.question ?? g.project ?? "")}`,
     `<h2>מה למדנו</h2><ol>${a.learned.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>`,
@@ -75,11 +75,11 @@ function compare(answers: Map<number, Answers>, step: number): string {
 }
 
 function finale(answers: Map<number, Answers>, step: number): string {
-  return `<div class="pl-q"><span class="pl-kicker">הגענו</span><h1>מהפניה לתובנה</h1></div>
+  return `<div class="pl-q"><span class="pl-kicker">שלושה שולחנות, שלוש זוויות</span><h1>התובנות שלנו</h1></div>
     <div class="pl-insights">${GROUPS.map((g, i) => {
       const a = answers.get(i);
       return `<section class="pl-ins${on(i, step)}">${a?.request ? `<span class="pl-req">${esc(a.request)}</span><span class="pl-arrow">↓</span>` : ""}
-        <p>${esc(a?.insight || "…")}</p><small>${esc(PREP[i]?.group ?? g.lead)}</small></section>`;
+        <p>${esc(a?.insight || "…")}</p><small>${esc(PREP[i]?.angle ?? g.lead)}</small></section>`;
     }).join("")}</div>`;
 }
 

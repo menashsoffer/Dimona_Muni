@@ -13,12 +13,12 @@ export function renderPrep(root: HTMLElement, title: HTMLElement, tag: HTMLEleme
   const i = groupFromUrl();
   if (i < 0) { location.replace("groups.html"); return; }
   const g = GROUPS[i], p = PREP[i];
-  document.title = `${p.group} · מהפניה לתובנה`;
+  document.title = `${p.group} · ${p.angle}`;
   title.textContent = p.group;
   tag.textContent = `11:45–12:30 · ${g.lead}, ${g.role}`;
   root.innerHTML = `
     <div class="card prep-card">
-      <span class="when">קבוצה ${i + 1} · חומר הכנה</span>
+      <span class="when">שולחן ${i + 1} · ${esc(p.angle)} · חומר הכנה</span>
       <h2 class="prep-tagline">${esc(p.tagline)}</h2>
       <p class="prep-q">${esc(p.question)}</p>
       <p class="prep-intro">${esc(p.intro)}</p>
@@ -28,7 +28,7 @@ export function renderPrep(root: HTMLElement, title: HTMLElement, tag: HTMLEleme
     </div>
     <div class="card prep-next">
       <h3>ובקבוצה</h3>
-      <p>תוך כדי השיחה, נציג הקבוצה ממלא את הטופס: מה הפתיע אותנו, שלושה דברים שלמדנו, מה ניקח לרשות שלנו, והמשפט שלנו למליאה. ב-12:30 התשובות עולות על המסך, ומציגים מהן.</p>
+      <p>תוך כדי השיחה, נציג הקבוצה ממלא את הטופס: מה הפתיע אותנו, שלושה דברים שלמדנו, מה ניקח לרשות שלנו, והתובנה מהזווית שלנו. ב-12:30 התשובות עולות על המסך, ומשלושת השולחנות נבנית תמונה אחת.</p>
       <div class="btns"><a class="btn" href="form.html?g=${i + 1}">לטופס של הקבוצה</a><a class="btn ghost" href="groups.html">לכל הקבוצות</a></div>
     </div>`;
 }
