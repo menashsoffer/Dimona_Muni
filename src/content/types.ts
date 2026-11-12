@@ -67,3 +67,18 @@ export interface GroupForm {
   choices: string[]; // choice text per group, same order as GROUPS
   steps: { title: string; say?: string; fields: FormField[] }[];
 }
+
+export interface PrepPoint {
+  key?: string; // highlighted lead-in, shown before the text
+  text: string;
+}
+
+/** A group's prep sheet (group.html?g=N and the printed sheets). */
+export interface Prep {
+  group: string; // "קבוצת המחשוב"
+  tagline: string;
+  question: string; // the group's central question
+  intro: string;
+  points: PrepPoint[];
+  closing: string;
+}

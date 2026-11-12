@@ -5,6 +5,6 @@ export default defineConfig({
   base: "./",
   build: {
     assetsDir: "static",
-    rollupOptions: { input: { index: "index.html", people: "people.html", groups: "groups.html", quiz: "quiz.html", plenary: "plenary.html", form: "form.html" } },
+    rollupOptions: { input: { index: "index.html", people: "people.html", groups: "groups.html", group: "group.html", quiz: "quiz.html", plenary: "plenary.html", form: "form.html" } },
   },
 });
