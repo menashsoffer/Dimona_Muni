@@ -6,7 +6,7 @@ import { esc } from "../../core/dom.ts";
 export function renderGroups(grid: HTMLElement): void {
   grid.innerHTML = GROUPS.map((g, i) => `
     <div class="card" data-href="group.html?g=${i + 1}">
-      <span class="when">קבוצה ${i + 1}${PREP[i] ? ` · ${esc(PREP[i].group)}` : ""}</span>
+      <span class="when">שולחן ${i + 1}${PREP[i] ? ` · ${esc(PREP[i].angle)}` : ""}</span>
       <h3>${esc(g.lead)}</h3>
       <span class="role">${esc(g.role)}</span>
       ${PREP[i] ? `<p class="tagline">${esc(PREP[i].tagline)}</p><p>${esc(PREP[i].question)}</p>` : g.project ? `<p>${esc(g.project)}</p>` : ""}

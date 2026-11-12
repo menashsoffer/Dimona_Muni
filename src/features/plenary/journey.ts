@@ -1,5 +1,5 @@
-// The journey bar along the top of the plenary: a sun hops from the right edge (פניה) through one stop
-// per group and a shared "desk against desk" stop, to the left edge (תובנה).
+// The journey bar along the top of the plenary: a sun hops from the right edge (three tables) through one stop
+// per table and a shared "table against table" stop, to the left edge (one picture).
 import { GROUPS } from "../../content/people.ts";
 import { esc } from "../../core/dom.ts";
 
@@ -14,7 +14,7 @@ export interface Journey { move(stop: number): void }
 
 export function mountJourney(bar: HTMLElement): Journey {
   bar.innerHTML = `<div class="jr" aria-hidden="true">
-    <span class="jr-end jr-start">פניה</span><span class="jr-end jr-finish">תובנה</span>
+    <span class="jr-end jr-start">3 זוויות</span><span class="jr-end jr-finish">תמונה אחת</span>
     <div class="jr-track"><b></b></div>
     <ol>${STOPS.map((name, i) => `<li style="inset-inline-start:${stopAt(i) * 100}%"><i></i><span>${esc(name)}</span></li>`).join("")}</ol>
     <div class="jr-sun"><i></i></div>

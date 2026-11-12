@@ -1,3 +1,4 @@
+// Three tables, three angles on how the municipality shapes residents' quality of life.
 // The groups' prep material (from Menash, 12.11.26). Same order as GROUPS in people.ts.
 // Shown on group.html?g=<group number>, on the group form and in the plenary.
 import type { Prep } from "./types.ts";
@@ -5,6 +6,7 @@ import type { Prep } from "./types.ts";
 export const PREP: Prep[] = [
   {
     group: "קבוצת המחשוב",
+    angle: "הזווית הדיגיטלית",
     tagline: "כשהטכנולוגיה פוגשת את התושב",
     question: "כיצד הופכים מערכות דיגיטליות מורכבות לחוויית שירות פשוטה, נגישה ויעילה?",
     intro: "כיצד מערכות מידע, אוטומציה, הנגשת שירותים ושיתוף מידע בין אגפים יכולים לצמצם בירוקרטיה ולשפר את חוויית התושב.",
@@ -22,6 +24,7 @@ export const PREP: Prep[] = [
   },
   {
     group: "קבוצת הרווחה והשירותים החברתיים",
+    angle: "הזווית האנושית",
     tagline: "לא כולם צריכים את אותו השירות",
     question: "על שירות מותאם, רגישות לצורכי אוכלוסיות שונות ופתרונות יצירתיים בשעת חירום.",
     intro: "מה קורה כאשר תושבים מתמודדים עם צרכים, יכולות ונסיבות חיים שונות? האחריות של הרשות היא לזהות את ההבדלים ולהתאים את המענים.",
@@ -39,6 +42,7 @@ export const PREP: Prep[] = [
   },
   {
     group: "קבוצת ההנדסה",
+    angle: "הזווית המרחבית",
     tagline: "מתכננים עיר, מעצבים את חוויית התושב",
     question: "איך החלטות תכנוניות שמתקבלות היום הופכות לאיכות החיים ולחוויית השירות של המחר?",
     intro: "שירות לתושב אינו מתחיל רק כשהתושב מדווח על בעיה. הוא מתחיל שנים קודם לכן, בשלב התכנון.",

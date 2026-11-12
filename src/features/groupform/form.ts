@@ -17,8 +17,8 @@ function saveDraft(g: number, d: Draft): void {
 }
 
 function pickGroup(root: HTMLElement): void {
-  root.innerHTML = `<div class="gf-card"><h2>איזו קבוצה אתם?</h2><div class="gf-pick">${GROUPS.map((g, i) =>
-    `<a class="gf-group" href="?g=${i + 1}"><span>קבוצה ${i + 1}</span><b>${esc(g.lead)}</b><small>${esc(g.role)}</small></a>`).join("")}</div></div>`;
+  root.innerHTML = `<div class="gf-card"><h2>באיזה שולחן אתם?</h2><div class="gf-pick">${GROUPS.map((g, i) =>
+    `<a class="gf-group" href="?g=${i + 1}"><span>שולחן ${i + 1}</span><b>${esc(g.lead)}</b><small>${esc(g.role)}</small></a>`).join("")}</div></div>`;
 }
 
 export function mountGroupForm(root: HTMLElement): void {
@@ -37,7 +37,7 @@ export function mountGroupForm(root: HTMLElement): void {
     const s = F.steps[step];
     const last = step === F.steps.length - 1;
     root.innerHTML = `
-      <div class="gf-head"><span class="gf-kicker">קבוצה ${g + 1} · ${esc(GROUPS[g].lead)}</span>
+      <div class="gf-head"><span class="gf-kicker">שולחן ${g + 1} · ${esc(GROUPS[g].lead)}</span>
         <ol class="gf-dots" aria-label="שלב ${step + 1} מתוך ${F.steps.length}">${F.steps.map((_, k) =>
           `<li class="${k < step ? "done" : k === step ? "on" : ""}"></li>`).join("")}</ol></div>
       ${PREP[g] ? `<p class="gf-q"><b>${esc(PREP[g].tagline)}:</b> ${esc(PREP[g].question)} <a href="group.html?g=${g + 1}">לחומר ההכנה</a></p>` : ""}
