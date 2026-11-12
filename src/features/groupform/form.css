@@ -38,3 +38,6 @@ fieldset.gf-field legend{padding:0;margin-bottom:6px}
 .gf-sun{width:84px;height:84px;margin:0 auto 10px;border-radius:50%;background:radial-gradient(circle,#fff3c4 0 35%,#ffd36b 60%,rgba(255,211,107,0) 71%);animation:gf-rise 1.2s ease-out}
 @keyframes gf-rise{from{transform:translateY(30px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.gf-sun{animation:none}}
+.gf-q{margin:0 0 10px;padding:10px 14px;border-radius:12px;background:var(--paper);border:1px solid var(--line);font-size:15px;line-height:1.4}
+.gf-q b{color:var(--accent)}
+.gf-q a{color:var(--accent);font-weight:700;white-space:nowrap}

@@ -3,6 +3,7 @@
 import { GROUP_FORM as F } from "../../content/groupform.ts";
 import { CADETS } from "../../content/cadets.ts";
 import { GROUPS } from "../../content/people.ts";
+import { PREP } from "../../content/prep.ts";
 import { esc } from "../../core/dom.ts";
 
 type Draft = Record<string, string>;
@@ -39,6 +40,7 @@ export function mountGroupForm(root: HTMLElement): void {
       <div class="gf-head"><span class="gf-kicker">קבוצה ${g + 1} · ${esc(GROUPS[g].lead)}</span>
         <ol class="gf-dots" aria-label="שלב ${step + 1} מתוך ${F.steps.length}">${F.steps.map((_, k) =>
           `<li class="${k < step ? "done" : k === step ? "on" : ""}"></li>`).join("")}</ol></div>
+      ${PREP[g] ? `<p class="gf-q"><b>${esc(PREP[g].tagline)}:</b> ${esc(PREP[g].question)} <a href="group.html?g=${g + 1}">לחומר ההכנה</a></p>` : ""}
       <form class="gf-card" novalidate>
         <h2><i>${step + 1}</i>${esc(s.title)}</h2>${s.say ? `<p class="gf-say">${esc(s.say)}</p>` : ""}
         ${s.fields.map((f, k) => {
