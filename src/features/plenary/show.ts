@@ -17,6 +17,18 @@ const stopOf = (s: Scene): number =>
 /** Seconds on the clock for a scene, or 0 for none. */
 const seconds = (s: Scene) => (s.kind === "group" ? PLENARY.minutes * 60 : s.kind === "compare" ? PLENARY.compareMinutes * 60 : 0);
 
+/** Shrink each card's text until it fits without scrolling (cards are fixed-height on the big screen). */
+function fitCards(stage: HTMLElement): void {
+  for (const el of stage.querySelectorAll<HTMLElement>(".pl-focus-card,.pl-col,.pl-ins")) {
+    let fit = 1;
+    el.style.setProperty("--fit", "1");
+    while (el.scrollHeight > el.clientHeight + 1 && fit > 0.4) {
+      fit -= 0.04;
+      el.style.setProperty("--fit", fit.toFixed(2));
+    }
+  }
+}
+
 export function startShow(stage: HTMLElement, bar: HTMLElement, clock: HTMLElement): void {
   const s: State = { scene: 0, step: 0, answers: new Map(), error: false, timerEnd: 0 };
 
@@ -33,6 +45,7 @@ export function startShow(stage: HTMLElement, bar: HTMLElement, clock: HTMLEleme
     if (animateReveal && scene.kind === "finale" && s.step > 0) {
       stage.querySelectorAll(".pl-ins")[s.step - 1]?.classList.add("pl-memo-enter");
     }
+    fitCards(stage);
   };
   const tick = () => {
     const total = seconds(SCENES[s.scene]);
@@ -71,6 +84,8 @@ export function startShow(stage: HTMLElement, bar: HTMLElement, clock: HTMLEleme
     try { s.answers = await loadAnswers(PLENARY.sheetId, PLENARY.gid); s.error = false; } catch { s.error = true; }
     render();
   };
+  addEventListener("resize", () => fitCards(stage));
+  void document.fonts?.ready.then(() => fitCards(stage));
   if (demo) s.answers = new Map(DEMO.map((a) => [a.group, a]));
   render();
   if (!demo) { void refresh(); setInterval(refresh, PLENARY.refreshSeconds * 1000); }
