@@ -34,7 +34,7 @@ const team = (members: string, presenter: string) => {
 const on = (k: number, step: number) => (k < step ? " on" : "");
 
 function intro(): string {
-  return `<div class="pl-cover"><span class="pl-kicker">12:30 · הצגה במליאה</span><h1>מה לקחנו מהשולחן?</h1>
+  return `<div class="pl-cover"><span class="pl-kicker">14:10 · הצגה במליאה</span><h1>מה לקחנו מהשולחן?</h1>
     <p>שלושה שולחנות, שלוש זוויות שבהן העירייה משפיעה על איכות החיים של התושב.</p><p class="pl-hint">לחיצה או רווח כדי לצאת לדרך</p></div>`;
 }
 

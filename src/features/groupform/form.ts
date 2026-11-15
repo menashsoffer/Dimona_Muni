@@ -30,7 +30,7 @@ export function mountGroupForm(root: HTMLElement): void {
   const render = (sent = false) => {
     if (sent) {
       root.innerHTML = `<div class="gf-card gf-done"><div class="gf-sun" aria-hidden="true"></div><h2>נשלח!</h2>
-        <p>התשובות שלכם יעלו על המסך במליאה ב-12:30, ותציגו מהן.</p>
+        <p>התשובות שלכם יעלו על המסך במליאה ב-14:10, ותציגו מהן.</p>
         <button class="btn ghost" type="button" data-act="edit">לתקן משהו ולשלוח שוב</button></div>`;
       return;
     }
